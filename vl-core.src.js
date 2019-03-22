@@ -61,12 +61,12 @@ export class VlElement extends HTMLElement {
         element.classList.add(newValue);
     }
 
-    _changeAttribute(element, attribute, oldValue, newValue) {
+    _changeAttribute(element, oldValue, newValue, attribute, className) {
         if (oldValue != newValue) {
             if (element.getAttribute(attribute) != null) {
-                element.classList.add(attribute);
+                element.classList.add(className);
             } else {
-                element.classList.remove(attribute);
+                element.classList.remove(className);
             }
         }
     }
