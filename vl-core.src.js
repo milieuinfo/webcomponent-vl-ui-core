@@ -47,7 +47,7 @@ export const VlElement = (SuperClass) => class extends (SuperClass || HTMLElemen
         const callback = this['_' + attr + 'ChangedCallback'];
         if (callback) {
             callback.call(this, oldValue, newValue);
-        } else if (this.constructor.observedClassAttributes.indexOf(attr) == -1) {
+        } else if (!this.constructor.observedClassAttributes || this.constructor.observedClassAttributes.indexOf(attr) == -1) {
             console.info('_' + attr + 'ChangedCallback is not defined');
         }
     }
