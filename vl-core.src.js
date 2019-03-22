@@ -61,6 +61,16 @@ export class VlElement extends HTMLElement {
         element.classList.add(newValue);
     }
 
+    _changeAttribute(element, attribute, oldValue, newValue) {
+        if (oldValue != newValue) {
+            if (element.getAttribute(attribute) != null) {
+                element.classList.add(attribute);
+            } else {
+                element.classList.remove(attribute);
+            }
+        }
+    }
+
     __shadow(html) {
         this._shadow = this.attachShadow({mode: 'open'});
         this._shadow.innerHTML = html;
