@@ -63,7 +63,7 @@ export class VlElement extends HTMLElement {
 
     _changeAttribute(element, oldValue, newValue, attribute, className) {
         if (oldValue != newValue) {
-            if (element.getAttribute(attribute) != null) {
+            if (this.getAttribute(attribute) != undefined) {
                 element.classList.add(className);
             } else {
                 element.classList.remove(className);
