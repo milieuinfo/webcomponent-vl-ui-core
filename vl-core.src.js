@@ -32,12 +32,12 @@ export const VlElement = (SuperClass) => class extends (SuperClass || HTMLElemen
     }
 
     static get observedAttributes() {
-        return this._observedAttributes.concat(this.observedClassAttributes);
+        return this._observedAttributes.concat(this._observedClassAttributes);
     }
 
     attributeChangedCallback(attr, oldValue, newValue) {
-        if (this.constructor.observedClassAttributes) {
-            this.constructor.observedClassAttributes.filter(attribute => {
+        if (this.constructor._observedClassAttributes) {
+            this.constructor._observedClassAttributes.filter(attribute => {
                 return attribute == attr;
             }).forEach(attribute => {
                 this._changeAttribute(this, oldValue, newValue, attribute);
@@ -47,7 +47,7 @@ export const VlElement = (SuperClass) => class extends (SuperClass || HTMLElemen
         const callback = this['_' + attr + 'ChangedCallback'];
         if (callback) {
             callback.call(this, oldValue, newValue);
-        } else if (!this.constructor.observedClassAttributes || this.constructor.observedClassAttributes.indexOf(attr) == -1) {
+        } else if (!this.constructor._observedClassAttributes || this.constructor._observedClassAttributes.indexOf(attr) == -1) {
             console.info('_' + attr + 'ChangedCallback is not defined');
         }
     }
