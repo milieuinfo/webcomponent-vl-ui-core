@@ -23,7 +23,7 @@
  * `vl-element`
  * De root element class.
  */
-export class VlElement extends HTMLElement {
+export const VlElement = (SuperClass) => class extends (SuperClass || HTMLElement) {
     constructor(html) {
         super();
         if (html) {
@@ -36,12 +36,24 @@ export class VlElement extends HTMLElement {
     }
 
     attributeChangedCallback(attr, oldValue, newValue) {
+        if (this.constructor.observedClassAttributes) {
+            this.constructor.observedClassAttributes.filter(attribute => {
+                return attribute == attr;
+            }).forEach(attribute => {
+                this._changeAttribute(this, oldValue, newValue, attribute);
+            });
+        }
+
         const callback = this['_' + attr + 'ChangedCallback'];
         if (callback) {
             callback.call(this, oldValue, newValue);
         } else {
             console.info('_' + attr + 'ChangedCallback is not defined');
         }
+    }
+
+    get _classPrefix() {
+        console.error('class prefix is undefined');
     }
 
     get _element() {
@@ -54,19 +66,19 @@ export class VlElement extends HTMLElement {
         return template.content;
     }
 
-    _changeClass(element, oldValue, newValue) {
-        if (element.classList.contains(oldValue)) {
-            element.classList.remove(oldValue);
+    _changeClass(element, oldValue, newValue, classPrefix) {
+        if (element.classList.contains((classPrefix || this._classPrefix) + oldValue)) {
+            element.classList.remove((classPrefix || this._classPrefix) + oldValue);
         }
-        element.classList.add(newValue);
+        element.classList.add((classPrefix || this._classPrefix) + newValue);
     }
 
-    _changeAttribute(element, oldValue, newValue, attribute, className) {
+    _changeAttribute(element, oldValue, newValue, attribute, classPrefix) {
         if (oldValue != newValue) {
             if (this.getAttribute(attribute) != undefined) {
-                element.classList.add(className);
+                element.classList.add((classPrefix || this._classPrefix) + attribute);
             } else {
-                element.classList.remove(className);
+                element.classList.remove((classPrefix || this._classPrefix) + attribute);
             }
         }
     }
