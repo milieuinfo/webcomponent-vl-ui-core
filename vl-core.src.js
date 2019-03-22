@@ -32,7 +32,7 @@ export const VlElement = (SuperClass) => class extends (SuperClass || HTMLElemen
     }
 
     static get observedAttributes() {
-        return this._observedAttributes;
+        return this._observedAttributes.concat(this.observedClassAttributes);
     }
 
     attributeChangedCallback(attr, oldValue, newValue) {
