@@ -23,7 +23,7 @@
  * `vl-element`
  * De root element class.
  */
-export const VlElement = (SuperClass) => class extends (SuperClass || HTMLElement) {
+export const VlElement = (SuperClass) => class extends SuperClass {
     constructor(html) {
         super();
         if (html) {
