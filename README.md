@@ -1,4 +1,4 @@
-# ${1:vl-core}
+# vl-core
 De core is noodzakelijk om gebruik te maken van de webcomponenten.
 
 ## Installation
