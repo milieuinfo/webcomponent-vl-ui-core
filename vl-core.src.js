@@ -113,7 +113,11 @@ export const NativeVlElement = (SuperClass) => class extends VlElement(SuperClas
     constructor() {
         super();
         this.__generateStyleLink();
-    }    
+    }  
+    
+    get _element() {
+        return this;
+    }
 
     __generateStyleLink() {
         const id = this.constructor.name + '-style';
