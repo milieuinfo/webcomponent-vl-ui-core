@@ -14,7 +14,7 @@
         link.setAttribute('id', id);
         link.setAttribute('rel', 'stylesheet');
         link.setAttribute('type', 'text/css');
-        link.setAttribute('href', '../style.css');
+        link.setAttribute('href', '../core-style.css');
         return link;
     }
 })();
@@ -106,5 +106,33 @@ export const VlElement = (SuperClass) => class extends SuperClass {
     __shadow(html) {
         this._shadow = this.attachShadow({mode: 'open'});
         this._shadow.innerHTML = html;
+    }
+}
+
+export const NativeVlElement = (SuperClass) => class extends VlElement(SuperClass) {
+    constructor() {
+        super();
+        this.__generateStyleLink();
+    }    
+
+    __generateStyleLink() {
+        const id = this.name;
+        addStyle();
+
+        function addStyle() {
+            if (!document.head.querySelector('#' + id)) {
+                var style = getStyle();
+                document.head.appendChild(style);
+            }
+        }
+
+        function getStyle() {
+            var link = document.createElement('link');
+            link.setAttribute('id', id);
+            link.setAttribute('rel', 'stylesheet');
+            link.setAttribute('type', 'text/css');
+            link.setAttribute('href', '../style.css');
+            return link;
+        }
     }
 }
