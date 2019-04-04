@@ -116,7 +116,7 @@ export const NativeVlElement = (SuperClass) => class extends VlElement(SuperClas
     }    
 
     __generateStyleLink() {
-        const id = this.name;
+        const id = this.constructor.name;
         addStyle();
 
         function addStyle() {
