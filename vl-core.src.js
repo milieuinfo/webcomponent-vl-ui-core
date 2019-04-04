@@ -35,6 +35,18 @@ export const VlElement = (SuperClass) => class extends SuperClass {
         return this._observedAttributes.concat(this._observedClassAttributes).concat(this._observedChildClassAttributes);
     }
 
+    static get _observedAttributes() {
+        return [];
+    }
+
+    static get _observedClassAttributes() {
+        return [];
+    }
+
+    static get _observedChildClassAttributes() {
+        return [];
+    }
+
     attributeChangedCallback(attr, oldValue, newValue) {
         if (this.constructor._observedClassAttributes) {
             this.constructor._observedClassAttributes.filter(attribute => {
