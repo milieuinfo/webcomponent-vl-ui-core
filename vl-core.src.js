@@ -64,7 +64,7 @@ export const VlElement = (SuperClass) => class extends SuperClass {
             });
         }
 
-        const callback = this['_' + attr + 'ChangedCallback'];
+        const callback = this['_' + attr.split('-').join('_') + 'ChangedCallback'];
         if (callback) {
             callback.call(this, oldValue, newValue);
         } else if ((!this.constructor._observedClassAttributes || this.constructor._observedClassAttributes.indexOf(attr) == -1) && (!this.constructor._observedChildClassAttributes || this.constructor._observedChildClassAttributes.indexOf(attr) == -1)) {
