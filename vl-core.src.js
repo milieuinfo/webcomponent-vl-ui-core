@@ -200,7 +200,7 @@ export const NativeVlElement = (SuperClass) => class extends VlElement(SuperClas
      */
     constructor() {
         super();
-        this.__generateStyleLink();
+        this.__addStyleLink();
     }  
     
     /**
@@ -212,28 +212,23 @@ export const NativeVlElement = (SuperClass) => class extends VlElement(SuperClas
         return this;
     }
 
-    __generateStyleLink() {
+    __addStyleLink() {
         const id = this.constructor.name + '-style';
-        addStyle();
+        if (!document.head.querySelector('#' + id)) {
+            document.head.appendChild(this.__generateStyleLink(id));
+        }
+    }
 
-        function addStyle() {
-            if (!document.head.querySelector('#' + id)) {
-                var style = getStyle();
-                document.head.appendChild(style);
-            }
+    __generateStyleLink(id) {
+        if (!this._stylePath) {
+            console.error('style path is not defined');
         }
 
-        function getStyle() {
-            if (!this.stylePath) {
-                console.error('style path is not defined');
-            }
-
-            var link = document.createElement('link');
-            link.setAttribute('id', id);
-            link.setAttribute('rel', 'stylesheet');
-            link.setAttribute('type', 'text/css');
-            link.setAttribute('href', this.stylePath);
-            return link;
-        }
+        var link = document.createElement('link');
+        link.setAttribute('id', id);
+        link.setAttribute('rel', 'stylesheet');
+        link.setAttribute('type', 'text/css');
+        link.setAttribute('href', this._stylePath);
+        return link;
     }
 }
