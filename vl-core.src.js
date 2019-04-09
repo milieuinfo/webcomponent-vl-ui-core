@@ -178,13 +178,29 @@ export const VlElement = (SuperClass) => class extends SuperClass {
         }
     }
 
-    _bevatClass(value) {
-        return this._element.classList.contains(value);
+    _addStyleLink() {
+        const id = this.constructor.name + '-style';
+        if (!document.head.querySelector('#' + id)) {
+            document.head.appendChild(this.__generateStyleLink(id));
+        }
     }
 
     __shadow(html) {
         this._shadow = this.attachShadow({mode: 'open'});
         this._shadow.innerHTML = html;
+    }
+
+    __generateStyleLink(id) {
+        if (!this._stylePath) {
+            console.error('style path is not defined');
+        }
+
+        var link = document.createElement('link');
+        link.setAttribute('id', id);
+        link.setAttribute('rel', 'stylesheet');
+        link.setAttribute('type', 'text/css');
+        link.setAttribute('href', this._stylePath);
+        return link;
     }
 }
 
@@ -200,7 +216,7 @@ export const NativeVlElement = (SuperClass) => class extends VlElement(SuperClas
      */
     constructor() {
         super();
-        this.__addStyleLink();
+        this._addStyleLink();
     }  
     
     /**
@@ -210,25 +226,5 @@ export const NativeVlElement = (SuperClass) => class extends VlElement(SuperClas
      */
     get _element() {
         return this;
-    }
-
-    __addStyleLink() {
-        const id = this.constructor.name + '-style';
-        if (!document.head.querySelector('#' + id)) {
-            document.head.appendChild(this.__generateStyleLink(id));
-        }
-    }
-
-    __generateStyleLink(id) {
-        if (!this._stylePath) {
-            console.error('style path is not defined');
-        }
-
-        var link = document.createElement('link');
-        link.setAttribute('id', id);
-        link.setAttribute('rel', 'stylesheet');
-        link.setAttribute('type', 'text/css');
-        link.setAttribute('href', this._stylePath);
-        return link;
     }
 }
