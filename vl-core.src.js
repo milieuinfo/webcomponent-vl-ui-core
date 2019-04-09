@@ -151,7 +151,7 @@ export const VlElement = (SuperClass) => class extends SuperClass {
      * @return {void}
      */
     _toggleClass(element, value, clazz) {
-        if (value != undefined && !!value) {
+        if (value != undefined || !!value) {
             element.classList.add(clazz);
         } else {
             element.classList.remove(clazz);
