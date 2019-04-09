@@ -9,6 +9,9 @@
     "type": "git",
     "url": "git+https://github.com/milieuinfo/webcomponent-vl-ui-core.git"
   },
+  "publishConfig": {
+    "registry": "http://artifactory-pr-build.lb.cumuli.be:8081/artifactory/api/npm/acd-npm/"
+  },
   "homepage": "https://github.com/milieuinfo/webcomponent-vl-ui-core#readme",
   "scripts": {
     "prepare": "npm run prepare:sass && npm run prepare:fonts",
