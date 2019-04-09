@@ -73,7 +73,7 @@ export const VlElement = (SuperClass) => class extends SuperClass {
             this.constructor._observedClassAttributes.filter(attribute => {
                 return attribute == attr;
             }).forEach(attribute => {
-                this._changeAttribute(this, oldValue, newValue, attribute);
+                this.__changeAttribute(this, oldValue, newValue, attribute);
             });
         }
 
@@ -81,7 +81,7 @@ export const VlElement = (SuperClass) => class extends SuperClass {
             this.constructor._observedChildClassAttributes.filter(attribute => {
                 return attribute == attr;
             }).forEach(attribute => {
-                this._changeAttribute(this._element, oldValue, newValue, attribute);
+                this.__changeAttribute(this._element, oldValue, newValue, attribute);
             });
         }
 
