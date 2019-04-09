@@ -224,11 +224,15 @@ export const NativeVlElement = (SuperClass) => class extends VlElement(SuperClas
         }
 
         function getStyle() {
+            if (!this.stylePath) {
+                console.error('style path is not defined');
+            }
+
             var link = document.createElement('link');
             link.setAttribute('id', id);
             link.setAttribute('rel', 'stylesheet');
             link.setAttribute('type', 'text/css');
-            link.setAttribute('href', '../style.css');
+            link.setAttribute('href', this.stylePath);
             return link;
         }
     }
