@@ -115,7 +115,11 @@ export const VlElement = (SuperClass) => {
          * @returns {Element}
          */
         get _element() {
-            return this._shadow.lastElementChild;
+            if (this._shadow) {
+                return this._shadow.lastElementChild;
+            } else {
+                return this;
+            }
         }
     
         /**
