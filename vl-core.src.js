@@ -1,3 +1,5 @@
+import '/node_modules/document-register-element/build/document-register-element.js';
+
 (() => {
     const id = 'vl-core-style';
     addStyle();
@@ -257,20 +259,3 @@ export const NativeVlElement = (SuperClass) => {
 
     return NativeVlElement;
 };
-
-export class VlElementPolyfill {
-        /**
-         * Polyfill wordt automatisch toegevoegd
-         */
-        static apply() {
-            const id = 'vl-polyfill';
-            if (!document.head.querySelector('#' + id)) {
-                var script = document.createElement('script');
-                script.setAttribute('id', id);
-                script.setAttribute('src', "../node_modules/document-register-element/build/document-register-element.js");
-                script.type = "text/javascript";
-                script.async = false;
-                document.head.appendChild(script);
-            }
-        }
-}
