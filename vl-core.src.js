@@ -243,6 +243,7 @@ export const NativeVlElement = (SuperClass) => {
         constructor() {
             super();
             this._addStyleLink();
+            this.__addPolyfill();
         }  
         
         /**
