@@ -1,6 +1,7 @@
 (() => {
     const id = 'vl-core-style';
     addStyle();
+    addPolyfill();
 
     function addStyle() {
         if (!document.head.querySelector('#' + id)) {
@@ -16,6 +17,16 @@
         link.setAttribute('type', 'text/css');
         link.setAttribute('href', '../core-style.css');
         return link;
+    }
+
+    function addPolyfill() {
+        const id = 'vl-polyfill';
+        if (!document.head.querySelector('#' + id)) {
+            var script = document.createElement('script');
+            script.setAttribute('id', id);
+            script.setAttribute('src', "/node_modules/document-register-element/build/document-register-element.js");
+            document.head.appendChild(script);
+        }
     }
 })();
 
@@ -243,7 +254,6 @@ export const NativeVlElement = (SuperClass) => {
         constructor() {
             super();
             this._addStyleLink();
-            this.__addPolyfill();
         }  
         
         /**
@@ -253,16 +263,6 @@ export const NativeVlElement = (SuperClass) => {
          */
         get _element() {
             return this;
-        }
-
-        __addPolyfill() {
-            const id = 'vl-polyfill';
-            if (!document.head.querySelector('#' + id)) {
-                var script = document.createElement('script');
-                script.setAttribute('id', id);
-                script.setAttribute('src', "/node_modules/document-register-element/build/document-register-element.js");
-                document.head.appendChild(script);
-            }
         }
     }
 
