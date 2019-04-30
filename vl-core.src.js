@@ -25,6 +25,7 @@
             var script = document.createElement('script');
             script.setAttribute('id', id);
             script.setAttribute('src', "/node_modules/document-register-element/build/document-register-element.js");
+            script.async = false;
             document.head.appendChild(script);
         }
     }
