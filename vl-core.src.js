@@ -253,6 +253,16 @@ export const NativeVlElement = (SuperClass) => {
         get _element() {
             return this;
         }
+
+        __addPolyfill() {
+            const id = 'vl-polyfill';
+            if (!document.head.querySelector('#' + id)) {
+                var link = document.createElement('script');
+                link.setAttribute('id', id);
+                link.setAttribute('src', "/node_modules/document-register-element/build/document-register-element.js");
+                document.head.appendChild(this.__generateStyleLink(id));
+            }
+        }
     }
 
     return NativeVlElement;
