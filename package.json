@@ -11,7 +11,7 @@
   },
   "publishConfig": {
     "registry": "http://artifactory-pr-build.lb.cumuli.be:8081/artifactory/api/npm/acd-npm/"
-  }, 
+  },
   "homepage": "https://github.com/milieuinfo/webcomponent-vl-ui-core#readme",
   "scripts": {
     "prepare": "npm run prepare:sass && npm run prepare:fonts",
@@ -42,7 +42,7 @@
     "wct-browser-legacy": "1.0.2",
     "web-component-tester": "6.9.2",
     "replace": "1.0.0",
-    "np": "3.0.4",
+    "np": "5.0.1",
     "uglify-js-es6": "2.8.9"
   }
 }
