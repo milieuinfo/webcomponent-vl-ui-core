@@ -1,5 +1,5 @@
 window.WebComponents = window.WebComponents || {};
-window.WebComponents.root = '../node_modules/@webcomponents/webcomponentsjs/';
+window.WebComponents.root = '/node_modules/@webcomponents/webcomponentsjs/';
 
 /**
  * @license
@@ -446,3 +446,11 @@ export const NativeVlElement = (SuperClass) => {
 
     return NativeVlElement;
 };
+
+export const VlRegisterElement = (callback) => {
+    WebComponents.waitFor(() => {
+        if (callback) {
+            callback();
+        }
+    });
+}
