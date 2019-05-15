@@ -1,5 +1,3 @@
-import '/node_modules/document-register-element/build/document-register-element.js';
-
 window.WebComponents = window.WebComponents || {};
 window.WebComponents.root = '/node_modules/@webcomponents/webcomponentsjs/';
 
