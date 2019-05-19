@@ -1,3 +1,5 @@
+import '/node_modules/document-register-element/build/document-register-element.js';
+
 (() => {
     const id = 'vl-core-style';
     addStyle();
