@@ -223,7 +223,7 @@ export const VlElement = (SuperClass) => {
             link.setAttribute('href', this._stylePath);
             return link;
         }
-    };
+    }
 
     return VlElement;
 };
@@ -258,4 +258,21 @@ export const NativeVlElement = (SuperClass) => {
     }
 
     return NativeVlElement;
+};
+
+/**
+ * Definieert een class als custom element enkel wanneer deze nog niet
+ * gedefinieerd werd.
+ *
+ * @param {String} name - custom HTML element naam
+ * @param {Object} constructor - constructor voor de class
+ * @param {Object} options - opties
+ * @returns {void}
+ */
+export const define = (name, constructor, options) => {
+    if (customElements.get(name)) {
+        console.warn(`${name} werd reeds gedefinieerd als custom element`);
+    } else {
+        customElements.define(name, constructor, options);
+    }
 };
