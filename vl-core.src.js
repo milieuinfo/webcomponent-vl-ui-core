@@ -41,7 +41,21 @@ export const VlElement = (SuperClass) => {
             }
         }
 
+        /**
+         * Om de conflicten met native html te vermijden, krijgt al attributen van de webcomponenten een data prefix.
+         * vb: vl-alert heeft een observed attribute: "small"
+         *     De overeenkomst html expression is dan: <vl-alert data-vl-small></vl-alert>
+         * @return {string}
+         */
+        static get customAttributesPrefix() {
+            return "data-vl-";
+        }
+
         static get observedAttributes() {
+            return this._rawObservedAttributes.map(attribute => this.customAttributesPrefix.concat(attribute)).concat(this._rawObservedAttributes);
+        }
+
+        static get _rawObservedAttributes() {
             return this._observedAttributes.concat(this._observedClassAttributes).concat(this._observedChildClassAttributes);
         }
 
@@ -75,7 +89,21 @@ export const VlElement = (SuperClass) => {
             return [];
         }
 
+        get customAttributesPrefix(){
+            return VlElement.customAttributesPrefix;
+        }
+
         attributeChangedCallback(attr, oldValue, newValue) {
+            if(attr.startsWith(this.customAttributesPrefix)){
+                attr = attr.slice(this.customAttributesPrefix.length);
+            }
+            else if(this.constructor._rawObservedAttributes.includes(attr)){
+                console.info(attr+" is defined as an observed attribute. To avoid conflicts, it should be used as "+this.customAttributesPrefix.concat(attr)+" in markup.");
+            }
+            this.__onAttributeChanged(attr,oldValue,newValue);
+        }
+
+        __onAttributeChanged(attr, oldValue, newValue) {
             if (this.constructor._observedClassAttributes) {
                 this.constructor._observedClassAttributes.filter(attribute => {
                     return attribute == attr;
