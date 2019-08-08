@@ -51,6 +51,13 @@ export const VlElement = (SuperClass) => {
             return "data-vl-";
         }
 
+        getAttribute(attribute){
+            if(super.hasAttribute(VlElement.customAttributesPrefix.concat(attribute)))
+                return super.getAttribute(VlElement.customAttributesPrefix.concat(attribute));
+            else
+                return super.getAttribute(attribute);
+        }
+
         static get observedAttributes() {
             return this._rawObservedAttributes.map(attribute => this.customAttributesPrefix.concat(attribute)).concat(this._rawObservedAttributes);
         }
