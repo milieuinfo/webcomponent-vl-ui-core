@@ -41,7 +41,7 @@
   "devDependencies": {
     "wct-browser-legacy": "1.0.2",
     "web-component-tester": "6.9.2",
-    "replace": "1.0.0",
+    "replace": "1.1.0",
     "np": "4.0.2",
     "uglify-js-es6": "2.8.9"
   }
