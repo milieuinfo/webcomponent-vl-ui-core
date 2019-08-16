@@ -26,6 +26,8 @@ export const VlElement = (SuperClass) => {
      * VlElement
      * @class
      * @classdesc De root element class voor custom HTML elementen.
+     * 
+     * @version <a href="http://www.github.com/milieuinfo/webcomponent-vl-ui-core/releases/latest">Release notes</a>
      */
     class VlElement extends SuperClass {
         /**
