@@ -20,7 +20,7 @@
     "prepare:font:path-sans": "replace 'https://ui.vlaanderen.be/assets/fonts/sans/FlandersArtSans' 'https://cdn.milieuinfo.be/vlaanderen-font/LATEST/font/flandersart/FlandersArtSans' core-style.css",
     "prepare:font:path-serif": "replace 'https://ui.vlaanderen.be/assets/fonts/serif/FlandersArtSerif' 'https://cdn.milieuinfo.be/vlaanderen-font/LATEST/font/flandersart/FlandersArtSerif' core-style.css",
     "prepare:font:path-italic": "replace 'https://ui.vlaanderen.be/assets/fonts/italic/FlandersArtSans' 'https://cdn.milieuinfo.be/vlaanderen-font/LATEST/font/flandersart/FlandersArtSansItalic' core-style.css",
-    "prepare:font:vlaanderen-icon": "replace '/font/iconfont/vlaanderen-icon.woff' 'https://cdn.milieuinfo.be/vlaanderen-font/LATEST/font/flandersart/vlaanderen-icon.woff' core-style.css",
+    "prepare:font:vlaanderen-icon": "replace '/font/iconfont/vlaanderen-icon.woff' 'https://cdn.milieuinfo.be/vlaanderen-font/LATEST/font/iconfont/3.9.1/vlaanderen-icon.woff' core-style.css",
     "release": "np",
     "release:prepare": "npm run release:prepare:build && npm run release:prepare:css && npm run release:prepare:commit",
     "release:prepare:build": "uglifyjs --compress --mangle --output vl-core.js -- *.src.js",
@@ -29,7 +29,7 @@
     "release:testless": "np --yolo"
   },
   "dependencies": {
-    "@govflanders/vl-ui-core": "3.9.0",
+    "@govflanders/vl-ui-core": "3.9.1",
     "document-register-element": "1.13.2"
   },
   "devDependencies": {
