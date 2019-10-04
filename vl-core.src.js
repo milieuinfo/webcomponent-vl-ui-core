@@ -313,7 +313,7 @@ export const awaitScript = (id, src) => {
  * @param {Function} conditie - conditionele functie 
  */
 export const awaitUntil = (condtion) => {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         while(!conditional()) {
             await new Promise(resolve => setTimeout(resolve, 50));
         }
