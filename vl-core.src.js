@@ -264,8 +264,7 @@ export const NativeVlElement = (SuperClass) => {
 };
 
 /**
- * Definieert een class als custom element enkel wanneer deze nog niet
- * gedefinieerd werd.
+ * Definieert een class als custom element enkel wanneer deze nog niet gedefinieerd werd.
  *
  * @param {String} name - custom HTML element naam
  * @param {Object} constructor - constructor voor de class
@@ -278,4 +277,31 @@ export const define = (name, constructor, options) => {
     } else {
         customElements.define(name, constructor, options);
     }
+};
+
+/**
+ * Asynchroon een script downloaden maar synchroon in volgorde uitvoeren.
+ * 
+ * @param {String} id - script id
+ * @param {String} src - script src path
+ * @returns {void}
+ */
+export const awaitScript = (id, src) => {
+    if (document.head.querySelector('#' + id)) {
+        console.log(`script with id '${id}' is already loaded`);
+        return Promise.resolve();
+    }
+
+    let script = document.createElement('script');
+    script.id = id;
+    script.src = src;
+    script.async = false;
+
+    const promise = new Promise((resolve, reject) => {
+        script.onload = () => { resolve(); };
+        script.onerror = () => { reject(); };
+    });
+
+    document.head.appendChild(script);
+    return promise;
 };
