@@ -1,5 +1,4 @@
 import '/node_modules/document-register-element/build/document-register-element.js';
-import { conditionalExpression } from 'babel-types';
 
 (() => {
     const id = 'vl-core-style';
@@ -314,7 +313,7 @@ export const awaitScript = (id, src) => {
  */
 export const awaitUntil = (condtion) => {
     return new Promise(async (resolve, reject) => {
-        while(!conditional()) {
+        while(!condtion()) {
             await new Promise(resolve => setTimeout(resolve, 50));
         }
         resolve();
