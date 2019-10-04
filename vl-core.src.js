@@ -305,3 +305,18 @@ export const awaitScript = (id, src) => {
     document.head.appendChild(script);
     return promise;
 };
+
+/**
+ * Wacht tot conditie geldig is.
+ * 
+ * @param {Function} conditie - conditionele functie 
+ */
+export const awaitUntil = (condtion) => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (condtion()) {
+          resolve();
+        }
+      }, 50);
+    });
+  };
