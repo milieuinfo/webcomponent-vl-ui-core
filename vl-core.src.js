@@ -287,7 +287,7 @@ export const define = (name, constructor, options) => {
  * @returns {void}
  */
 export const awaitScript = (id, src) => {
-    if (document.head.querySelector('#' + id)) {
+    if (document.head.querySelector('script#' + id)) {
         console.log(`script with id '${id}' is already loaded`);
         return Promise.resolve();
     }
