@@ -31,7 +31,7 @@
   "dependencies": {
     "@govflanders/vl-ui-core": "3.9.1",
     "document-register-element": "1.14.3",
-    "vl-ui-util": "^2.0.6"
+    "vl-ui-util": "^2.0.9"
   },
   "devDependencies": {
     "np": "4.0.2",
