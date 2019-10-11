@@ -29,7 +29,7 @@
     "release:testless": "np --yolo"
   },
   "dependencies": {
-    "@govflanders/vl-ui-core": "3.9.1",
+    "@govflanders/vl-ui-core": "3.9.2",
     "document-register-element": "1.14.3",
     "vl-ui-util": "^2.0.6"
   },
