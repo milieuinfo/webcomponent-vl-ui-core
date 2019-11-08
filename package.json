@@ -16,6 +16,7 @@
   "scripts": {
     "prepare": "npm run prepare:sass && npm run prepare:fonts",
     "prepare:sass": "sass style.scss core-style.css --load-path node_modules/@govflanders",
+    "prepare:test:components": "cp -R ./test/e2e/components/vl-element.js ../../test/e2e/components/vl-element.js", 
     "prepare:fonts": "npm run prepare:font:path-sans && npm run prepare:font:path-serif && npm run prepare:font:path-italic && npm run prepare:font:vlaanderen-icon",
     "prepare:font:path-sans": "replace 'https://ui.vlaanderen.be/assets/fonts/sans/FlandersArtSans' 'https://cdn.milieuinfo.be/vlaanderen-font/LATEST/font/flandersart/FlandersArtSans' core-style.css",
     "prepare:font:path-serif": "replace 'https://ui.vlaanderen.be/assets/fonts/serif/FlandersArtSerif' 'https://cdn.milieuinfo.be/vlaanderen-font/LATEST/font/flandersart/FlandersArtSerif' core-style.css",
