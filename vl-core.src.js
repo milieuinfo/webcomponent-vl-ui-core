@@ -307,14 +307,23 @@ export const awaitScript = (id, src) => {
 };
 
 /**
+ * Wacht.
+ *
+ * @param {Number} ms - aantal milliseconden dat er gewacht moeten worden
+ */
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+/**
  * Wacht tot conditie geldig is.
  * 
  * @param {Function} conditie - conditionele functie 
  */
-export const awaitUntil = (condtion) => {
+export const awaitUntil = (conditie) => {
     return new Promise(async (resolve, reject) => {
-        while(!condtion()) {
-            await new Promise(resolve => setTimeout(resolve, 50));
+        while (conditie() !== true) {
+            await sleep(50);
         }
         resolve();
     });
