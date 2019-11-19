@@ -19,5 +19,4 @@ if (config.gridEnabled) {
     driver = new Builder().forBrowser(config.browserName).build(); 
 }
 
-module.exports.assert = assert;
-module.exports.driver = driver;
+module.exports = { assert, driver };
