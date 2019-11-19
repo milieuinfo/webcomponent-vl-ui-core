@@ -1,4 +1,4 @@
-module.exports = class Page {
+class Page {
     constructor(driver) {
         this.driver = driver;
     }
@@ -7,3 +7,5 @@ module.exports = class Page {
         await this.driver.get(url);
     }
 }
+
+module.exports = Page;

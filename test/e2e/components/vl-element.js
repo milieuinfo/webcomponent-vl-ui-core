@@ -31,3 +31,5 @@ module.exports = class VlElement extends WebElement {
         return (await this.getText()) != '';
     }
 }
+
+module.exports = VlElement;
