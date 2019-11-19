@@ -32,4 +32,4 @@ class VlElement extends WebElement {
     }
 }
 
-module.exports = VlElement;
+module.exports.vlElement = VlElement;
