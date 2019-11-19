@@ -1,7 +1,7 @@
 const { WebElement } = require('selenium-webdriver');
 const { By } = require('selenium-webdriver');
 
-module.exports = class VlElement extends WebElement {
+class VlElement extends WebElement {
     constructor(driver, selector) {
         return (async () => {
             super(driver, await driver.findElement(By.css(selector)).getId());
