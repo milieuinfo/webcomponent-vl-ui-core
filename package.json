@@ -5,6 +5,7 @@
   "main": "vl-core.js",
   "author": "DIDM",
   "license": "MIT",
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/milieuinfo/webcomponent-vl-ui-core.git"
