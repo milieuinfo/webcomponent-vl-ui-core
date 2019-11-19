@@ -1,3 +1,4 @@
-module.exports = require('./test.js');
-module.exports = require('./pages/page.js');
-module.exports = require('./components/vl-element.js');
+const { assert, driver } = require('./test.js');
+const { Page } = require('./pages/page.js');
+const { VlElement } = require('./components/vl-element.js');
+module.exports = { assert, driver, Page, VlElement };
