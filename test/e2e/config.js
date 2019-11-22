@@ -1,18 +1,18 @@
 let argv = require('yargs').argv;
 
 function browserName() {
-    if(argv) {
+    if (argv) {
         if (argv.chrome) {
-            return "chrome"
+            return "chrome";
         } else if (argv.firefox) {
-            return "firefox"
+            return "firefox";
         } else if (argv.opera) {
-            return "opera"
+            return "opera";
         } else if (argv.safari) {
-            return "safari"
+            return "safari";
         } else {
-            console.error("Ongeldige browser!");
-            process.exit(2);
+            console.warn("Geen geldige browser gevonden, default Chrome browser!")
+            return "chrome";
         }
     } else {
         console.error("Geen argumenten meegegeven!");
@@ -21,7 +21,7 @@ function browserName() {
 }
 
 function gridEnabled() {
-    return !!argv.grid
+    return !!argv.grid;
 }
 
 module.exports = {
