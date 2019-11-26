@@ -6,7 +6,7 @@ services:
     environment: 
       - http_proxy=${http_proxy}
       - https_proxy=${https_proxy}
-      - no_proxy=${no_proxy},selenium-hub,host
+      - no_proxy=${no_proxy}
     extra_hosts:
       - "repository.milieuinfo.be:${REPOSITORY_FIXED_IP}"
     working_dir: /workdir
