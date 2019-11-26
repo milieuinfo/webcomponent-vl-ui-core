@@ -3,7 +3,7 @@ name: Bug report
 about: Meld een probleem
 title: "[BUG] - titel"
 labels: bug
-assignees: cambiph, coemans
+assignees: coemans
 
 ---
 
@@ -11,12 +11,12 @@ assignees: cambiph, coemans
 Een duidelijke en korte uitleg over het probleem.
 
 **Hoe te reproduceren**
-Stappen om het probleem te reproduceren:
-1. Ga naar '...'
-2. Klik op '....'
+Stappen om het probleem te reproduceren en indien mogelijks een code snippet:
+
+`code snippet`
 
 **Gewenst gedrag**
-Licht kort en duidelijk toe wat het gewenste gedragd is.
+Licht kort en duidelijk toe wat het gewenst gedragd is.
 
 **Screenshots**
 Indien mogelijk, voeg hier screenshots/logs/videos toe
