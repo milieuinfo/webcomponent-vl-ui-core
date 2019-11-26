@@ -14,8 +14,7 @@
   },
   "homepage": "https://github.com/milieuinfo/webcomponent-vl-ui-core#readme",
   "scripts": {
-    "prepare": "npm run prepare:sass && npm run prepare:fonts && npm update --dev vl-ui-util && npm run prepare:util",
-    "prepare:util": "npm explore vl-ui-util -- npm run install:utils",
+    "prepare": "npm run prepare:sass && npm run prepare:fonts && npm update --dev vl-ui-util",
     "prepare:sass": "sass style.scss core-style.css --load-path node_modules/@govflanders",
     "prepare:fonts": "npm run prepare:font:path-sans && npm run prepare:font:path-serif && npm run prepare:font:path-italic && npm run prepare:font:vlaanderen-icon",
     "prepare:font:path-sans": "replace 'https://ui.vlaanderen.be/assets/fonts/sans/FlandersArtSans' 'https://cdn.milieuinfo.be/vlaanderen-font/LATEST/font/flandersart/FlandersArtSans' core-style.css",
