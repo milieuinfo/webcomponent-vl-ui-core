@@ -27,7 +27,7 @@ Build:
     - script: |
         #!/usr/env/bin bash
         set -e
-        docker-compose -f test/docker-compose.yml up --exit-code-from tests
+        docker-compose up --exit-code-from tests
         /opt/scripts/docker/stop-docker-containers.sh
   requirements:
     - REMOTE_ONLY
