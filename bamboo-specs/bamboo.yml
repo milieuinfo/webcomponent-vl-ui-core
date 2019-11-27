@@ -2,8 +2,8 @@
 version: 2
 plan:
   project-key: WEBCO
-  key: VLUIBUTTON
-  name: webcomponent-vl-ui-button
+  key: VLUICORE
+  name: webcomponent-vl-ui-core
 
 triggers:
   - polling: 130
@@ -48,7 +48,7 @@ Release:
 ---
 version: 2
 plan:
-  key: VLUIBUTTON
+  key: VLUICORE
 
 plan-permissions:
   - groups:
