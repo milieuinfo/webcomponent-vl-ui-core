@@ -2,7 +2,7 @@
   "name": "vl-ui-core",
   "version": "2.1.0",
   "description": "De core is noodzakelijk om gebruik te maken van de webcomponenten.",
-  "main": "vl-core.js",
+  "main": "index.js",
   "author": "DIDM",
   "license": "MIT",
   "repository": {
@@ -30,14 +30,15 @@
   },
   "dependencies": {
     "@govflanders/vl-ui-core": "3.9.1",
-    "document-register-element": "1.14.3",
-    "vl-ui-util": "^2.0.13"
+    "document-register-element": "1.14.3"
   },
   "devDependencies": {
+    "chai": "4.2.0",
+    "chai-as-promised": "7.1.1",
     "np": "4.0.2",
     "replace": "1.1.1",
+    "selenium-webdriver": "4.0.0-alpha.5",
     "uglify-es": "github:mishoo/UglifyJS2#harmony",
-    "wct-browser-legacy": "1.0.2",
-    "web-component-tester": "6.9.2"
+    "wct-browser-legacy": "1.0.2"
   }
 }
