@@ -12,10 +12,8 @@ process.env['webdriver.chrome.driver'] = "../../node_modules/chromedriver/lib/ch
 let driver;
 
 if (config.gridEnabled) {
-    config.baseUrl = "http://tests:8080/demo/vl-button.html";
     driver = new Builder().usingServer(config.gridUrl).forBrowser(config.browserName).build();
 } else {
-    config.baseUrl = "http://localhost:8080/demo/vl-button.html";
     driver = new Builder().forBrowser(config.browserName).build(); 
 }
 

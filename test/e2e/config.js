@@ -27,6 +27,5 @@ function gridEnabled() {
 module.exports = {
     "browserName": browserName(),
     "gridEnabled": gridEnabled(),
-    "gridUrl": "http://selenium-hub:4444/wd/hub",
-    "baseUrl": ""
+    "gridUrl": "http://selenium-hub:4444/wd/hub"
 }
