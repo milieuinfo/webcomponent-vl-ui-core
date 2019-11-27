@@ -1,6 +1,6 @@
 {
   "name": "vl-ui-core",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "De core is noodzakelijk om gebruik te maken van de webcomponenten.",
   "main": "index.js",
   "author": "DIDM",
