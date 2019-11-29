@@ -9,6 +9,11 @@ class VlElement extends WebElement {
             this.selector = selector;
             return this;
         })();
+    } 
+
+
+    async shadowRoot() {
+        return this.driver.executeScript('return arguments[0].shadowRoot', this);
     }
 
     async getClassList() {
