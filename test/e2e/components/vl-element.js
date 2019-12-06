@@ -7,10 +7,10 @@ class VlElement extends WebElement {
             super(driver, await driver.findElement(By.css(selector)).getId());
             this.driver = driver;
             this.selector = selector;
-            this.shadowRoot = await this.driver.executeScript('return arguments[0].shadowRoot', this);
+            this.shadowRoot = await this.driver.executeScript('return arguments[0].shadowRoot.lastElementChild', this);
             return this;
         })();
-    } 
+    }
 
     async getClassList() {
         return (await this.getAttribute('class')).split(' ');
