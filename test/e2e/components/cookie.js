@@ -9,22 +9,6 @@ class Cookies {
             return cookie.name === name;
         }));
     }
-
-    async getCookieConsentCookie() {
-        return await this.get('vl-cookie-consent-cookie-consent');
-    }
-
-    async getCookieConsentDateCookie() {
-        return await this.get('vl-cookie-consent-cookie-consent-date');
-    }
-
-    async getCookieConsentOptedInFunctionalCookie() {
-        return await this.get('vl-cookie-consent-functional');
-    }
-
-    async getCookieConsentOptedInSocialCookie() {
-        return await this.get('vl-cookie-consent-socialmedia');
-    }
 }
 
 class Cookie {
