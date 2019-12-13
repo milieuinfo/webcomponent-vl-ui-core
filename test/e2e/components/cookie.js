@@ -26,6 +26,5 @@ class Cookie {
 }
 
 module.exports = {
-    Cookie: Cookie,
     Cookies: Cookies
 };
