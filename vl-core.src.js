@@ -40,7 +40,7 @@ export const VlElement = (SuperClass) => {
         constructor(html) {
             super();
             if (html) {
-                this.__shadow(html);
+                this._shadow(html);
             }
         }
 
@@ -166,7 +166,7 @@ export const VlElement = (SuperClass) => {
          * @protected
          * @param {Element} element - HTML element
          * @param {Object} value - attribuut waarde
-         * @param {String} clazz- class waarde 
+         * @param {String} clazz - class waarde 
          * @returns {void}
          */
         _toggleClass(element, value, clazz) {
@@ -191,9 +191,13 @@ export const VlElement = (SuperClass) => {
         }
 
         /**
-         * @private
+         * Definieer shadow DOM.
+         * 
+         * @protected
+         * @param {Literal} html - HTML literal
+         * @returns {void}
          */
-        __shadow(html) {
+        _shadow(html) {
             this._shadow = this.attachShadow({ mode: 'open' });
             this._shadow.innerHTML = html;
         }
