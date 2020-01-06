@@ -120,8 +120,8 @@ export const VlElement = (SuperClass) => {
          * @returns {Element}
          */
         get _element() {
-            if (this.__shadow) {
-                return this.__shadow.lastElementChild;
+            if (this._shadow) {
+                return this._shadow.lastElementChild;
             } else {
                 return this;
             }
