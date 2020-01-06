@@ -44,6 +44,6 @@
     "selenium-webdriver": "4.0.0-alpha.5",
     "uglify-es": "github:mishoo/UglifyJS2#harmony",
     "wct-browser-legacy": "1.0.2",
-    "yargs": "15.0.2"
+    "yargs": "15.1.0"
   }
 }
