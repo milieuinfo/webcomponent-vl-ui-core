@@ -43,6 +43,10 @@ class VlElement extends WebElement {
         return (await this.getText()) != '';
     }
 
+    async getInnerHTML() {
+        return this.getAttribute("innerHTML");
+    }
+
     async hasFocus() {
         const getActiveElement = async (element) => {
             if (element.shadowRoot) {
