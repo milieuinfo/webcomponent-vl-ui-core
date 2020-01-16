@@ -31,7 +31,7 @@
   "dependencies": {
     "@govflanders/vl-ui-core": "3.9.1",
     "document-register-element": "1.14.3",
-    "vl-ui-util": "^3.2.5"
+    "vl-ui-util": "^3.4.1"
   },
   "devDependencies": {
     "chai": "4.2.0",
