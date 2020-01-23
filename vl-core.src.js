@@ -1,4 +1,4 @@
-import 'document-register-element';
+import 'document-register-element/pony';
 
 export const VlElement = (SuperClass) => {
     /**

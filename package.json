@@ -32,6 +32,7 @@
     "release:prepare:build:node:copy": "cp -R -f ./src/*.src.js .",
     "release:prepare:build:node:replace": "replace  '/node_modules/.*/(.*).js' '$1' vl-core.src.js",
     "release:prepare:build:node:explode": "npm explore vl-ui-util -- npm run explode -- --fileName=vl-core.src.js",
+    "postrelease:prepare:build:node:explode": "replace 'document-register-element' 'document-register-element/pony' vl-core.src.js",
     "release:prepare:css": "replace '\\.\\./style.css' '/node_modules/vl-ui-core/style.css' vl-core.js",
     "release:prepare:commit": "git add -f . && git commit --amend --no-edit && git pull",
     "release:testless": "np --yolo"
