@@ -2,9 +2,12 @@
   "name": "vl-ui-core",
   "version": "3.1.1",
   "description": "De core is noodzakelijk om gebruik te maken van de webcomponenten.",
-  "main": "index.js",
   "author": "DIDM",
   "license": "MIT",
+  "main": "index.js",
+  "exports": {
+    "import": "./src/index.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/milieuinfo/webcomponent-vl-ui-core.git"
