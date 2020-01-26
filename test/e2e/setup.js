@@ -1,4 +1,4 @@
-const { Builder } = require('selenium-webdriver');
+const { Builder, By } = require('selenium-webdriver');
 const config = require('./config');
 
 const chai = require('chai');
@@ -24,4 +24,4 @@ after('Driver cleanup', (done) => {
     done();
 });
 
-module.exports = { assert, driver };
+module.exports = { assert, driver, By };
