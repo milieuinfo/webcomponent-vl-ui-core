@@ -17,11 +17,4 @@ if (config.gridEnabled) {
     driver = new Builder().forBrowser(config.browserName).build(); 
 }
 
-after('Driver cleanup', (done) => { 
-    if(driver) {
-        driver.quit() 
-    }
-    done();
-});
-
 module.exports = { assert, driver, By };
