@@ -29,37 +29,15 @@
     "prepare:util:update:readme": "npm explore vl-ui-util -- npm run update:readme",
     "release": "np",
     "release:prepare": "npm run release:prepare:build && npm run release:prepare:css && npm run release:prepare:commit",
-    "release:prepare:build": "npm run release:prepare:build:es6 && npm run release:prepare:build:node",
-    "release:prepare:build:es6": "npm run release:prepare:build:es6:copy && npm run release:prepare:build:es6:minify && npm run release:prepare:build:es6:explode",
-    "release:prepare:build:es6:copy": "cp -R -f ./src/*.src.js ./vl-core.js",
-    "release:prepare:build:es6:minify": "minify ./src/*.src.js > ./vl-core.min.js",
-    "release:prepare:build:es6:explode": "npm explore vl-ui-util -- npm run explode -- --fileName=vl-core.min.js",
-    "release:prepare:build:node": "npm run release:prepare:build:node:copy && npm run release:prepare:build:node:replace && npm run release:prepare:build:node:explode",
-    "release:prepare:build:node:copy": "cp -R -f ./src/*.src.js .",
-    "release:prepare:build:node:replace": "replace  '/node_modules/.*/(.*).js' '$1' vl-core.src.js",
-    "release:prepare:build:node:explode": "npm explore vl-ui-util -- npm run explode -- --fileName=vl-core.src.js",
-    "postrelease:prepare:build:node:explode": "replace 'document-register-element' 'document-register-element/pony' vl-core.src.js",
-    "release:prepare:css": "replace '\\.\\./style.css' '/node_modules/vl-ui-core/style.css' vl-core.js",
-    "release:prepare:commit": "git add -f . && git commit --amend --no-edit && git pull",
+    "release:prepare:build": "minify *.src.js > vl-core.js",
+    "release:prepare:css": "replace '../core-style.css' '/node_modules/vl-ui-core/core-style.css' vl-core.js",
+    "release:prepare:commit": "git add -f vl-core.js && git commit --amend --no-edit && git pull",
     "release:testless": "np --yolo"
   },
   "dependencies": {
-    "document-register-element": "1.14.3"
+    "vl-ui-util": "^4.0.0"
   },
   "devDependencies": {
-    "@govflanders/vl-ui-core": "3.9.1",
-    "chai": "4.2.0",
-    "chai-as-promised": "7.1.1",
-    "chromedriver": "79.0.0",
-    "geckodriver": "1.19.1",
-    "http-server": "0.12.0",
-    "mocha": "6.2.2",
-    "np": "4.0.2",
-    "replace": "1.1.1",
-    "selenium-webdriver": "4.0.0-alpha.5",
-    "uglify-es": "github:mishoo/UglifyJS2#harmony",
-    "vl-ui-util": "github:milieuinfo/webcomponent-vl-ui-util#ovam-poc",
-    "wct-browser-legacy": "1.0.2",
-    "yargs": "15.0.2"
+    "@govflanders/vl-ui-core": "^3.9.1"
   }
 }
