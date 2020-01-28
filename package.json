@@ -2,9 +2,15 @@
   "name": "vl-ui-core",
   "version": "3.1.1",
   "description": "De core is noodzakelijk om gebruik te maken van de webcomponenten.",
-  "main": "index.js",
   "author": "DIDM",
   "license": "MIT",
+  "main": "./src/index.js",
+  "exports": {
+    "require": "./index.js",
+    "import": "./src/index.js",
+    "node": "./index.js",
+    "default": "./index.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/milieuinfo/webcomponent-vl-ui-core.git"
@@ -14,13 +20,13 @@
   },
   "homepage": "https://github.com/milieuinfo/webcomponent-vl-ui-core#readme",
   "scripts": {
-    "prepare": "npm run prepare:sass && npm run prepare:fonts && npm update --dev vl-ui-util",
-    "prepare:sass": "sass style.scss core-style.css --load-path node_modules/@govflanders",
-    "prepare:fonts": "npm run prepare:font:path-sans && npm run prepare:font:path-serif && npm run prepare:font:path-italic && npm run prepare:font:vlaanderen-icon",
-    "prepare:font:path-sans": "replace 'https://ui.vlaanderen.be/assets/fonts/sans/FlandersArtSans' 'https://cdn.milieuinfo.be/vlaanderen-font/LATEST/font/flandersart/FlandersArtSans' core-style.css",
-    "prepare:font:path-serif": "replace 'https://ui.vlaanderen.be/assets/fonts/serif/FlandersArtSerif' 'https://cdn.milieuinfo.be/vlaanderen-font/LATEST/font/flandersart/FlandersArtSerif' core-style.css",
-    "prepare:font:path-italic": "replace 'https://ui.vlaanderen.be/assets/fonts/italic/FlandersArtSans' 'https://cdn.milieuinfo.be/vlaanderen-font/LATEST/font/flandersart/FlandersArtSansItalic' core-style.css",
-    "prepare:font:vlaanderen-icon": "replace '/font/iconfont/vlaanderen-icon.woff' 'https://cdn.milieuinfo.be/vlaanderen-font/LATEST/font/iconfont/3.9.1/vlaanderen-icon.woff' core-style.css",
+    "prepare": "npm update --dev vl-ui-util && npm run prepare:util",
+    "prepare:util": "npm run prepare:util:sass:webcomponent && npm run prepare:util:css:minify && npm run prepare:util:fonts && npm run prepare:util:copy:github && npm run prepare:util:update:readme",
+    "prepare:util:sass:webcomponent": "npm explore vl-ui-util -- npm run install:sass:webcomponent",
+    "prepare:util:css:minify": "npm explore vl-ui-util -- npm run install:css:minify",
+    "prepare:util:fonts": "npm explore vl-ui-util -- npm run install:fonts",
+    "prepare:util:copy:github": "npm explore vl-ui-util -- npm run install:copy:github",
+    "prepare:util:update:readme": "npm explore vl-ui-util -- npm run update:readme",
     "release": "np",
     "release:prepare": "npm run release:prepare:build && npm run release:prepare:css && npm run release:prepare:commit",
     "release:prepare:build": "minify *.src.js > vl-core.js",
@@ -29,7 +35,7 @@
     "release:testless": "np --yolo"
   },
   "dependencies": {
-    "vl-ui-util": "^3.4.4"
+    "vl-ui-util": "^4.0.0"
   },
   "devDependencies": {
     "@govflanders/vl-ui-core": "^3.9.1"

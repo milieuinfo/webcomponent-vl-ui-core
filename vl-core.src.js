@@ -1,25 +1,4 @@
-import '/node_modules/document-register-element/build/document-register-element.js';
-
-(() => {
-    const id = 'vl-core-style';
-    addStyle();
-
-    function addStyle() {
-        if (!document.head.querySelector('#' + id)) {
-            var style = getStyle();
-            document.head.appendChild(style);
-        }
-    }
-
-    function getStyle() {
-        var link = document.createElement('link');
-        link.setAttribute('id', id);
-        link.setAttribute('rel', 'stylesheet');
-        link.setAttribute('type', 'text/css');
-        link.setAttribute('href', '../core-style.css');
-        return link;
-    }
-})();
+import 'document-register-element/pony';
 
 export const VlElement = (SuperClass) => {
     /**
@@ -178,19 +157,6 @@ export const VlElement = (SuperClass) => {
         }
 
         /**
-         * Voegt een stijl link tag toe aan de header
-         * 
-         * @protected
-         * @returns {void}
-         */
-        _addStyleLink() {
-            const id = this.constructor.name + '-style';
-            if (!document.head.querySelector('#' + id)) {
-                document.head.appendChild(this.__generateStyleLink(id));
-            }
-        }
-
-        /**
          * Definieer shadow DOM.
          * 
          * @protected
@@ -214,22 +180,6 @@ export const VlElement = (SuperClass) => {
                 }
             }
         }
-
-        /**
-         * @private
-         */
-        __generateStyleLink(id) {
-            if (!this._stylePath) {
-                console.error('style path is not defined');
-            }
-
-            var link = document.createElement('link');
-            link.setAttribute('id', id);
-            link.setAttribute('rel', 'stylesheet');
-            link.setAttribute('type', 'text/css');
-            link.setAttribute('href', this._stylePath);
-            return link;
-        }
     }
 
     return VlElement;
@@ -244,16 +194,6 @@ export const NativeVlElement = (SuperClass) => {
      * @extends VlElement
      */
     class NativeVlElement extends VlElement(SuperClass) {
-        /**
-         * NativeVlElement constructor die het element CSS link element automatisch zal toevoegen aan de DOM head tag.
-         * 
-         * @returns {void}
-         */
-        constructor() {
-            super();
-            this._addStyleLink();
-        }
-
         /**
          * DOM element getter.
          * 
