@@ -75,6 +75,11 @@ class VlElement extends WebElement {
     async hasAssignedSlot() {
         return (this.driver.executeScript('return arguments[0].assignedSlot != undefined', this));
     }
+    
+    async hover() {
+        const actions = this.driver.actions({bridge: true});
+        return actions.move({x: 0, y: 0, origin: this}).perform();
+    }
 }
 
 module.exports = VlElement;
