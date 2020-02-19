@@ -27,6 +27,18 @@ class VlElement extends WebElement {
         return (await this.getAttribute('class')).split(' ');
     }
 
+    async getText() {
+        if ((await this.hasAssignedSlot())) {
+            return this.getTextContent();
+        } else {
+            return super.getText();
+        }
+    }
+
+    async getTextContent() {
+        return this.getAttribute('textContent');
+    }
+
     async isDisabled() {
         return !(await this.isEnabled());
     }
@@ -58,6 +70,10 @@ class VlElement extends WebElement {
         }
         const activeElement = await getActiveElement(await new VlElement(this.driver, await this.driver.switchTo().activeElement()));
         return WebElement.equals(this, activeElement);
+    }
+
+    async hasAssignedSlot() {
+        return (this.driver.executeScript('return arguments[0].assignedSlot != undefined', this));
     }
 }
 
