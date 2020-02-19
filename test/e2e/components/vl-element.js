@@ -61,7 +61,7 @@ class VlElement extends WebElement {
     }
 
     async hover() {
-        const actions = driver.actions({bridge: true});
+        const actions = this.driver.actions({bridge: true});
         return actions.move({x: 0, y: 0, origin: this}).perform();
     }
 }
