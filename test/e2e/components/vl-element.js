@@ -59,6 +59,11 @@ class VlElement extends WebElement {
         const activeElement = await getActiveElement(await new VlElement(this.driver, await this.driver.switchTo().activeElement()));
         return WebElement.equals(this, activeElement);
     }
+
+    async hover() {
+        const actions = driver.actions({bridge: true});
+        return actions.move({x: 0, y: 0, origin: this}).perform();
+    }
 }
 
 module.exports = VlElement;
