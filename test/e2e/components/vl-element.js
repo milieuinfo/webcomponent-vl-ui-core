@@ -5,7 +5,7 @@ class VlElement extends WebElement {
     constructor(driver, identifier) {
         return (async () => {
             if (typeof identifier === 'string') {
-                super(driver, await driver.findElement(By.css(identifier)).getId())
+                super(driver, await driver.findElement(By.css(identifier)).getId());
                 this.selector = identifier;
             } else {
                 super(driver, await identifier.getId());
@@ -40,7 +40,7 @@ class VlElement extends WebElement {
     }
 
     async hasText() {
-        return (await this.getText()) != '';
+        return (await this.getText()) !== '';
     }
 
     async getInnerHTML() {
@@ -55,9 +55,14 @@ class VlElement extends WebElement {
             } else {
                 return element;
             }
-        }
+        };
         const activeElement = await getActiveElement(await new VlElement(this.driver, await this.driver.switchTo().activeElement()));
         return WebElement.equals(this, activeElement);
+    }
+
+    async getAssignedElements(slot) {
+        return this.driver.executeScript(
+            'return arguments[0].assignedElements()', slot);
     }
 }
 
