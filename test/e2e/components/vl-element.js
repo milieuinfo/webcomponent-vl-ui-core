@@ -77,8 +77,9 @@ class VlElement extends WebElement {
     }
 
     async hover() {
-        const actions = this.driver.actions({bridge: true});
-        return actions.move({x: 0, y: 0, origin: this}).perform();
+        const actions = this.driver.actions();
+        await this.driver.executeScript('return arguments[0].scrollIntoView()', this);
+        return actions.move({origin: this}).perform();
     }
 
     async getAssignedElements(slot) {
