@@ -5,7 +5,7 @@ class VlElement extends WebElement {
     constructor(driver, identifier) {
         return (async () => {
             if (typeof identifier === 'string') {
-                super(driver, await driver.findElement(By.css(identifier)).getId())
+                super(driver, await driver.findElement(By.css(identifier)).getId());
                 this.selector = identifier;
             } else {
                 super(driver, await identifier.getId());
@@ -52,7 +52,7 @@ class VlElement extends WebElement {
     }
 
     async hasText() {
-        return (await this.getText()) != '';
+        return (await this.getText()) !== '';
     }
 
     async getInnerHTML() {
@@ -67,7 +67,7 @@ class VlElement extends WebElement {
             } else {
                 return element;
             }
-        }
+        };
         const activeElement = await getActiveElement(await new VlElement(this.driver, await this.driver.switchTo().activeElement()));
         return WebElement.equals(this, activeElement);
     }
@@ -75,10 +75,15 @@ class VlElement extends WebElement {
     async hasAssignedSlot() {
         return (this.driver.executeScript('return arguments[0].assignedSlot != undefined', this));
     }
-    
+
     async hover() {
         const actions = this.driver.actions({bridge: true});
         return actions.move({x: 0, y: 0, origin: this}).perform();
+    }
+
+    async getAssignedElements(slot) {
+        return this.driver.executeScript(
+            'return arguments[0].assignedElements()', slot);
     }
 }
 
