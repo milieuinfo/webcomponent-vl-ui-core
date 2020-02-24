@@ -2,7 +2,7 @@
 version: 2
 plan:
   project-key: WEBCO
-  key: WEBCO-VLUICORE
+  key: VLUICORE
   name: webcomponent-vl-ui-core
 
 triggers:
