@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "document-register-element": "1.14.3",
-    "vl-ui-util": "^5.0.1"
+    "vl-ui-util": "^5.0.2"
   },
   "devDependencies": {
     "@govflanders/vl-ui-core": "^3.9.1"
