@@ -1,6 +1,6 @@
 {
   "name": "vl-ui-core",
-  "version": "4.0.3",
+  "version": "4.0.1",
   "description": "De core is noodzakelijk om gebruik te maken van de webcomponenten.",
   "author": "DIDM",
   "license": "MIT",
@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "document-register-element": "1.14.3",
-    "vl-ui-util": "github:milieuinfo/webcomponent-vl-ui-util#debug"
+    "vl-ui-util": "^5.0.6"
   },
   "devDependencies": {
     "@govflanders/vl-ui-core": "^3.9.1"
