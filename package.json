@@ -21,11 +21,10 @@
   "homepage": "https://github.com/milieuinfo/webcomponent-vl-ui-core#readme",
   "scripts": {
     "prepare": "npm update --dev vl-ui-util && npm run prepare:util",
-    "prepare:util": "npm run prepare:util:sass:webcomponent && npm run prepare:util:css:minify && npm run prepare:util:fonts && npm run prepare:util:bamboo && npm run prepare:util:copy:github && npm run prepare:util:update:readme",
+    "prepare:util": "npm run prepare:util:sass:webcomponent && npm run prepare:util:css:minify && npm run prepare:util:fonts && npm run prepare:util:copy:github && npm run prepare:util:update:readme",
     "prepare:util:sass:webcomponent": "npm explore vl-ui-util -- npm run install:sass:webcomponent",
     "prepare:util:css:minify": "npm explore vl-ui-util -- npm run install:css:minify",
     "prepare:util:fonts": "npm explore vl-ui-util -- npm run install:fonts",
-    "prepare:util:bamboo": "npm explore vl-ui-util -- npm run install:bamboo",
     "prepare:util:copy:github": "npm explore vl-ui-util -- npm run install:copy:github",
     "prepare:util:update:readme": "npm explore vl-ui-util -- npm run update:readme",
     "release": "np",
