@@ -28,7 +28,7 @@
     "prepare:util:copy:github": "npm explore vl-ui-util -- npm run install:copy:github",
     "prepare:util:update:readme": "npm explore vl-ui-util -- npm run update:readme",
     "release": "np",
-    "release:prepare": "npm explore vl-ui-util – npm run release-component:prepare $(pwd) core",
+    "release:prepare": "npm explore vl-ui-util -- npm run release-component:prepare $(pwd) core",
     "release:testless": "np --yolo"
   },
   "dependencies": {
