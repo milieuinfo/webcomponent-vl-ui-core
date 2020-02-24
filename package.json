@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "document-register-element": "1.14.3",
-    "vl-ui-util": "github:milieuinfo/webcomponent-vl-ui-util#UIG-510"
+    "vl-ui-util": "5.0.0"
   },
   "devDependencies": {
     "@govflanders/vl-ui-core": "^3.9.1"
