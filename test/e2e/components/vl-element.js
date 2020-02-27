@@ -86,6 +86,11 @@ class VlElement extends WebElement {
         return this.driver.executeScript(
             'return arguments[0].assignedElements()', slot);
     }
+
+    async getAssignedNodes(slot) {
+        return this.driver.executeScript(
+            'return arguments[0].assignedNodes()', slot);
+    }
 }
 
 module.exports = VlElement;
