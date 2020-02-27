@@ -91,6 +91,10 @@ class VlElement extends WebElement {
         return this.driver.executeScript(
             'return arguments[0].assignedNodes()', slot);
     }
+
+    async scrollIntoView() {
+        return this.driver.executeScript('return arguments[0].scrollIntoView()', this);
+    }
 }
 
 module.exports = VlElement;
