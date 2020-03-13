@@ -95,6 +95,23 @@ class VlElement extends WebElement {
     async scrollIntoView() {
         return this.driver.executeScript('return arguments[0].scrollIntoView()', this);
     }
+
+    async isInViewport() {
+        const bounding = await this.driver.executeScript('return arguments[0].getBoundingClientRect()', this);
+    	const height = await this.driver.executeScript('return (window.innerHeight || document.documentElement.clientHeight)');
+    	const width = await this.driver.executeScript('return (window.innerWidth || document.documentElement.clientWidth)');
+    	const outOfViewport = {
+   			top: bounding.top < 0,
+   			left: bounding.left < 0,
+   			bottom: bounding.bottom > height,
+   			right: bounding.right > width
+    	};
+    	return outOfViewport.top && outOfViewport.left && outOfViewport.bottom && outOfViewport.right;
+    }
+
+    async scrollToTop() {
+        return this.driver.executeScript("return arguments[0].scrollTop = 0;", this);
+    }
 }
 
 module.exports = VlElement;
