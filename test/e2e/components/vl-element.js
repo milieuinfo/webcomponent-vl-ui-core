@@ -106,7 +106,7 @@ class VlElement extends WebElement {
    			bottom: bounding.bottom > height,
    			right: bounding.right > width
     	};
-    	return outOfViewport.top && outOfViewport.left && outOfViewport.bottom && outOfViewport.right;
+    	return !outOfViewport.top && !outOfViewport.left && !outOfViewport.bottom && !outOfViewport.right;
     }
 
     async scrollToTop() {
