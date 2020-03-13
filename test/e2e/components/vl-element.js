@@ -110,7 +110,7 @@ class VlElement extends WebElement {
     }
 
     async scrollToTop() {
-        return driver.executeScript("return arguments[0].scrollTop = 0;", this);
+        return this.driver.executeScript("return arguments[0].scrollTop = 0;", this);
     }
 }
 
