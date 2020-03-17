@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <script src="../../../@webcomponents/webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../../web-component-tester/browser.js"></script>
+
+  <script type="module" src="../../src/vl-core.js"></script>
+  <script type="module" src="vl-native-element.js"></script>
+  <script type="module" src="vl-element.js"></script>
+</head>
+
+<body>
+  <test-fixture id="vl-native-element-fixture">
+    <template>
+      <span is="vl-native-element"></span>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="vl-element-fixture">
+    <template>
+      <vl-element></vl-element>
+    </template>
+  </test-fixture>
+
+  <script>
+    suite('vl-native-element', () => {
+      const should = chai.should();
+      const sandbox = sinon.sandbox.create();
+
+      teardown(() => {
+        sandbox.restore();
+      });
+
+      test('wanneer er een attribuut met of zonder prefix uit de observed attributes lijst wijzigt, zal een changed callback functie aangeroepen worden', () => {
+        ['attribute', 'data-vl-attribute'].forEach((attribute) => {
+          const element = fixture('vl-native-element-fixture');
+          sandbox.spy(element, '_attributeChangedCallback');
+          element.setAttribute(attribute, 'foo');
+          assert(element._attributeChangedCallback.calledWith(null, 'foo'));
+          element.setAttribute(attribute, 'bar');
+          assert(element._attributeChangedCallback.calledWith('foo', 'bar'));
+        });
+      });
+
+      test('wanneer er een attribuut met of zonder prefix uit de observed class attributes lijst wijzigt, zal een class (gebaseerd op class prefix en de attribuut naam) toegevoegd worden aan het root element', () => {
+        ['class-attribute', 'data-vl-class-attribute'].forEach((attribute) => {
+          const element = fixture('vl-native-element-fixture');
+          assert.notInclude([...element.classList], 'vl-span--class-attribute');
+          element.setAttribute(attribute, 'foo');
+          assert.include([...element.classList], 'vl-span--class-attribute');
+          element.removeAttribute(attribute);
+          assert.notInclude([...element.classList], 'vl-span--class-attribute');
+        });
+      });
+    });
+
+    suite('vl-element', () => {
+      const should = chai.should();
+      const sandbox = sinon.sandbox.create();
+
+      teardown(() => {
+        sandbox.restore();
+      });
+
+      test('wanneer er een attribuut met of zonder prefix uit de observed attributes lijst wijzigt, zal een changed callback functie aangeroepen worden', () => {
+        ['attribute', 'data-vl-attribute'].forEach((attribute) => {
+          const element = fixture('vl-element-fixture');
+          sandbox.spy(element, '_attributeChangedCallback');
+          element.setAttribute(attribute, 'foo');
+          assert(element._attributeChangedCallback.calledWith(null, 'foo'));
+          element.setAttribute(attribute, 'bar');
+          assert(element._attributeChangedCallback.calledWith('foo', 'bar'));
+        });
+      });
+
+      test('wanneer er een attribuut met of zonder prefix uit de observed class attributes lijst wijzigt, zal een class (gebaseerd op class prefix en de attribuut naam) toegevoegd worden aan het root element', () => {
+        ['class-attribute', 'data-vl-class-attribute'].forEach((attribute) => {
+          const element = fixture('vl-element-fixture');
+          assert.notInclude([...element.classList], 'vl-span--class-attribute');
+          element.setAttribute(attribute, 'foo');
+          assert.include([...element.classList], 'vl-span--class-attribute');
+          element.removeAttribute(attribute);
+          assert.notInclude([...element.classList], 'vl-span--class-attribute');
+        });
+      });
+
+      test('wanneer er een attribuut met of zonder prefix uit de observed child class attributes lijst wijzigt, zal een class (gebaseerd op class prefix en de attribuut naam) toegevoegd worden aan het eerste shadow DOM element', () => {
+        ['child-class-attribute', 'data-vl-child-class-attribute'].forEach((attribute) => {
+          const element = fixture('vl-element-fixture');
+          const child = element.shadowRoot.querySelector('div');
+          assert.notInclude([...child.classList], 'vl-span--child-class-attribute');
+          element.setAttribute(attribute, 'foo');
+          assert.include([...child.classList], 'vl-span--child-class-attribute');
+          element.removeAttribute(attribute);
+          assert.notInclude([...child.classList], 'vl-span--child-class-attribute');
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>
