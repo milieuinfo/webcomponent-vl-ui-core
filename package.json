@@ -30,15 +30,18 @@
     "prepare:util:fonts": "npm explore vl-ui-util -- npm run install:fonts",
     "prepare:util:copy:github": "npm explore vl-ui-util -- npm run install:copy:github",
     "prepare:util:update:readme": "npm explore vl-ui-util -- npm run update:readme",
+    "test": "npm run test:unit",
+    "test:unit": "wct --config-file ./wct.local.conf.json",
+    "test:grid": "wct --config-file ./wct.docker.conf.json",
     "release": "np",
     "release:prepare": "npm explore vl-ui-util -- npm run release-component:prepare $(pwd) core",
     "release:testless": "np --yolo"
   },
   "dependencies": {
-    "document-register-element": "1.14.3",
-    "vl-ui-util": "^5.0.7"
+    "document-register-element": "1.14.3"
   },
   "devDependencies": {
-    "@govflanders/vl-ui-core": "^3.9.1"
+    "@govflanders/vl-ui-core": "^3.9.1",
+    "vl-ui-util": "^5.0.10"
   }
 }
