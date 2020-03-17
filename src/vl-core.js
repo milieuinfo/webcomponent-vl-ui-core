@@ -89,7 +89,7 @@ export const VlElement = (SuperClass) => {
                 this.__changeAttribute(this, oldValue, newValue, attribute);
             });
 
-            this.constructor._observedChildClassAttributes.concat(this.constructor._observedChildClassAttributes).filter(attribute => {
+            this.constructor._observedChildClassAttributes.concat(this.constructor._observedPrefixChildClassAttributes).filter(attribute => {
                 return attribute == attr || attribute == VlElement.attributePrefix + attr;
             }).forEach((attribute) => {
                 this.__changeAttribute(this._element, oldValue, newValue, attribute);
