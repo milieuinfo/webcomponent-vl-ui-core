@@ -23,8 +23,17 @@ export const VlElement = (SuperClass) => {
             }
         }
 
+        /**
+         * Geeft de prefix die gebruikt kan worden voor attributen.
+         * 
+         * @returns {String} attribuut prefix
+         */
+        static get attributePrefix() {
+            return 'data-vl-';
+        }
+
         static get observedAttributes() {
-            return this._observedAttributes.concat(this._observedClassAttributes).concat(this._observedChildClassAttributes);
+            return this._observedAttributes.concat(this._observedClassAttributes).concat(this._observedChildClassAttributes).concat(this._observedPrefixAttributes).concat(this._observedPrefixClassAttributes).concat(this._observedPrefixChildClassAttributes);
         }
 
         /**
@@ -57,28 +66,38 @@ export const VlElement = (SuperClass) => {
             return [];
         }
 
+        static get _observedPrefixAttributes() {
+            return this._observedAttributes.map((attribute) => VlElement.attributePrefix + attribute);
+        }
+
+        static get _observedPrefixClassAttributes() {
+            return this._observedClassAttributes.map((attribute) => VlElement.attributePrefix + attribute);
+        }
+
+        static get _observedPrefixChildClassAttributes() {
+            return this._observedChildClassAttributes.map((attribute) => VlElement.attributePrefix + attribute);
+        }
+
         attributeChangedCallback(attr, oldValue, newValue) {
-            if (this.constructor._observedClassAttributes) {
-                this.constructor._observedClassAttributes.filter(attribute => {
-                    return attribute == attr;
-                }).forEach(attribute => {
-                    this.__changeAttribute(this, oldValue, newValue, attribute);
-                });
+            if (attr.startsWith(VlElement.attributePrefix)) {
+                attr = attr.replace(VlElement.attributePrefix, '');
             }
 
-            if (this.constructor._observedChildClassAttributes) {
-                this.constructor._observedChildClassAttributes.filter(attribute => {
-                    return attribute == attr;
-                }).forEach(attribute => {
-                    this.__changeAttribute(this._element, oldValue, newValue, attribute);
-                });
-            }
+            this.constructor._observedClassAttributes.concat(this.constructor._observedPrefixClassAttributes).filter(attribute => {
+                return attribute == attr || attribute == VlElement.attributePrefix + attr;
+            }).forEach((attribute) => {
+                this.__changeAttribute(this, oldValue, newValue, attribute);
+            });
+
+            this.constructor._observedChildClassAttributes.concat(this.constructor._observedPrefixChildClassAttributes).filter(attribute => {
+                return attribute == attr || attribute == VlElement.attributePrefix + attr;
+            }).forEach((attribute) => {
+                this.__changeAttribute(this._element, oldValue, newValue, attribute);
+            });
 
             const callback = this['_' + attr.split('-').join('_') + 'ChangedCallback'];
             if (callback) {
                 callback.call(this, oldValue, newValue);
-            } else if ((!this.constructor._observedClassAttributes || this.constructor._observedClassAttributes.indexOf(attr) == -1) && (!this.constructor._observedChildClassAttributes || this.constructor._observedChildClassAttributes.indexOf(attr) == -1)) {
-                console.info('_' + attr + 'ChangedCallback is not defined');
             }
         }
 
@@ -103,6 +122,19 @@ export const VlElement = (SuperClass) => {
                 return this._shadow.lastElementChild;
             } else {
                 return this;
+            }
+        }
+
+        /**
+         * Geeft de waarde van het attribuut rekening houdende met het feit dat de attribuut prefix {@link #attributePrefix} gebruikt wordt.
+         * 
+         * @param {String} attribute
+         */
+        getAttribute(attribute) {
+            if (this.hasAttribute(VlElement.attributePrefix + attribute)) {
+                return super.getAttribute(VlElement.attributePrefix + attribute);
+            } else {
+                return super.getAttribute(attribute);
             }
         }
 
