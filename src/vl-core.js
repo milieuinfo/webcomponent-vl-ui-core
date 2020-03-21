@@ -195,6 +195,16 @@ export const NativeVlElement = (SuperClass) => {
      */
     class NativeVlElement extends VlElement(SuperClass) {
         /**
+         * NativeVlElement constructor. Deze geeft geen html mee zoals bij {VlElement},
+         * aangezien {NativeVlElement}en geen shadow dom mogen aanmaken.
+         *
+         * @returns {void}
+         */
+        constructor(html) {
+            super(undefined);
+        }
+
+        /**
          * DOM element getter.
          * 
          * @returns {Element}
