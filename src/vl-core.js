@@ -233,7 +233,7 @@ export const NativeVlElement = (SuperClass) => {
          * @returns {void}
          */
         constructor(html) {
-            super(undefined);
+            super();
         }
 
         /**
