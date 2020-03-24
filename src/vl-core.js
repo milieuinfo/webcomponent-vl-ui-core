@@ -95,7 +95,7 @@ export const VlElement = (SuperClass) => {
                 this.__changeAttribute(this._element, oldValue, newValue, attribute);
             });
 
-            const callback = this['_' + attr.split('-').join('_') + 'ChangedCallback'];
+            const callback = this['_' + attr.split('-').join('_') + 'ChangedCallback'] || this['_' + `${VlElement.attributePrefix}${attr}`.split('-').join('_') + 'ChangedCallback'];
             if (callback) {
                 callback.call(this, oldValue, newValue);
             }

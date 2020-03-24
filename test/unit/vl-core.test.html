@@ -18,9 +18,21 @@
     </template>
   </test-fixture>
 
+  <test-fixture id="vl-native-prefixed-element-fixture">
+    <template>
+      <span is="vl-native-prefixed-element"></span>
+    </template>
+  </test-fixture>
+
   <test-fixture id="vl-element-fixture">
     <template>
       <vl-element></vl-element>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="vl-prefixed-element-fixture">
+    <template>
+      <vl-prefixed-element></vl-prefixed-element>
     </template>
   </test-fixture>
 
@@ -41,6 +53,17 @@
           assert(element._attributeChangedCallback.calledWith(null, 'foo'));
           element.setAttribute(attribute, 'bar');
           assert(element._attributeChangedCallback.calledWith('foo', 'bar'));
+        });
+      });
+
+      test('wanneer er een attribuut met of zonder prefix uit de observed attributes lijst wijzigt, zal bij het ontbreken van een changed callback de prefixed changed callback functie aangeroepen worden', () => {
+        ['attribute', 'data-vl-attribute'].forEach((attribute) => {
+          const element = fixture('vl-native-prefixed-element-fixture');
+          sandbox.spy(element, '_data_vl_attributeChangedCallback');
+          element.setAttribute(attribute, 'foo');
+          assert(element._data_vl_attributeChangedCallback.calledWith(null, 'foo'));
+          element.setAttribute(attribute, 'bar');
+          assert(element._data_vl_attributeChangedCallback.calledWith('foo', 'bar'));
         });
       });
 
@@ -72,6 +95,17 @@
           assert(element._attributeChangedCallback.calledWith(null, 'foo'));
           element.setAttribute(attribute, 'bar');
           assert(element._attributeChangedCallback.calledWith('foo', 'bar'));
+        });
+      });
+
+      test('wanneer er een attribuut met of zonder prefix uit de observed attributes lijst wijzigt, zal bij het ontbreken van een changed callback de prefixed changed callback functie aangeroepen worden', () => {
+        ['attribute', 'data-vl-attribute'].forEach((attribute) => {
+          const element = fixture('vl-prefixed-element-fixture');
+          sandbox.spy(element, '_data_vl_attributeChangedCallback');
+          element.setAttribute(attribute, 'foo');
+          assert(element._data_vl_attributeChangedCallback.calledWith(null, 'foo'));
+          element.setAttribute(attribute, 'bar');
+          assert(element._data_vl_attributeChangedCallback.calledWith('foo', 'bar'));
         });
       });
 
