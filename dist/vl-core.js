@@ -95,7 +95,11 @@ export const VlElement = (SuperClass) => {
                 this.__changeAttribute(this._element, oldValue, newValue, attribute);
             });
 
-            const callback = this['_' + attr.split('-').join('_') + 'ChangedCallback'];
+            const getCallbackFunctionName = (attribute) => {
+                return this['_' + attribute.split('-').join('_') + 'ChangedCallback']
+            }
+
+            const callback = this[getCallbackFunctionName(attr)] || this[getCallbackFunctionName(`${VlElement.attributePrefix}${attr}`)];
             if (callback) {
                 callback.call(this, oldValue, newValue);
             }
@@ -226,6 +230,16 @@ export const NativeVlElement = (SuperClass) => {
      * @extends VlElement
      */
     class NativeVlElement extends VlElement(SuperClass) {
+        /**
+         * NativeVlElement constructor. Deze geeft geen html mee zoals bij {VlElement},
+         * aangezien {NativeVlElement}en geen shadow dom mogen aanmaken.
+         *
+         * @returns {void}
+         */
+        constructor(html) {
+            super();
+        }
+
         /**
          * DOM element getter.
          * 
