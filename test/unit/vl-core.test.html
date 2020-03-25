@@ -18,41 +18,77 @@
     </template>
   </test-fixture>
 
+  <test-fixture id="vl-native-prefixed-element-fixture">
+    <template>
+      <span is="vl-native-prefixed-element"></span>
+    </template>
+  </test-fixture>
+
   <test-fixture id="vl-element-fixture">
     <template>
       <vl-element></vl-element>
     </template>
   </test-fixture>
 
+  <test-fixture id="vl-prefixed-element-fixture">
+    <template>
+      <vl-prefixed-element></vl-prefixed-element>
+    </template>
+  </test-fixture>
+
   <script>
+    const sandbox = sinon.sandbox.create();
+
+    const assertAttributeChangedCallbackCall = (fixture) => {
+      const element = fixture;
+      sandbox.spy(element, '_attributeChangedCallback');
+      ['attribute', 'data-vl-attribute'].forEach((attribute) => {
+        element.setAttribute(attribute, 'foo');
+        assert(element._attributeChangedCallback.calledWith(null, 'foo'));
+        element.setAttribute(attribute, 'bar');
+        assert(element._attributeChangedCallback.calledWith('foo', 'bar'));
+      });
+    }
+
+    const assertPrefixedAttributeChangedCallbackCall = (fixture) => {
+      const element = fixture;
+      sandbox.spy(element, '_data_vl_attributeChangedCallback');
+      ['attribute', 'data-vl-attribute'].forEach((attribute) => {
+        element.setAttribute(attribute, 'foo');
+        assert(element._data_vl_attributeChangedCallback.calledWith(null, 'foo'));
+        element.setAttribute(attribute, 'bar');
+        assert(element._data_vl_attributeChangedCallback.calledWith('foo', 'bar'));
+      });
+    }
+
+    const assertAddedClass = (fixture) => {
+      const element = fixture;
+      assert.notInclude([...element.classList], 'vl-span--class-attribute');
+      ['class-attribute', 'data-vl-class-attribute'].forEach((attribute) => {
+        element.setAttribute(attribute, 'foo');
+        assert.include([...element.classList], 'vl-span--class-attribute');
+        element.removeAttribute(attribute);
+        assert.notInclude([...element.classList], 'vl-span--class-attribute');
+      });
+    }
+
     suite('vl-native-element', () => {
       const should = chai.should();
-      const sandbox = sinon.sandbox.create();
 
       teardown(() => {
         sandbox.restore();
       });
 
       test('wanneer er een attribuut met of zonder prefix uit de observed attributes lijst wijzigt, zal een changed callback functie aangeroepen worden', () => {
-        ['attribute', 'data-vl-attribute'].forEach((attribute) => {
-          const element = fixture('vl-native-element-fixture');
-          sandbox.spy(element, '_attributeChangedCallback');
-          element.setAttribute(attribute, 'foo');
-          assert(element._attributeChangedCallback.calledWith(null, 'foo'));
-          element.setAttribute(attribute, 'bar');
-          assert(element._attributeChangedCallback.calledWith('foo', 'bar'));
-        });
+        assertAttributeChangedCallbackCall(fixture('vl-native-element-fixture'));
+      });
+
+      test('wanneer er een attribuut met of zonder prefix uit de observed attributes lijst wijzigt, zal bij het ontbreken van een changed callback de prefixed changed callback functie aangeroepen worden', () => {
+        assertPrefixedAttributeChangedCallbackCall(fixture('vl-native-prefixed-element-fixture'));
       });
 
       test('wanneer er een attribuut met of zonder prefix uit de observed class attributes lijst wijzigt, zal een class (gebaseerd op class prefix en de attribuut naam) toegevoegd worden aan het root element', () => {
-        ['class-attribute', 'data-vl-class-attribute'].forEach((attribute) => {
-          const element = fixture('vl-native-element-fixture');
-          assert.notInclude([...element.classList], 'vl-span--class-attribute');
-          element.setAttribute(attribute, 'foo');
-          assert.include([...element.classList], 'vl-span--class-attribute');
-          element.removeAttribute(attribute);
-          assert.notInclude([...element.classList], 'vl-span--class-attribute');
-        });
+        assertAddedClass(fixture('vl-native-element-fixture'));
       });
     });
 
@@ -65,25 +101,15 @@
       });
 
       test('wanneer er een attribuut met of zonder prefix uit de observed attributes lijst wijzigt, zal een changed callback functie aangeroepen worden', () => {
-        ['attribute', 'data-vl-attribute'].forEach((attribute) => {
-          const element = fixture('vl-element-fixture');
-          sandbox.spy(element, '_attributeChangedCallback');
-          element.setAttribute(attribute, 'foo');
-          assert(element._attributeChangedCallback.calledWith(null, 'foo'));
-          element.setAttribute(attribute, 'bar');
-          assert(element._attributeChangedCallback.calledWith('foo', 'bar'));
-        });
+        assertAttributeChangedCallbackCall(fixture('vl-native-element-fixture'));
+      });
+
+      test('wanneer er een attribuut met of zonder prefix uit de observed attributes lijst wijzigt, zal bij het ontbreken van een changed callback de prefixed changed callback functie aangeroepen worden', () => {
+        assertPrefixedAttributeChangedCallbackCall(fixture('vl-prefixed-element-fixture'));
       });
 
       test('wanneer er een attribuut met of zonder prefix uit de observed class attributes lijst wijzigt, zal een class (gebaseerd op class prefix en de attribuut naam) toegevoegd worden aan het root element', () => {
-        ['class-attribute', 'data-vl-class-attribute'].forEach((attribute) => {
-          const element = fixture('vl-element-fixture');
-          assert.notInclude([...element.classList], 'vl-span--class-attribute');
-          element.setAttribute(attribute, 'foo');
-          assert.include([...element.classList], 'vl-span--class-attribute');
-          element.removeAttribute(attribute);
-          assert.notInclude([...element.classList], 'vl-span--class-attribute');
-        });
+        assertAddedClass(fixture('vl-element-fixture'));
       });
 
       test('wanneer er een attribuut met of zonder prefix uit de observed child class attributes lijst wijzigt, zal een class (gebaseerd op class prefix en de attribuut naam) toegevoegd worden aan het eerste shadow DOM element', () => {
