@@ -95,11 +95,11 @@ export const VlElement = (SuperClass) => {
                 this.__changeAttribute(this._element, oldValue, newValue, attribute);
             });
 
-            const getCallbackFunctionName = (attribute) => {
-                return this['_' + attribute.split('-').join('_') + 'ChangedCallback']
+            const getCallbackFunction = (attribute) => {
+                return this['_' + attribute.split('-').join('_') + 'ChangedCallback'];
             }
 
-            const callback = this[getCallbackFunctionName(attr)] || this[getCallbackFunctionName(`${VlElement.attributePrefix}${attr}`)];
+            const callback = getCallbackFunction(attr) || getCallbackFunction(`${VlElement.attributePrefix}${attr}`);
             if (callback) {
                 callback.call(this, oldValue, newValue);
             }
