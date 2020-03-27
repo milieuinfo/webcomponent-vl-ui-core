@@ -78,7 +78,7 @@ class VlElement extends WebElement {
 
     async hover() {
         const actions = this.driver.actions();
-        await this.driver.executeScript('return arguments[0].scrollIntoView()', this);
+        await this.scrollIntoView();
         return actions.move({origin: this}).perform();
     }
 
@@ -111,6 +111,11 @@ class VlElement extends WebElement {
 
     async scrollToTop() {
         return this.driver.executeScript("return arguments[0].scrollTop = 0;", this);
+    }
+
+    async parent() {
+        const element = await this.findElement(By.xpath('..'));
+        return new VlElement(this.driver, element);
     }
 }
 
