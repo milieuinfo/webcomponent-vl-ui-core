@@ -117,6 +117,10 @@ class VlElement extends WebElement {
         const element = await this.findElement(By.xpath('..'));
         return new VlElement(this.driver, element);
     }
+
+    async equals(element) {
+        return WebElement.equals(this, element);
+    }
 }
 
 module.exports = VlElement;
