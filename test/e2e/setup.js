@@ -1,4 +1,4 @@
-const { Builder, By } = require('selenium-webdriver');
+const { Builder, By, Key } = require('selenium-webdriver');
 const config = require('./config');
 
 const chai = require('chai');
@@ -21,4 +21,4 @@ after(async () => {
     return driver.quit();
 });
 
-module.exports = { assert, driver, By };
+module.exports = { assert, driver, By, Key };
