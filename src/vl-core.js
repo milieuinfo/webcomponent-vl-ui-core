@@ -6,6 +6,8 @@ export const VlElement = (SuperClass) => {
      * @class
      * @classdesc De root element class voor custom HTML elementen.
      * 
+    * @property {boolean} data-vl-spacer-none - Attribuut wordt gebruikt om aan te geven dat er geen lege ruimte toegevoegd mag worden rond het element.
+     * 
      * @see {@link https://www.github.com/milieuinfo/webcomponent-vl-ui-core/releases/latest|Release notes}
      * @see {@link https://www.github.com/milieuinfo/webcomponent-vl-ui-core/issues|Issues}
      */
@@ -33,7 +35,11 @@ export const VlElement = (SuperClass) => {
         }
 
         static get observedAttributes() {
-            return this._observedAttributes.concat(this._observedClassAttributes).concat(this._observedChildClassAttributes).concat(this._observedPrefixAttributes).concat(this._observedPrefixClassAttributes).concat(this._observedPrefixChildClassAttributes);
+            const spacer = [`${VlElement.attributePrefix}spacer-none`];
+            const observedAttributes = [spacer].concat(this._observedAttributes.concat(this._observedPrefixAttributes));
+            const observedClassAttributes = this._observedClassAttributes.concat(this._observedPrefixClassAttributes);
+            const observedChildClassAttributes = this._observedChildClassAttributes.concat(this._observedPrefixChildClassAttributes);
+            return observedAttributes.concat(observedClassAttributes).concat(observedChildClassAttributes);
         }
 
         /**
@@ -190,6 +196,10 @@ export const VlElement = (SuperClass) => {
             } else {
                 element.classList.remove(clazz);
             }
+        }
+
+        _spacer_noneChangedCallback(oldValue, newValue) {
+            this._toggleClass(this._element, newValue, 'vl-u-spacer--none');
         }
 
         /**

@@ -36,7 +36,8 @@
     </template>
   </test-fixture>
 
-  <script>
+  <script type="module">
+    import { VlElement, NativeVlElement } from '/src/vl-core.js';
     const sandbox = sinon.sandbox.create();
 
     const assertAttributeChangedCallbackCall = (fixture) => {
@@ -48,7 +49,7 @@
         element.setAttribute(attribute, 'bar');
         assert(element._attributeChangedCallback.calledWith('foo', 'bar'));
       });
-    }
+    };
 
     const assertPrefixedAttributeChangedCallbackCall = (fixture) => {
       const element = fixture;
@@ -59,7 +60,7 @@
         element.setAttribute(attribute, 'bar');
         assert(element._data_vl_attributeChangedCallback.calledWith('foo', 'bar'));
       });
-    }
+    };
 
     const assertAddedClass = (fixture) => {
       const element = fixture;
@@ -70,7 +71,21 @@
         element.removeAttribute(attribute);
         assert.notInclude([...element.classList], 'vl-span--class-attribute');
       });
-    }
+    };
+
+    const assertSpacerClass = (fixture) => {
+      const element = fixture;
+      const attribute = 'data-vl-spacer-none';
+      assert.isFalse(element._element.classList.contains('vl-u-spacer--none'));
+      element.setAttribute(attribute, '');
+      assert.isTrue(element._element.classList.contains('vl-u-spacer--none'));
+      element.setAttribute(attribute, 'true');
+      assert.isTrue(element._element.classList.contains('vl-u-spacer--none'));
+      element.setAttribute(attribute, 'false');
+      assert.isTrue(element._element.classList.contains('vl-u-spacer--none'));
+      element.removeAttribute(attribute);
+      assert.isFalse(element._element.classList.contains('vl-u-spacer--none'));
+    };
 
     suite('vl-native-element', () => {
       const should = chai.should();
@@ -89,6 +104,10 @@
 
       test('wanneer er een attribuut met of zonder prefix uit de observed class attributes lijst wijzigt, zal een class (gebaseerd op class prefix en de attribuut naam) toegevoegd worden aan het root element', () => {
         assertAddedClass(fixture('vl-native-element-fixture'));
+      });
+
+      test('wanneer het spacer-none attribuut aanwezig is zal de correcte class toegevoegd worden', () => {
+        assertSpacerClass(fixture('vl-native-element-fixture'));
       });
     });
 
@@ -122,6 +141,10 @@
           element.removeAttribute(attribute);
           assert.notInclude([...child.classList], 'vl-span--child-class-attribute');
         });
+      });
+
+      test('wanneer het spacer-none attribuut aanwezig is zal de correcte class toegevoegd worden', () => {
+        assertSpacerClass(fixture('vl-element-fixture'));
       });
     });
   </script>

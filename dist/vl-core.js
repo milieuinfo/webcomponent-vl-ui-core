@@ -33,7 +33,11 @@ export const VlElement = (SuperClass) => {
         }
 
         static get observedAttributes() {
-            return this._observedAttributes.concat(this._observedClassAttributes).concat(this._observedChildClassAttributes).concat(this._observedPrefixAttributes).concat(this._observedPrefixClassAttributes).concat(this._observedPrefixChildClassAttributes);
+            const spacer = [`${VlElement.attributePrefix}spacer-none`];
+            const observedAttributes = [spacer].concat(this._observedAttributes.concat(this._observedPrefixAttributes));
+            const observedClassAttributes = this._observedClassAttributes.concat(this._observedPrefixClassAttributes);
+            const observedChildClassAttributes = this._observedChildClassAttributes.concat(this._observedPrefixChildClassAttributes);
+            return observedAttributes.concat(observedClassAttributes).concat(observedChildClassAttributes);
         }
 
         /**
@@ -190,6 +194,10 @@ export const VlElement = (SuperClass) => {
             } else {
                 element.classList.remove(clazz);
             }
+        }
+
+        _spacer_noneChangedCallback(oldValue, newValue) {
+            this._toggleClass(this._element, newValue, 'vl-u-spacer--none');
         }
 
         /**
