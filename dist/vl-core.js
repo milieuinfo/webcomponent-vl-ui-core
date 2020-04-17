@@ -6,6 +6,8 @@ export const VlElement = (SuperClass) => {
      * @class
      * @classdesc De root element class voor custom HTML elementen.
      * 
+    * @property {boolean} data-vl-spacer-none - Attribuut wordt gebruikt om aan te geven dat er geen lege ruimte toegevoegd mag worden rond het element.
+     * 
      * @see {@link https://www.github.com/milieuinfo/webcomponent-vl-ui-core/releases/latest|Release notes}
      * @see {@link https://www.github.com/milieuinfo/webcomponent-vl-ui-core/issues|Issues}
      */
