@@ -302,7 +302,7 @@ export const awaitScript = (id, src) => {
       resolve();
     };
     script.onerror = () => {
-      reject();
+      reject(new Error(`error when script with src attribute '${script.src}' was loaded`));
     };
   });
 

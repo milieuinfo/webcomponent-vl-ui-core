@@ -1,24 +1,24 @@
-const { Builder, By, Key } = require('selenium-webdriver');
+const {Builder, By, Key} = require('selenium-webdriver');
 const config = require('./config');
 
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
-var assert = chai.assert;
+const assert = chai.assert;
 
-process.env['webdriver.gecko.driver'] = "../../node_modules/geckodriver/geckodriver";
-process.env['webdriver.chrome.driver'] = "../../node_modules/chromedriver/lib/chromedriver";
+process.env['webdriver.gecko.driver'] = '../../node_modules/geckodriver/geckodriver';
+process.env['webdriver.chrome.driver'] = '../../node_modules/chromedriver/lib/chromedriver';
 
 let driver;
 
 if (config.gridEnabled) {
-    driver = new Builder().usingServer(config.gridUrl).forBrowser(config.browserName).build();
+  driver = new Builder().usingServer(config.gridUrl).forBrowser(config.browserName).build();
 } else {
-    driver = new Builder().forBrowser(config.browserName).build();
+  driver = new Builder().forBrowser(config.browserName).build();
 }
 
 after(async () => {
-    return driver.quit();
+  return driver.quit();
 });
 
-module.exports = { assert, driver, By, Key };
+module.exports = {assert, driver, By, Key};
