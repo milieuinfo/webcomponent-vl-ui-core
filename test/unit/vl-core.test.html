@@ -36,8 +36,7 @@
     </template>
   </test-fixture>
 
-  <script type="module">
-    import { VlElement, NativeVlElement } from '/src/vl-core.js';
+  <script>
     const sandbox = sinon.sandbox.create();
 
     const assertAttributeChangedCallbackCall = (fixture) => {
@@ -53,12 +52,12 @@
 
     const assertPrefixedAttributeChangedCallbackCall = (fixture) => {
       const element = fixture;
-      sandbox.spy(element, '_data_vl_attributeChangedCallback');
+      sandbox.spy(element, '_dataVlAttributeChangedCallback');
       ['attribute', 'data-vl-attribute'].forEach((attribute) => {
         element.setAttribute(attribute, 'foo');
-        assert(element._data_vl_attributeChangedCallback.calledWith(null, 'foo'));
+        assert(element._dataVlAttributeChangedCallback.calledWith(null, 'foo'));
         element.setAttribute(attribute, 'bar');
-        assert(element._data_vl_attributeChangedCallback.calledWith('foo', 'bar'));
+        assert(element._dataVlAttributeChangedCallback.calledWith('foo', 'bar'));
       });
     };
 
@@ -88,8 +87,6 @@
     };
 
     suite('vl-native-element', () => {
-      const should = chai.should();
-
       teardown(() => {
         sandbox.restore();
       });
@@ -112,7 +109,6 @@
     });
 
     suite('vl-element', () => {
-      const should = chai.should();
       const sandbox = sinon.sandbox.create();
 
       teardown(() => {
