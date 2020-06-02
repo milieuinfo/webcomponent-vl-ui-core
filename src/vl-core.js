@@ -231,7 +231,7 @@ export const VlElement = (SuperClass) => {
     return VlElement;
 };
 
-export const NativeVlElement = (SuperClass) => {
+export const nativeVlElement = (SuperClass) => {
     /**
      * NativeVlElement
      * @class
@@ -239,7 +239,7 @@ export const NativeVlElement = (SuperClass) => {
      * 
      * @extends VlElement
      */
-    class NativeVlElement extends VlElement(SuperClass) {
+    class nativeVlElement extends VlElement(SuperClass) {
         /**
          * NativeVlElement constructor. Deze geeft geen html mee zoals bij {VlElement},
          * aangezien {NativeVlElement}en geen shadow dom mogen aanmaken.
