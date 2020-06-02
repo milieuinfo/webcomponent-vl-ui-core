@@ -101,13 +101,17 @@ export const vlElement = (SuperClass) => {
         this.__changeAttribute(this._element, oldValue, newValue, attribute);
       });
 
+      const getDeprecatedCallbackFunction = (attribute) => {
+        return this['_' + attribute.split('-').join('_') + 'ChangedCallback'];
+      };
+
       const getCallbackFunction = (attribute) => {
         const splittedAttribute = attribute.split('-');
         const changeFirstLetterToUpperCase = (item) => `${item.charAt(0).toUpperCase()}${item.slice(1)}`;
         return this[`_${splittedAttribute.shift()}${splittedAttribute.map(changeFirstLetterToUpperCase).join('')}ChangedCallback`];
       };
 
-      const callback = getCallbackFunction(attr) || getCallbackFunction(`${VlElement.attributePrefix}${attr}`);
+      const callback = getCallbackFunction(attr) || getDeprecatedCallbackFunction(attr) || getCallbackFunction(`${VlElement.attributePrefix}${attr}`) || getDeprecatedCallbackFunction(`${VlElement.attributePrefix}${attr}`);
       if (callback) {
         callback.call(this, oldValue, newValue);
       }
