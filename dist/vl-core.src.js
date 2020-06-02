@@ -314,6 +314,9 @@ export const awaitScript = (id, src) => {
   return promise;
 };
 
+export const VlElement = vlElement;
+export const NativeVlElement = nativeVlElement;
+
 /**
  * Wacht tot conditie geldig is.
  *
