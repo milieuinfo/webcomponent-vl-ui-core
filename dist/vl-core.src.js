@@ -1,4 +1,4 @@
-import 'document-register-element/build/document-register-element.js';
+import document-register-element/build/document-register-element.js;
 
 export const vlElement = (SuperClass) => {
   /**
