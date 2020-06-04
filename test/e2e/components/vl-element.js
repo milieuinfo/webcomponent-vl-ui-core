@@ -31,7 +31,8 @@ class VlElement extends WebElement {
     if ((await this.hasAssignedSlot())) {
       return this.getTextContent();
     } else {
-      return super.getText();
+      const text = await super.getText();
+      return text.trim();
     }
   }
 
