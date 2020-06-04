@@ -28,11 +28,13 @@ class VlElement extends WebElement {
   }
 
   async getText() {
+    let text;
     if ((await this.hasAssignedSlot())) {
-      return this.getTextContent();
+      text = await this.getTextContent();
     } else {
-      return super.getText();
+      text = await super.getText();
     }
+    return text.trim();
   }
 
   async getTextContent() {
