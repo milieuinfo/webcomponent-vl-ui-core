@@ -240,8 +240,6 @@ export const nativeVlElement = (SuperClass) => {
    * NativeVlElement
    * @class
    * @classdesc De root element class voor native HTML elementen.
-   *
-   * @mixin vlElement
    */
   class NativeVlElement extends vlElement(SuperClass) {
     /**
