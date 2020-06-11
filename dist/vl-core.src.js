@@ -1,4 +1,4 @@
-import document-register-element/build/document-register-element.js;
+import 'document-register-element/build/document-register-element.js';
 
 export const vlElement = (SuperClass) => {
   /**
@@ -240,8 +240,6 @@ export const nativeVlElement = (SuperClass) => {
    * NativeVlElement
    * @class
    * @classdesc De root element class voor native HTML elementen.
-   *
-   * @mixin vlElement
    */
   class NativeVlElement extends vlElement(SuperClass) {
     /**
