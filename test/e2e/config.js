@@ -1,12 +1,14 @@
+const yargs = require('yargs').argv;
+
 function browserName() {
   if (process.argv) {
-    if (process.argv.includes('chrome')) {
+    if (process.argv.includes('chrome') || yargs.chrome) {
       return 'chrome';
-    } else if (process.argv.includes('firefox')) {
+    } else if (process.argv.includes('firefox') || yargs.firefox) {
       return 'firefox';
-    } else if (process.argv.includes('opera')) {
+    } else if (process.argv.includes('opera') || yargs.opera) {
       return 'opera';
-    } else if (process.argv.includes('safari')) {
+    } else if (process.argv.includes('safari') || yargs.safari) {
       return 'safari';
     } else {
       console.warn('Geen geldige browser gevonden, default Chrome browser!');
@@ -16,7 +18,7 @@ function browserName() {
 }
 
 function gridEnabled() {
-  return process.argv.includes('grid');
+  return process.argv.includes('grid') || yargs.grid;
 }
 
 module.exports = {
