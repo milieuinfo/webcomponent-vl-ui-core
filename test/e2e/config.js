@@ -1,7 +1,5 @@
 const yargs = require('yargs').argv;
 
-console.log('========================' + process.argv);
-
 function browserName() {
   if (process.argv || yargs) {
     if (process.argv.includes('chrome') || yargs.chrome) {
