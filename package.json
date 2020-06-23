@@ -46,7 +46,6 @@
   },
   "devDependencies": {
     "@govflanders/vl-ui-core": "^3.9.2",
-    "vl-ui-util": "^5.2.4",
-    "yargs": "^15.3.1"
+    "vl-ui-util": "^5.2.4"
   }
 }
