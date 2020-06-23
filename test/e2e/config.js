@@ -1,27 +1,24 @@
-const argv = require('yargs').argv;
+const yargs = require('yargs').argv;
 
 function browserName() {
-  if (argv) {
-    if (argv.chrome) {
+  if (process.argv || yargs) {
+    if (process.argv.includes('chrome') || yargs.chrome) {
       return 'chrome';
-    } else if (argv.firefox) {
+    } else if (process.argv.includes('firefox') || yargs.firefox) {
       return 'firefox';
-    } else if (argv.opera) {
+    } else if (process.argv.includes('opera') || yargs.opera) {
       return 'opera';
-    } else if (argv.safari) {
+    } else if (process.argv.includes('safari') || yargs.safari) {
       return 'safari';
     } else {
       console.warn('Geen geldige browser gevonden, default Chrome browser!');
       return 'chrome';
     }
-  } else {
-    console.error('Geen argumenten meegegeven!');
-    process.exit(1);
   }
 }
 
 function gridEnabled() {
-  return !!argv.grid;
+  return process.argv.includes('grid') || yargs.grid;
 }
 
 module.exports = {
