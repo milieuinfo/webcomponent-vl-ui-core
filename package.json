@@ -35,11 +35,23 @@
     "prepare:util:update:readme": "npm explore vl-ui-util -- npm run update:readme",
     "pretest": "npm explore vl-ui-util -- npm run format",
     "test": "npm run test:unit",
+    "test:e2e": "npm run test:server:start && npm run test:e2e:chrome && npm run test:e2e:firefox",
+    "test:e2e:grid": "npm run test:server:start && npm run test:e2e:chrome:grid && npm run test:e2e:firefox:grid",
     "test:unit": "wct --config-file ./wct.local.conf.json",
     "test:grid": "wct --config-file ./wct.docker.conf.json",
+    "posttest:e2e": "pkill -f http-server",
+    "test:e2e:chrome": "mocha --chrome",
+    "test:e2e:chrome-debug": "mocha --chrome --inspect-brk",
+    "test:e2e:chrome:grid": "mocha --chrome --grid",
+    "test:e2e:firefox": "mocha --firefox",
+    "test:e2e:firefox:grid": "mocha --firefox --grid",
+    "test:e2e:opera": "mocha --opera",
+    "test:e2e:safari": "mocha --safari",
+    "test:server:start": "http-server &",
     "release": "np",
     "release:prepare": "npm explore vl-ui-util -- npm run release-component:prepare $(pwd) core",
-    "release:testless": "np --yolo"
+    "release:testless": "np --yolo",
+    "demo": "http-server"
   },
   "dependencies": {
     "document-register-element": "1.14.3"
