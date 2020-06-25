@@ -34,7 +34,7 @@
     "prepare:util:copy:eslint": "npm explore vl-ui-util -- npm run install:copy:eslint",
     "prepare:util:update:readme": "npm explore vl-ui-util -- npm run update:readme",
     "pretest": "npm explore vl-ui-util -- npm run format",
-    "test": "npm run test:unit",
+    "test": "npm run test:unit && npm run test:e2e",
     "test:e2e": "npm run test:server:start && npm run test:e2e:chrome && npm run test:e2e:firefox",
     "test:e2e:grid": "npm run test:server:start && npm run test:e2e:chrome:grid && npm run test:e2e:firefox:grid",
     "test:unit": "wct --config-file ./wct.local.conf.json",
