@@ -17,6 +17,7 @@ const capabilities = {
   'os_version': '10',
   'browserName': 'Chrome',
   'browser_version': '80',
+  'browserstack.local': true,
   'name': 'POC'
 };
 

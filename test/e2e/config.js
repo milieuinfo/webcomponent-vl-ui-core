@@ -24,6 +24,6 @@ function gridEnabled() {
 module.exports = {
   browserName: browserName(),
   gridEnabled: gridEnabled(),
-  gridUrl: 'https://pcambien2:d9sxo4YepidkqDZHzStQ@hub-cloud.browserstack.com/wd/hub',
+  gridUrl: 'https://philippe.cambien2:d9sxo4YepidkqDZHzStQ@hub-cloud.browserstack.com/wd/hub',
   baseUrl: gridEnabled() ? 'http://localhost:8080' : 'http://localhost:8080',
 };
