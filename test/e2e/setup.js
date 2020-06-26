@@ -21,7 +21,7 @@ const capabilities = {
   'name': 'POC'
 };
 
-const bs_local = new browserstack.local();
+const bs_local = new browserstack.Local();
 const bs_local_args = {'key': 'd9sxo4YepidkqDZHzStQ'};
 bs_local.start(bs_local_args, function() {
   console.log('Started browserstack local');
