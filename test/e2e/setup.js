@@ -22,7 +22,7 @@ const capabilities = {
 };
 
 const bs_local = new browserstack.Local();
-const bs_local_args = {'key': 'd9sxo4YepidkqDZHzStQ', 'proxyHost': '"forwardproxy-pr-build.lb.cumuli.be', 'proxyPort': '3128'};
+const bs_local_args = {'key': 'd9sxo4YepidkqDZHzStQ', 'proxyHost': 'forwardproxy-pr-build.lb.cumuli.be', 'proxyPort': '3128'};
 bs_local.start(bs_local_args, function() {
   console.log('Started browserstack local');
 });
