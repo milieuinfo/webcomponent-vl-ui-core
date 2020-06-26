@@ -1,5 +1,6 @@
 const {Builder, By, Key} = require('selenium-webdriver');
 const config = require('./config');
+const browserstack = require('browserstack-local');
 
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
@@ -11,14 +12,35 @@ process.env['webdriver.chrome.driver'] = '../../node_modules/chromedriver/lib/ch
 
 let driver;
 
+const capabilities = {
+  'os': 'Windows',
+  'os_version': '10',
+  'browserName': 'Chrome',
+  'browser_version': '80',
+  'name': 'POC'
+};
+
+const bs_local = new browserstack.local();
+const bs_local_args = {'key': 'd9sxo4YepidkqDZHzStQ'};
+bs_local.start(bs_local_args, function() {
+  console.log('Started browserstack local');
+});
+
+console.log(bs_local.isRunning());
+
 if (config.gridEnabled) {
-  driver = new Builder().usingServer(config.gridUrl).forBrowser(config.browserName).build();
+  driver = new Builder().usingServer(config.gridUrl).withCapabilities(capabilities).build();
 } else {
   driver = new Builder().forBrowser(config.browserName).build();
 }
 
 after(async () => {
+
+  bs_local.stop(function() {
+    console.log('Stopped BrowserStackLocal');
+  });
+
   return driver.quit();
 });
 
-module.exports = {assert, driver, By, Key};
+module.exports = { assert, driver, By, Key };

@@ -1,18 +1,18 @@
-# vl-ui-core
-![GitHub issues](https://img.shields.io/github/issues-raw/milieuinfo/webcomponent-vl-ui-core) ![GitHub pull requests](https://img.shields.io/github/issues-pr-raw/milieuinfo/webcomponent-vl-ui-core) ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/milieuinfo/webcomponent-vl-ui-core)
+# webcomponent-vl-ui-core
+![GitHub issues](https://img.shields.io/github/issues-raw/milieuinfo/webcomponent-webcomponent-vl-ui-core) ![GitHub pull requests](https://img.shields.io/github/issues-pr-raw/milieuinfo/webcomponent-webcomponent-vl-ui-core) ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/milieuinfo/webcomponent-webcomponent-vl-ui-core)
 
 De core is noodzakelijk om gebruik te maken van de webcomponenten.
 
 ## Installatie
 ``` bash
-$ npm install --save vl-ui-core
+$ npm install --save webcomponent-vl-ui-core
 ```
 
 ## API
-De [API](https://webcomponenten.omgeving.vlaanderen.be/doc/VlCore.html) bevat een overzicht van de ondersteunde attributen en een beschrijving van de beschikbare functies.
+De [API](https://webcomponenten.omgeving.vlaanderen.be/doc/WebcomponentVlCore.html) bevat een overzicht van de ondersteunde attributen en een beschrijving van de beschikbare functies.
 
 ## Demo
-De [demo](https://webcomponenten.omgeving.vlaanderen.be/demo/vl-core.html) pagina bevat een overzicht van de mogelijkheden met code voorbeelden. Lokaal opstarten kan met onderstaand [NPM](https://www.npmjs.com) script.
+De [demo](https://webcomponenten.omgeving.vlaanderen.be/demo/we-ponent-vl-ui-core.html) pagina bevat een overzicht van de mogelijkheden met code voorbeelden. Lokaal opstarten kan met onderstaand [NPM](https://www.npmjs.com) script.
 ``` bash
 $ npm run demo
 ```
@@ -37,7 +37,7 @@ Uiteraard is het ook toegelaten om mee te ontwikkelen door gebruik te maken van 
 3. Elke PR moet een issue verwijzing hebben, zodat deze automatisch opgenomen kan worden in de release notes
 
 ## Versionering
-We gebruiken [Semantic Versioning](https://semver.org) en voorzien elke release van release notes, zie een overzicht van de [releases](https://github.com/milieuinfo/webcomponent-vl-ui-core/releases).
+We gebruiken [Semantic Versioning](https://semver.org) en voorzien elke release van release notes, zie een overzicht van de [releases](https://github.com/milieuinfo/webcomponent-webcomponent-vl-ui-core/releases).
 
 ## Browser ondersteuning
 De webcomponenten zijn ontwikkeld door uitsluitend gebruik te maken van web standaarden (JavaScript, HTML, CSS). Hierdoor worden al de evergreen browser automatisch ondersteund.
@@ -47,7 +47,7 @@ De webcomponenten zijn ontwikkeld door uitsluitend gebruik te maken van web stan
 | <center>Chrome</center> | <center>Firefox</center> | <center>Safari</center> | <center>Opera</center> | <center>Edge</center> |
 
 ## Credits
-Zie de lijst van [ontwikkelaars](https://github.com/milieuinfo/webcomponent-vl-ui-core/graphs/contributors) die meegewerkt hebben aan de webcomponent.
+Zie de lijst van [ontwikkelaars](https://github.com/milieuinfo/webcomponent-webcomponent-vl-ui-core/graphs/contributors) die meegewerkt hebben aan de webcomponent.
 
 ## Contact
 Heb je suggesties, opmerkingen of tips? Voel je dan vrij om ons te contacteren via help@omgevingvlaanderen.be.

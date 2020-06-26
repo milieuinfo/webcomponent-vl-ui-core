@@ -2,8 +2,8 @@
 version: 2
 plan:
   project-key: WEBCO
-  key: VLUICORE
-  name: webcomponent-vl-ui-core
+  key: WEBCOMPONENTVLUICORE
+  name: webcomponent-webcomponent-vl-ui-core
 
 triggers:
   - polling: 130
@@ -27,7 +27,7 @@ Build:
     - script: |
         #!/usr/env/bin bash
         set -e
-        docker-compose -f test/docker-compose.yml up --scale selenium-chrome=3 --scale selenium-firefox=3 --exit-code-from tests
+        docker-compose -f test/docker-compose.yml up --scale selenium-chrome=3 --scale selenium-firefox=3 --exit-code-from tests --force-recreate
   final-tasks:
     - script: /opt/scripts/docker/stop-docker-containers.sh
   requirements:
@@ -50,7 +50,7 @@ Release:
 ---
 version: 2
 plan:
-  key: WEBCO-VLUICORE
+  key: WEBCO-WEBCOMPONENTVLUICORE
 
 plan-permissions:
   - groups:
