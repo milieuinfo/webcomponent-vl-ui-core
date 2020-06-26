@@ -22,12 +22,10 @@ const capabilities = {
 };
 
 const bs_local = new browserstack.Local();
-const bs_local_args = {'key': 'd9sxo4YepidkqDZHzStQ'};
+const bs_local_args = {'key': 'd9sxo4YepidkqDZHzStQ', 'proxyHost': '"forwardproxy-pr-build.lb.cumuli.be', 'proxyPort': '3128'};
 bs_local.start(bs_local_args, function() {
   console.log('Started browserstack local');
 });
-
-console.log(bs_local.isRunning());
 
 if (config.gridEnabled) {
   driver = new Builder().usingServer(config.gridUrl).withCapabilities(capabilities).build();
