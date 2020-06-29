@@ -31,7 +31,7 @@ async function startBrowserstackLocal() {
       'proxyHost': 'forwardproxy-pr-build.lb.cumuli.be',
       'proxyPort': '3128',
       'forceLocal': 'true',
-      'verbose': 3
+      'verbose': 'true'
     };
     bs.start(config, (error) => {
       console.log('Local started');
