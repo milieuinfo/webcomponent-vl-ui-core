@@ -24,13 +24,17 @@ const capabilities = {
 
 const bs = new browserstack.Local();
 const args = {'key': 'd9sxo4YepidkqDZHzStQ',
-  'local-proxy-host': 'forwardproxy-pr-build.lb.cumuli.be',
-  'local-proxy-port': '3128',
-  'forceLocal': 'true',
-  'verbose': 'true'
+  'proxyHost': 'forwardproxy-pr-build.lb.cumuli.be',
+  'forceLocal': true,
+  'force': true,
+  'logfile': 'log.txt',
+  'verbose': true
 }
 
-bs.start(args, function() {
+bs.start(args, function(error) {
+  if (error) {
+    console.log(error);
+  }
   console.log('Started browserstack local');
 });
 
