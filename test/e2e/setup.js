@@ -24,7 +24,8 @@ const capabilities = {
 
 const bs = new browserstack.Local();
 const args = {'key': 'd9sxo4YepidkqDZHzStQ',
-  'proxyHost': 'forwardproxy-pr-build.lb.cumuli.be',
+  'localProxyHost': 'forwardproxy-pr-build.lb.cumuli.be',
+  'localProxyPort': '3128',
   'forceLocal': true,
   'force': true,
   'logfile': 'log.txt',
