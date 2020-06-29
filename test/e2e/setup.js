@@ -17,12 +17,18 @@ const capabilities = {
   'os_version': '10',
   'browserName': 'Chrome',
   'browser_version': '80',
-  'browserstack.local': true,
+  'browserstack.local': 'true',
+  'acceptSslCerts': 'true',
   'name': 'POC'
 };
 
 const bs_local = new browserstack.Local();
-const bs_local_args = {'key': 'd9sxo4YepidkqDZHzStQ', 'proxyHost': 'forwardproxy-pr-build.lb.cumuli.be', 'proxyPort': '3128'};
+const bs_local_args = {'key': 'd9sxo4YepidkqDZHzStQ', 
+  'proxyHost': 'forwardproxy-pr-build.lb.cumuli.be', 
+  'proxyPort': '3128', 
+  'forceLocal': 'true'
+}
+
 bs_local.start(bs_local_args, function() {
   console.log('Started browserstack local');
 });
