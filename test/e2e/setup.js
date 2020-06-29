@@ -11,7 +11,6 @@ process.env['webdriver.gecko.driver'] = '../../node_modules/geckodriver/geckodri
 process.env['webdriver.chrome.driver'] = '../../node_modules/chromedriver/lib/chromedriver';
 
 let driver;
-let bs;
 
 const capabilities = {
   'os': 'Windows',
@@ -23,42 +22,26 @@ const capabilities = {
   'name': 'POC'
 };
 
-async function startBrowserstackLocal() {
-  bs = new browserstack.Local();
-  return new Promise((resolve, reject) => {
-    const config = {
-      'key': 'd9sxo4YepidkqDZHzStQ',
-      'proxyHost': 'forwardproxy-pr-build.lb.cumuli.be',
-      'proxyPort': '3128',
-      'forceLocal': 'true',
-      'verbose': 'true'
-    };
-    bs.start(config, (error) => {
-      console.log('Local started');
-      if (error) {
-        reject(error);
-      }
-      resolve(bs);
-    });
-  });
+const bs = new browserstack.Local();
+const args = {'key': 'd9sxo4YepidkqDZHzStQ', 
+  'local-proxy-host': 'forwardproxy-pr-build.lb.cumuli.be', 
+  'local-proxy-port': '3128', 
+  'forceLocal': 'true',
+  'verbose': 3
 }
 
-async function initializeDriver() {
-  if (config.gridEnabled) {
-    driver = new Builder().usingServer(config.gridUrl).withCapabilities(capabilities).build();
-  } else {
-    driver = new Builder().forBrowser(config.browserName).build();
-  }
-}
+bs.start(args, function() {
+  console.log('Started browserstack local');
+});
 
-async function run() {
-  await startBrowserstackLocal();
-  await initializeDriver();
+if (config.gridEnabled) {
+  driver = new Builder().usingServer(config.gridUrl).withCapabilities(capabilities).build();
+} else {
+  driver = new Builder().forBrowser(config.browserName).build();
 }
-
-run();
 
 after(async () => {
+
   bs.stop(function() {
     console.log('Stopped BrowserStackLocal');
   });
