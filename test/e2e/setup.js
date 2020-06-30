@@ -11,9 +11,10 @@ process.env['webdriver.gecko.driver'] = '../../node_modules/geckodriver/geckodri
 process.env['webdriver.chrome.driver'] = '../../node_modules/chromedriver/lib/chromedriver';
 
 let driver;
-console.log('Before async')
-async () => {
-  console.log('In async')
+let bs;
+
+
+(async () => {
   const capabilities = {
     'os': 'Windows',
     'os_version': '10',
@@ -24,7 +25,7 @@ async () => {
     'name': 'POC'
   };
   const setup = new Promise((resolve, reject) => {
-    const bs = new browserstack.Local();
+    bs = new browserstack.Local();
     const args = {'key': 'd9sxo4YepidkqDZHzStQ',
       'proxyHost': 'forwardproxy-pr-build.lb.cumuli.be',
       'proxyPort': '3128',
@@ -35,6 +36,7 @@ async () => {
     };
 
     bs.start(args, function(error) {
+      console.log('Starting Browserstack local ...');
       if (error) {
         reject(error);
       }
@@ -49,8 +51,7 @@ async () => {
   });
 
   driver = await setup();
-};
-console.log('after async')
+})();
 
 after(async () => {
   bs.stop(function() {
