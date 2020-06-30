@@ -12,46 +12,55 @@ process.env['webdriver.chrome.driver'] = '../../node_modules/chromedriver/lib/ch
 
 let driver;
 
-const capabilities = {
-  'os': 'Windows',
-  'os_version': '10',
-  'browserName': 'Chrome',
-  'browser_version': '80',
-  'browserstack.local': 'true',
-  'acceptSslCerts': 'true',
-  'name': 'POC'
-};
+async () => {
 
-const bs = new browserstack.Local();
-const args = {'key': 'd9sxo4YepidkqDZHzStQ',
-  'localProxyHost': 'forwardproxy-pr-build.lb.cumuli.be',
-  'localProxyPort': 3128,
-  'forceLocal': true,
-  'force': true,
-  'logfile': 'log.txt',
-  'verbose': true
-}
-
-bs.start(args, function(error) {
-  if (error) {
-    console.log(error);
+  const capabilities = {
+    'os': 'Windows',
+    'os_version': '10',
+    'browserName': 'Chrome',
+    'browser_version': '80',
+    'browserstack.local': 'true',
+    'acceptSslCerts': 'true',
+    'name': 'POC'
+  };
+  
+  const setup =  new Promise(resolve, reject) => {
+  
+    const bs = new browserstack.Local();
+    const args = {'key': 'd9sxo4YepidkqDZHzStQ',
+    'proxyHost': 'forwardproxy-pr-build.lb.cumuli.be',
+    'proxyPort': '3128',
+    'forceLocal': true,
+    'force': true,
+    'logfile': 'log.txt',
+    'verbose': true
   }
-  console.log('Started browserstack local');
-});
-
-if (config.gridEnabled) {
-  driver = new Builder().usingServer(config.gridUrl).withCapabilities(capabilities).build();
-} else {
-  driver = new Builder().forBrowser(config.browserName).build();
+  
+  bs.start(args, function(error) {
+    if (error) {
+      reject(error);
+    }
+  });
+  
+  if (config.gridEnabled) {
+    driver = new Builder().usingServer(config.gridUrl).withCapabilities(capabilities).build();
+  } else {
+    driver = new Builder().forBrowser(config.browserName).build();
+  }
+  resolve(driver);
+  }
+  
+  driver = await setup();
+  
+  after(async () => {
+  
+    bs.stop(function() {
+      console.log('Stopped BrowserStackLocal');
+    });
+  
+    return driver.quit();
+  });
 }
 
-after(async () => {
-
-  bs.stop(function() {
-    console.log('Stopped BrowserStackLocal');
-  });
-
-  return driver.quit();
-});
 
 module.exports = { assert, driver, By, Key };
