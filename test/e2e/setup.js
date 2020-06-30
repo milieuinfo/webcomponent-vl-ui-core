@@ -24,7 +24,7 @@ async () => {
     'name': 'POC'
   };
   
-  const setup =  new Promise(resolve, reject) => {
+  const setup =  new Promise((resolve, reject) => {
   
     const bs = new browserstack.Local();
     const args = {'key': 'd9sxo4YepidkqDZHzStQ',
@@ -48,10 +48,9 @@ async () => {
     driver = new Builder().forBrowser(config.browserName).build();
   }
   resolve(driver);
-  }
+  })
   
   driver = await setup();
-  
   after(async () => {
   
     bs.stop(function() {
