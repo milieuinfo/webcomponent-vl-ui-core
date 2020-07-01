@@ -18,7 +18,6 @@ let bs;
   const capabilities = {
     'browserName': 'chrome',
     'browserstack.local': 'true',
-    'acceptSslCerts': 'true',
     'name': 'POC'
   };
   const setup = new Promise((resolve, reject) => {
