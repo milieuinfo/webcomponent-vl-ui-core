@@ -16,10 +16,7 @@ let bs;
 
 (async () => {
   const capabilities = {
-    'os': 'Windows',
-    'os_version': '10',
-    'browserName': 'Chrome',
-    'browser_version': '80',
+    'browser': 'chrome',
     'browserstack.local': 'true',
     'acceptSslCerts': 'true',
     'name': 'POC'
@@ -27,11 +24,9 @@ let bs;
   const setup = new Promise((resolve, reject) => {
     bs = new browserstack.Local();
     const args = {'key': 'd9sxo4YepidkqDZHzStQ',
-      'proxyHost': 'forwardproxy-pr-build.lb.cumuli.be',
-      'proxyPort': '3128',
+      'proxy-host': 'forwardproxy-pr-build.lb.cumuli.be',
+      'proxy-port': '3128',
       'forceLocal': true,
-      'force': true,
-      'logfile': 'log.txt',
       'verbose': true
     };
 
@@ -43,7 +38,7 @@ let bs;
     });
 
     if (config.gridEnabled) {
-      driver = new Builder().usingServer(config.gridUrl).withCapabilities(capabilities).build();
+      driver = new Builder().usingServer(config.gridUrl).usingWebDriverProxy('http://forwardproxy-pr-build.lb.cumuli.be:3128').withCapabilities(capabilities).build();
     } else {
       driver = new Builder().forBrowser(config.browserName).build();
     }
