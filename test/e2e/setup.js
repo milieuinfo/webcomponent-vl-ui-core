@@ -16,7 +16,7 @@ let bs;
 
 (async () => {
   const capabilities = {
-    'browser': 'chrome',
+    'browserName': 'chrome',
     'browserstack.local': 'true',
     'acceptSslCerts': 'true',
     'name': 'POC'
@@ -45,7 +45,7 @@ let bs;
     resolve(driver);
   });
 
-  driver = await setup();
+  driver = await setup;
 })();
 
 after(async () => {
