@@ -23,8 +23,8 @@ let bs;
   const setup = new Promise((resolve, reject) => {
     bs = new browserstack.Local();
     const args = {'key': 'd9sxo4YepidkqDZHzStQ',
-      'proxy-host': 'forwardproxy-pr-build.lb.cumuli.be',
-      'proxy-port': '3128',
+      'proxyHost': 'forwardproxy-pr-build.lb.cumuli.be',
+      'proxyPort': '3128',
       'forceLocal': true,
       'verbose': true
     };
