@@ -13,7 +13,6 @@ process.env['webdriver.chrome.driver'] = '../../node_modules/chromedriver/lib/ch
 let driver;
 let bs;
 
-
 (async () => {
   const capabilities = {
     'browserName': 'chrome',
@@ -22,7 +21,8 @@ let bs;
   };
   const setup = new Promise((resolve, reject) => {
     bs = new browserstack.Local();
-    const args = {'key': 'd9sxo4YepidkqDZHzStQ',
+    const args = {
+      'key': 'd9sxo4YepidkqDZHzStQ',
       'proxyHost': 'forwardproxy-pr-build.lb.cumuli.be',
       'proxyPort': '3128',
       'forceLocal': true,
@@ -37,7 +37,7 @@ let bs;
     });
 
     if (config.gridEnabled) {
-      driver = new Builder().usingServer(config.gridUrl).usingWebDriverProxy('http://forwardproxy-pr-build.lb.cumuli.be:3128').withCapabilities(capabilities).build();
+      driver = new Builder().usingServer(config.gridUrl).usingWebDriverProxy('https://forwardproxy-pr-build.lb.cumuli.be:3128').withCapabilities(capabilities).build();
     } else {
       driver = new Builder().forBrowser(config.browserName).build();
     }
