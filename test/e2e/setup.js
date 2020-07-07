@@ -37,7 +37,7 @@ let bs;
     });
 
     if (config.gridEnabled) {
-      driver = new Builder().usingServer(config.gridUrl).usingWebDriverProxy('https://forwardproxy-pr-build.lb.cumuli.be:3128').withCapabilities(capabilities).build();
+      driver = new Builder().usingServer(config.gridUrl).usingWebDriverProxy('http://forwardproxy-pr-build.lb.cumuli.be:3128').withCapabilities(capabilities).build();
     } else {
       driver = new Builder().forBrowser(config.browserName).build();
     }
