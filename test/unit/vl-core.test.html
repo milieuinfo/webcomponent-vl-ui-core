@@ -1,0 +1,150 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <script src="../../../@webcomponents/webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../../web-component-tester/browser.js"></script>
+  <script src="/node_modules/sinon/pkg/sinon.js"></script>
+
+  <script type="module" src="../../src/vl-core.js"></script>
+  <script type="module" src="vl-native-element.js"></script>
+  <script type="module" src="vl-element.js"></script>
+</head>
+
+<body>
+  <test-fixture id="vl-native-element-fixture">
+    <template>
+      <span is="vl-native-element"></span>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="vl-native-prefixed-element-fixture">
+    <template>
+      <span is="vl-native-prefixed-element"></span>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="vl-element-fixture">
+    <template>
+      <vl-element></vl-element>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="vl-prefixed-element-fixture">
+    <template>
+      <vl-prefixed-element></vl-prefixed-element>
+    </template>
+  </test-fixture>
+
+  <script>
+    const sandbox = sinon.createSandbox();
+
+    const assertAttributeChangedCallbackCall = (fixture) => {
+      const element = fixture;
+      sandbox.spy(element, '_attributeChangedCallback');
+      ['attribute', 'data-vl-attribute'].forEach((attribute) => {
+        element.setAttribute(attribute, 'foo');
+        assert(element._attributeChangedCallback.calledWith(null, 'foo'));
+        element.setAttribute(attribute, 'bar');
+        assert(element._attributeChangedCallback.calledWith('foo', 'bar'));
+      });
+    };
+
+    const assertPrefixedAttributeChangedCallbackCall = (fixture) => {
+      const element = fixture;
+      sandbox.spy(element, '_dataVlAttributeChangedCallback');
+      ['attribute', 'data-vl-attribute'].forEach((attribute) => {
+        element.setAttribute(attribute, 'foo');
+        assert(element._dataVlAttributeChangedCallback.calledWith(null, 'foo'));
+        element.setAttribute(attribute, 'bar');
+        assert(element._dataVlAttributeChangedCallback.calledWith('foo', 'bar'));
+      });
+    };
+
+    const assertAddedClass = (fixture) => {
+      const element = fixture;
+      assert.notInclude([...element.classList], 'vl-span--class-attribute');
+      ['class-attribute', 'data-vl-class-attribute'].forEach((attribute) => {
+        element.setAttribute(attribute, 'foo');
+        assert.include([...element.classList], 'vl-span--class-attribute');
+        element.removeAttribute(attribute);
+        assert.notInclude([...element.classList], 'vl-span--class-attribute');
+      });
+    };
+
+    const assertSpacerClass = (fixture) => {
+      const element = fixture;
+      const attribute = 'data-vl-spacer-none';
+      assert.isFalse(element._element.classList.contains('vl-u-spacer--none'));
+      element.setAttribute(attribute, '');
+      assert.isTrue(element._element.classList.contains('vl-u-spacer--none'));
+      element.setAttribute(attribute, 'true');
+      assert.isTrue(element._element.classList.contains('vl-u-spacer--none'));
+      element.setAttribute(attribute, 'false');
+      assert.isTrue(element._element.classList.contains('vl-u-spacer--none'));
+      element.removeAttribute(attribute);
+      assert.isFalse(element._element.classList.contains('vl-u-spacer--none'));
+    };
+
+    suite('vl-native-element', () => {
+      teardown(() => {
+        sandbox.restore();
+      });
+
+      test('wanneer er een attribuut met of zonder prefix uit de observed attributes lijst wijzigt, zal een changed callback functie aangeroepen worden', () => {
+        assertAttributeChangedCallbackCall(fixture('vl-native-element-fixture'));
+      });
+
+      test('wanneer er een attribuut met of zonder prefix uit de observed attributes lijst wijzigt, zal bij het ontbreken van een changed callback de prefixed changed callback functie aangeroepen worden', () => {
+        assertPrefixedAttributeChangedCallbackCall(fixture('vl-native-prefixed-element-fixture'));
+      });
+
+      test('wanneer er een attribuut met of zonder prefix uit de observed class attributes lijst wijzigt, zal een class (gebaseerd op class prefix en de attribuut naam) toegevoegd worden aan het root element', () => {
+        assertAddedClass(fixture('vl-native-element-fixture'));
+      });
+
+      test('wanneer het spacer-none attribuut aanwezig is zal de correcte class toegevoegd worden', () => {
+        assertSpacerClass(fixture('vl-native-element-fixture'));
+      });
+    });
+
+    suite('vl-element', () => {
+      const sandbox = sinon.createSandbox();
+
+      teardown(() => {
+        sandbox.restore();
+      });
+
+      test('wanneer er een attribuut met of zonder prefix uit de observed attributes lijst wijzigt, zal een changed callback functie aangeroepen worden', () => {
+        assertAttributeChangedCallbackCall(fixture('vl-native-element-fixture'));
+      });
+
+      test('wanneer er een attribuut met of zonder prefix uit de observed attributes lijst wijzigt, zal bij het ontbreken van een changed callback de prefixed changed callback functie aangeroepen worden', () => {
+        assertPrefixedAttributeChangedCallbackCall(fixture('vl-prefixed-element-fixture'));
+      });
+
+      test('wanneer er een attribuut met of zonder prefix uit de observed class attributes lijst wijzigt, zal een class (gebaseerd op class prefix en de attribuut naam) toegevoegd worden aan het root element', () => {
+        assertAddedClass(fixture('vl-element-fixture'));
+      });
+
+      test('wanneer er een attribuut met of zonder prefix uit de observed child class attributes lijst wijzigt, zal een class (gebaseerd op class prefix en de attribuut naam) toegevoegd worden aan het eerste shadow DOM element', () => {
+        ['child-class-attribute', 'data-vl-child-class-attribute'].forEach((attribute) => {
+          const element = fixture('vl-element-fixture');
+          const child = element.shadowRoot.querySelector('div');
+          assert.notInclude([...child.classList], 'vl-span--child-class-attribute');
+          element.setAttribute(attribute, 'foo');
+          assert.include([...child.classList], 'vl-span--child-class-attribute');
+          element.removeAttribute(attribute);
+          assert.notInclude([...child.classList], 'vl-span--child-class-attribute');
+        });
+      });
+
+      test('wanneer het spacer-none attribuut aanwezig is zal de correcte class toegevoegd worden', () => {
+        assertSpacerClass(fixture('vl-element-fixture'));
+      });
+    });
+  </script>
+</body>
+
+</html>

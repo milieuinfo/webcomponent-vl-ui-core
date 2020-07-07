@@ -1,13 +1,13 @@
 ---
-name: Feature request
-about: Stel een nieuwe feature voor
-title: "[FEATURE] - "
-labels: enhancement
+name: Task
+about: Onderhoud en/of kleine aanpassingen aan de code
+title: "[TASK] - "
+labels: chore
 assignees: kevcraey
 
 ---
 
-**Wat moet er gebeuren**
+**Beschrijving**
 Een korte en duidelijke uitleg over wat er moet gebeuren.
 
 **Extra info**
