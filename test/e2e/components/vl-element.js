@@ -2,7 +2,7 @@ const {WebElement} = require('selenium-webdriver');
 const {By} = require('selenium-webdriver');
 
 class VlElement extends WebElement {
-  constructor(driver, identifier) {
+  constructor(driver, identifier, mixins) {
     return (async () => {
       if (typeof identifier === 'string') {
         super(driver, await driver.findElement(By.css(identifier)).getId());
@@ -13,6 +13,9 @@ class VlElement extends WebElement {
       this.driver = driver;
       if (await this.driver.executeScript('return arguments[0].shadowRoot != undefined', this)) {
         this.shadowRoot = await new VlElement(this.driver, await this.driver.executeScript('return arguments[0].shadowRoot.lastElementChild', this));
+      }
+      if (mixins && Array.isArray(mixins)) {
+        mixins.forEach((mixin) => Object.assign(this, mixin));
       }
       return this;
     })();

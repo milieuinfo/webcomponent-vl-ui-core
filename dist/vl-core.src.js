@@ -316,15 +316,23 @@ export const VlElement = vlElement;
 export const NativeVlElement = nativeVlElement;
 
 /**
- * Wacht tot conditie geldig is.
+ * Wacht.
  *
- * @param {Function} condtion - conditionele functie
- * @return {Function}
+ * @param {Number} ms - aantal milliseconden dat er gewacht moeten worden
  */
-export const awaitUntil = (condtion) => {
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+/**
+* Wacht tot conditie geldig is.
+*
+* @param {Function} condition - conditionele functie
+*/
+export const awaitUntil = (condition) => {
   return new Promise(async (resolve, reject) => {
-    while (!condtion()) {
-      await new Promise((resolve) => setTimeout(resolve, 50));
+    while (condition() !== true) {
+      await sleep(50);
     }
     resolve();
   });
