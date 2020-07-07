@@ -34,18 +34,22 @@
     "prepare:util:copy:eslint": "npm explore vl-ui-util -- npm run install:copy:eslint",
     "prepare:util:update:readme": "npm explore vl-ui-util -- npm run update:readme",
     "pretest": "npm explore vl-ui-util -- npm run format",
-    "test": "npm run test:unit",
-    "test:unit": "wct --config-file ./wct.local.conf.json",
-    "test:grid": "wct --config-file ./wct.docker.conf.json",
-    "release": "np",
+    "test": "npm explore vl-ui-util -- npm run test:component",
+    "test:grid": "npm explore vl-ui-util -- npm run test:component:grid",
+    "test:unit": "npm explore vl-ui-util -- npm run test:component:unit",
+    "test:unit:grid": "npm explore vl-ui-util -- npm run test:component:unit:grid",
+    "test:e2e": "npm explore vl-ui-util -- npm run test:component:e2e",
+    "test:e2e:grid": "npm explore vl-ui-util -- npm run test:component:e2e:grid",
+    "release": "npm explore vl-ui-util -- npm run release",
     "release:prepare": "npm explore vl-ui-util -- npm run release-component:prepare $(pwd) core",
-    "release:testless": "np --yolo"
+    "release:testless": "npm explore vl-ui-util -- npm run release:testless",
+    "demo": "http-server"
   },
   "dependencies": {
     "document-register-element": "1.14.3"
   },
   "devDependencies": {
     "@govflanders/vl-ui-core": "^3.9.2",
-    "vl-ui-util": "^5.2.4"
+    "vl-ui-util": "^5.2.9"
   }
 }
