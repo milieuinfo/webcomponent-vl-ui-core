@@ -333,7 +333,7 @@ function sleep(ms) {
 */
 export const awaitUntil = (condition) => {
   return new Promise(async (resolve, reject) => {
-    while (condition()) {
+    while (!condition()) {
       await sleep(50);
     }
     resolve();

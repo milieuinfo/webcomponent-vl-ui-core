@@ -319,19 +319,21 @@ export const NativeVlElement = nativeVlElement;
  * Wacht.
  *
  * @param {Number} ms - aantal milliseconden dat er gewacht moeten worden
+ * @return {Promise}
  */
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 /**
-* Wacht tot conditie geldig is.
+* Wacht tot conditie geldig (truthy) is.
 *
 * @param {Function} condition - conditionele functie
+* @return {Promise}
 */
 export const awaitUntil = (condition) => {
   return new Promise(async (resolve, reject) => {
-    while (condition() !== true) {
+    while (!condition()) {
       await sleep(50);
     }
     resolve();
