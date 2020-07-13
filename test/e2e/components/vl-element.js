@@ -1,5 +1,4 @@
-const {WebElement} = require('selenium-webdriver');
-const {By} = require('selenium-webdriver');
+const {WebElement, By} = require('selenium-webdriver');
 
 class VlElement extends WebElement {
   constructor(driver, identifier, mixins) {
