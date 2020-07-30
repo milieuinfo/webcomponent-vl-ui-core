@@ -67,13 +67,24 @@ class VlElement extends WebElement {
     const getActiveElement = async (element) => {
       if (element.shadowRoot) {
         const activeElement = await (this.driver.executeScript('return arguments[0].shadowRoot.activeElement', element));
-        return getActiveElement(await new VlElement(this.driver, activeElement));
+        if (activeElement) {
+          return getActiveElement(await new VlElement(this.driver, activeElement));
+        } else {
+          return null;
+        }
       } else {
         return element;
       }
     };
-    const activeElement = await getActiveElement(await new VlElement(this.driver, await this.driver.switchTo().activeElement()));
-    return WebElement.equals(this, activeElement);
+
+    const rootActiveElement = await getActiveElement(await new VlElement(this.driver, this.driver.switchTo().activeElement()));
+    const activeElement = await getActiveElement(this);
+
+    if (activeElement && rootActiveElement) {
+      return WebElement.equals(activeElement, rootActiveElement);
+    } else {
+      return false;
+    }
   }
 
   async hasAssignedSlot() {
