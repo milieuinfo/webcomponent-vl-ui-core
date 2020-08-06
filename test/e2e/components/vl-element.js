@@ -52,7 +52,7 @@ class VlElement extends WebElement {
   }
 
   async hasAttribute(name) {
-    return (await super.getAttribute(name)) != null;
+    return (await this.getAttribute(name)) != null;
   }
 
   async hasText() {
@@ -128,7 +128,11 @@ class VlElement extends WebElement {
 
   async getAttribute(attribute) {
     const result = await super.getAttribute(attribute);
-    return result || super.getAttribute(this._attributePrefix + attribute);
+    if (result != undefined) {
+      return result;
+    } else {
+      return super.getAttribute(this._attributePrefix + attribute);
+    }
   }
 
   get _attributePrefix() {
