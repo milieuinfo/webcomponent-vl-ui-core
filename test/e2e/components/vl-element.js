@@ -125,6 +125,15 @@ class VlElement extends WebElement {
   async equals(element) {
     return WebElement.equals(this, element);
   }
+
+  async getAttribute(attribute) {
+    const result = await super.getAttribute(attribute);
+    return result || super.getAttribute(this._attributePrefix + attribute);
+  }
+
+  get _attributePrefix() {
+    return 'data-vl-';
+  }
 }
 
 module.exports = VlElement;
