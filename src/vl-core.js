@@ -156,6 +156,16 @@ export const vlElement = (SuperClass) => {
     }
 
     /**
+     * Geeft terug of het attribuut bestaat rekening houdende met het feit dat de attribuut prefix {@link #attributePrefix} gebruikt wordt.
+     *
+     * @param {String} attribute
+     * @return {Boolean}
+     */
+    hasAttribute(attribute) {
+      return this.getAttribute(attribute) != undefined;
+    }
+
+    /**
      * Genereert een {HTMLTemplateElement} template met de HTML Literal.
      *
      * @protected
