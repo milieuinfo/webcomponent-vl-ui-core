@@ -148,7 +148,7 @@ export const vlElement = (SuperClass) => {
      * @return {String}
      */
     getAttribute(attribute) {
-      if (this.hasAttribute(VlElement.attributePrefix + attribute)) {
+      if (super.hasAttribute(VlElement.attributePrefix + attribute)) {
         return super.getAttribute(VlElement.attributePrefix + attribute);
       } else {
         return super.getAttribute(attribute);
