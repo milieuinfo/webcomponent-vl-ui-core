@@ -52,7 +52,7 @@ class VlElement extends WebElement {
   }
 
   async hasAttribute(name) {
-    return (await super.getAttribute(name)) != null;
+    return (await this.getAttribute(name)) != null;
   }
 
   async hasText() {
@@ -124,6 +124,19 @@ class VlElement extends WebElement {
 
   async equals(element) {
     return WebElement.equals(this, element);
+  }
+
+  async getAttribute(attribute) {
+    const result = await super.getAttribute(attribute);
+    if (result != undefined) {
+      return result;
+    } else {
+      return super.getAttribute(this._attributePrefix + attribute);
+    }
+  }
+
+  get _attributePrefix() {
+    return 'data-vl-';
   }
 }
 
