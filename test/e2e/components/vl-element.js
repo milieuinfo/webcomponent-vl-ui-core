@@ -64,21 +64,8 @@ class VlElement extends WebElement {
   }
 
   async hasFocus() {
-    const getActiveElement = async (element) => {
-      if (element.shadowRoot) {
-        const activeElement = await (this.driver.executeScript('return arguments[0].shadowRoot.activeElement', element));
-        if (activeElement) {
-          return getActiveElement(await new VlElement(this.driver, activeElement));
-        } else {
-          return null;
-        }
-      } else {
-        return element;
-      }
-    };
-
-    const rootActiveElement = await getActiveElement(await new VlElement(this.driver, this.driver.switchTo().activeElement()));
-    const activeElement = await getActiveElement(this);
+    const rootActiveElement = await this._getActiveElement(await new VlElement(this.driver, this.driver.switchTo().activeElement()));
+    const activeElement = await this._getActiveElement(this);
 
     if (activeElement && rootActiveElement) {
       return WebElement.equals(activeElement, rootActiveElement);
@@ -135,6 +122,23 @@ class VlElement extends WebElement {
 
   async equals(element) {
     return WebElement.equals(this, element);
+  }
+
+  async _getActiveElement(element) {
+    if (element.shadowRoot) {
+      return this._findActiveElementInShadowRoot();
+    } else {
+      return element;
+    }
+  }
+
+  async _findActiveElementInShadowRoot(element) {
+    const activeElement = await (this.driver.executeScript('return arguments[0].shadowRoot.activeElement', element));
+    if (activeElement) {
+      return getActiveElement(await new VlElement(this.driver, activeElement));
+    } else {
+      return null;
+    }
   }
 }
 
