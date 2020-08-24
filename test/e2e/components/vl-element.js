@@ -139,7 +139,7 @@ class VlElement extends WebElement {
 
   async _getActiveElement(element) {
     if (element.shadowRoot) {
-      return this._findActiveElementInShadowRoot();
+      return this._findActiveElementInShadowRoot(element);
     } else {
       return element;
     }
@@ -148,7 +148,7 @@ class VlElement extends WebElement {
   async _findActiveElementInShadowRoot(element) {
     const activeElement = await (this.driver.executeScript('return arguments[0].shadowRoot.activeElement', element));
     if (activeElement) {
-      return getActiveElement(await new VlElement(this.driver, activeElement));
+      return this._getActiveElement(await new VlElement(this.driver, activeElement));
     } else {
       return null;
     }
