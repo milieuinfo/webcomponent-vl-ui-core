@@ -64,16 +64,14 @@ class VlElement extends WebElement {
   }
 
   async hasFocus() {
-    const getActiveElement = async (element) => {
-      if (element.shadowRoot) {
-        const activeElement = await (this.driver.executeScript('return arguments[0].shadowRoot.activeElement', element));
-        return getActiveElement(await new VlElement(this.driver, activeElement));
-      } else {
-        return element;
-      }
-    };
-    const activeElement = await getActiveElement(await new VlElement(this.driver, await this.driver.switchTo().activeElement()));
-    return WebElement.equals(this, activeElement);
+    const rootActiveElement = await this._getActiveElement(await new VlElement(this.driver, this.driver.switchTo().activeElement()));
+    const activeElement = await this._getActiveElement(this);
+
+    if (activeElement && rootActiveElement) {
+      return WebElement.equals(activeElement, rootActiveElement);
+    } else {
+      return false;
+    }
   }
 
   async hasAssignedSlot() {
@@ -137,6 +135,23 @@ class VlElement extends WebElement {
 
   get _attributePrefix() {
     return 'data-vl-';
+  }
+
+  async _getActiveElement(element) {
+    if (element.shadowRoot) {
+      return this._findActiveElementInShadowRoot(element);
+    } else {
+      return element;
+    }
+  }
+
+  async _findActiveElementInShadowRoot(element) {
+    const activeElement = await (this.driver.executeScript('return arguments[0].shadowRoot.activeElement', element));
+    if (activeElement) {
+      return this._getActiveElement(await new VlElement(this.driver, activeElement));
+    } else {
+      return null;
+    }
   }
 }
 
