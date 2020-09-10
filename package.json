@@ -46,7 +46,7 @@
     "demo": "http-server"
   },
   "dependencies": {
-    "document-register-element": "^1.14.5"
+    "document-register-element": "^1.14.6"
   },
   "devDependencies": {
     "@govflanders/vl-ui-core": "^4.0.5",
