@@ -46,6 +46,7 @@
     "demo": "http-server"
   },
   "dependencies": {
+    "browserstack-local": "^1.4.8",
     "document-register-element": "^1.14.5"
   },
   "devDependencies": {

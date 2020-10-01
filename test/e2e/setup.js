@@ -1,24 +1,38 @@
-const {Builder, By, Key} = require('selenium-webdriver');
-const config = require('./config');
+const {By, Key, webdriver} = require('selenium-webdriver');
+const browserstack = require('browserstack-local');
 
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
 const assert = chai.assert;
 
-process.env['webdriver.gecko.driver'] = '../../node_modules/geckodriver/geckodriver';
-process.env['webdriver.chrome.driver'] = '../../node_modules/chromedriver/lib/chromedriver';
+const capabilities = {
+  'os_version': '10',
+  'resolution': '1920x1080',
+  'browser': 'Chrome',
+  'browser_version': 'latest',
+  'os': 'Windows',
+  'name': 'Webcomponenten',
+  'build': 'Milieuinfo',
+  'browserstack.user': 'philippecambien2',
+  'browserstack.key': 'd9sxo4YepidkqDZHzStQ',
+};
 
-let driver;
+let bsLocal;
+const driver = new webdriver.Builder().usingServer('https://hub-cloud.browserstack.com/wd/hub').withCapabilities(capabilities).build();
 
-if (config.gridEnabled) {
-  driver = new Builder().usingServer(config.gridUrl).forBrowser(config.browserName).build();
-} else {
-  driver = new Builder().forBrowser(config.browserName).build();
-}
+before(() => {
+  bsLocal = new browserstack.Local();
+  bsLocal.start({'key': 'd9sxo4YepidkqDZHzStQ', 'verbose': true, 'force': true}, () => {
+    console.log('Is browserstack Local running?: ' + bsLocal.isRunning());
+  });
+});
 
-after(async () => {
+after(() => {
+  bsLocal.stop(() => {
+    console.log('Is browserstack Local successfully stopped?: ' + bsLocal.isRunning());
+  });
   return driver.quit();
 });
 
-module.exports = {assert, driver, By, Key};
+module.exports = { assert, driver, By, Key };
