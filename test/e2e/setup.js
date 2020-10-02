@@ -21,11 +21,9 @@ const capabilities = {
 async function startBrowserstackLocal(bsLocal) {
   return new Promise((resolve,reject) => {
     bsLocal = new browserstack.Local();
-    bsLocal.start({'key': 'd9sxo4YepidkqDZHzStQ', 'verbose': true, 'force': true, 'only-automate': true, 'proxyHost': 'forwardproxy-pr-build.lb.cumuli.be', 'proxyPort': 3128}, () => {
+    bsLocal.start({'key': 'd9sxo4YepidkqDZHzStQ', 'verbose': true, 'force': true, 'force-local': true, 'only-automate': true, 'proxyHost': 'forwardproxy-pr-build.lb.cumuli.be', 'proxyPort': 3128}, () => {
       console.log('Starting Browserstack Local ...');
       if (bsLocal && bsLocal.isRunning()) {
-        console.log('Browserstack Local started successfully!');
-        console.log('Browserstack binary: ' + bsLocal);
         resolve();
       } else {
         reject(new Error('Failed to start Browserstack Local'));
@@ -39,7 +37,6 @@ async function stopBrowserstackLocal(bsLocal) {
     bsLocal.stop(() => {
       console.log('Stopping Browserstack Local ...');
       if (bsLocal && !bsLocal.isRunning()) {
-        console.log('Browserstack Local stopped successfully!');
         resolve();
       } else {
         reject(new Error('Failed to stop Browserstack Local'));
@@ -50,11 +47,8 @@ async function stopBrowserstackLocal(bsLocal) {
 
 async function buildDriver(driver) {
   return new Promise((resolve, reject) => {
-    console.log('Building driver ...');
     driver = new Builder().usingServer('https://hub-cloud.browserstack.com/wd/hub').withCapabilities(capabilities).build();
     if (driver) {
-      console.log('Driver built successfully!');
-      console.log('Driver: ' + driver);
       resolve(driver);
     } else {
       reject(new Error('Failed to build webdriver!'));
