@@ -62,6 +62,10 @@ let driver;
 before(async () => {
   await startBrowserstackLocal(bsLocal);
   await buildDriver(driver);
+  console.log('Setup done!');
+  console.log('Using Browserstack: ' + bsLocal.isRunning());
+  const session = await driver.getSession();
+  console.log('Driver session: ' + session);
 });
 
 after(async () => {
