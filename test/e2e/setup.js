@@ -23,6 +23,8 @@ async function startBrowserstackLocal(bsLocal) {
     bsLocal = new browserstack.Local();
     bsLocal.start({'key': 'd9sxo4YepidkqDZHzStQ', 'verbose': true, 'force': true}, () => {
       console.log('Starting Browserstack Local ...');
+      console.log('bsLocal: ' + bsLocal);
+      console.log('bsLocal running?: ' + bsLocal.isRunning());
       if (bsLocal && bsLocal.isRunning()) {
         console.log('Browserstack Local started successfully!');
         console.log('Browserstack binary: ' + bsLocal);
@@ -71,7 +73,9 @@ before(async () => {
 });
 
 after(async () => {
-  await stopBrowserstackLocal(bsLocal);
+  if(bsLocal) {
+    await stopBrowserstackLocal(bsLocal);
+  }
   return driver.quit();
 });
 
