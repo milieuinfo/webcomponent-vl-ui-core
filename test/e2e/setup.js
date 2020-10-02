@@ -21,10 +21,8 @@ const capabilities = {
 async function startBrowserstackLocal(bsLocal) {
   return new Promise((resolve,reject) => {
     bsLocal = new browserstack.Local();
-    bsLocal.start({'key': 'd9sxo4YepidkqDZHzStQ', 'verbose': true, 'force': true}, () => {
+    bsLocal.start({'key': 'd9sxo4YepidkqDZHzStQ', 'verbose': true, 'force': true, 'only-automate': true, 'proxyHost': 'forwardproxy-pr-build.lb.cumuli.be', 'proxyPort': 3128}, () => {
       console.log('Starting Browserstack Local ...');
-      console.log('bsLocal: ' + bsLocal);
-      console.log('bsLocal running?: ' + bsLocal.isRunning());
       if (bsLocal && bsLocal.isRunning()) {
         console.log('Browserstack Local started successfully!');
         console.log('Browserstack binary: ' + bsLocal);
