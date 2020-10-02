@@ -9,7 +9,7 @@ const assert = chai.assert;
 const capabilities = {
   'os_version': '10',
   'resolution': '1920x1080',
-  'browser': 'Chrome',
+  'browserName': 'Chrome',
   'browser_version': 'latest',
   'os': 'Windows',
   'name': 'Webcomponenten',
@@ -71,7 +71,7 @@ before(async () => {
 });
 
 after(async () => {
-  if(bsLocal) {
+  if (bsLocal) {
     await stopBrowserstackLocal(bsLocal);
   }
   return driver.quit();
