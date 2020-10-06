@@ -23,10 +23,15 @@ async function startBrowserstackLocal(bsLocal) {
     bsLocal = new browserstack.Local();
     bsLocal.start({'key': 'd9sxo4YepidkqDZHzStQ', 'verbose': true, 'force': true, 'force-local': true, 'only-automate': true, 'proxyHost': 'forwardproxy-pr-build.lb.cumuli.be', 'proxyPort': 3128}, () => {
       console.log('Starting Browserstack Local ...');
-      if (bsLocal && bsLocal.isRunning()) {
-        resolve();
-      } else {
-        reject(new Error('Failed to start Browserstack Local'));
+      try {
+        if (bsLocal && bsLocal.isRunning()) {
+          resolve();
+        } else {
+          reject(new Error('Failed to start Browserstack Local'));
+        }
+      } catch (e) {
+        console.log('Sugar, we are going down ' + e);
+        process.exit();
       }
     });
   });
@@ -77,7 +82,7 @@ after(async () => {
   if (bsLocal) {
     await stopBrowserstackLocal(bsLocal);
   }
-  if(driver) {
+  if (driver) {
     return driver.quit();
   }
 });
