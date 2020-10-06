@@ -21,17 +21,12 @@ const capabilities = {
 async function startBrowserstackLocal(bsLocal) {
   return new Promise((resolve,reject) => {
     bsLocal = new browserstack.Local();
-    bsLocal.start({'key': 'd9sxo4YepidkqDZHzStQ', 'verbose': true, 'force': true, 'force-local': true, 'only-automate': true, 'proxyHost': 'forwardproxy-pr-build.lb.cumuli.be', 'proxyPort': 3128}, () => {
+    bsLocal.start({'key': 'd9sxo4YepidkqDZHzStQ', 'logfile': '../../../local.log', 'verbose': true, 'force': true, 'forceLocal': true, 'onlyAutomate': true, 'proxyHost': 'forwardproxy-pr-build.lb.cumuli.be', 'proxyPort': 3128}, () => {
       console.log('Starting Browserstack Local ...');
-      try {
-        if (bsLocal && bsLocal.isRunning()) {
-          resolve();
-        } else {
-          reject(new Error('Failed to start Browserstack Local'));
-        }
-      } catch (e) {
-        console.log('Sugar, we are going down ' + e);
-        process.exit();
+      if (bsLocal && bsLocal.isRunning()) {
+        resolve();
+      } else {
+        reject(new Error('Failed to start Browserstack Local'));
       }
     });
   });
