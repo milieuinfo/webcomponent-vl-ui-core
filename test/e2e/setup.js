@@ -77,7 +77,9 @@ after(async () => {
   if (bsLocal) {
     await stopBrowserstackLocal(bsLocal);
   }
-  return driver.quit();
+  if(driver) {
+    return driver.quit();
+  }
 });
 
 module.exports = { assert, driver, By, Key };
