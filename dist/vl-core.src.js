@@ -1,4 +1,4 @@
-import 'document-register-element/build/document-register-element.js';
+import '@ungap/custom-elements/min.js';
 
 export const vlElement = (SuperClass) => {
   /**
