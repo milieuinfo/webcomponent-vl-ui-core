@@ -46,7 +46,7 @@
     "demo": "http-server"
   },
   "dependencies": {
-    "document-register-element": "^1.14.5"
+    "@ungap/custom-elements": "^0.1.6"
   },
   "devDependencies": {
     "@govflanders/vl-ui-core": "^4.0.5",
