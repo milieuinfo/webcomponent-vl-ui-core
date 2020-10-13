@@ -143,6 +143,14 @@
       test('wanneer het spacer-none attribuut aanwezig is zal de correcte class toegevoegd worden', () => {
         assertSpacerClass(fixture('vl-element-fixture'));
       });
+
+      test('de internationalisatie teksten kunnen aangepast worden', () => {
+        const element = fixture('vl-element-fixture');
+        assert.equal(element.getTranslation('select.search_placeholder_value'), 'Zoek item');
+        const text = 'Zoek items';
+        element._changeTranslation('select.search_placeholder_value', text);
+        assert.equal(element.getTranslation('select.search_placeholder_value'), text);
+      });
     });
   </script>
 </body>
