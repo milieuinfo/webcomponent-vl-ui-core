@@ -169,6 +169,7 @@
         name = 'name 2';
         element.name = name;
         assert.equal(element.name, name);
+        assert.equal(element.getAttribute('data-vl-name'), name);
       });
 
       test('kan het formulier element opvragen', () => {

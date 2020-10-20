@@ -134,7 +134,7 @@ export const vlElement = (SuperClass) => {
      * @param {string} value
      */
     set name(value) {
-      this.setAttribute(`${this.attributePrefix}name`, value);
+      this.setAttribute(`${VlElement.attributePrefix}name`, value);
     }
 
     /**
