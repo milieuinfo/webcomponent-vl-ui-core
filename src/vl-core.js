@@ -120,6 +120,33 @@ export const vlElement = (SuperClass) => {
     }
 
     /**
+     * Geeft de waarde van het naam attribuut terug.
+     *
+     * @return {string}
+     */
+    get name() {
+      return this.getAttribute('name');
+    }
+
+    /**
+     * Bepaal het name attribuut van het element en achterliggend input element.
+     *
+     * @param {string} value
+     */
+    set name(value) {
+      this.setAttribute(`${VlElement.attributePrefix}name`, value);
+    }
+
+    /**
+     * Geeft het form element terug.
+     *
+     * @return {HTMLFormElement}
+     */
+    get form() {
+      return this.closest('form');
+    }
+
+    /**
      * De class prefix bepaalt de prefix van het class attribuut dat automatisch toegevoegd wordt op basis van attributen.
      *
      * @protected
