@@ -18,67 +18,41 @@ const capabilities = {
   'browserstack.key': 'd9sxo4YepidkqDZHzStQ',
 };
 
-async function startBrowserstackLocal(bsLocal) {
-  return new Promise((resolve, reject) => {
-    bsLocal = new browserstack.Local();
-    bsLocal.start({'key': 'd9sxo4YepidkqDZHzStQ', 'verbose': true, 'force': true, 'force-local': true, 'only-automate': true, 'proxyHost': 'forwardproxy-pr-build.lb.cumuli.be', 'proxyPort': 3128}, () => {
-      console.log('Starting Browserstack Local ...');
-      if (bsLocal && bsLocal.isRunning()) {
-        resolve();
-      } else {
-        reject(new Error('Failed to start Browserstack Local. bslocal: ' + bsLocal));
-      }
-    });
-  }).catch(console.log);
-}
+const startConfig = {
+  'key': 'd9sxo4YepidkqDZHzStQ',
+  'verbose': true,
+  'force': true,
+  'force-local': true,
+  'only-automate': true,
+  'proxyHost': 'forwardproxy-pr-build.lb.cumuli.be',
+  'proxyPort': 3128,
+};
 
-async function stopBrowserstackLocal(bsLocal) {
-  return new Promise((resolve, reject) => {
-    bsLocal.stop(() => {
-      console.log('Stopping Browserstack Local ...');
-      if (bsLocal && !bsLocal.isRunning()) {
-        resolve();
-      } else {
-        reject(new Error('Failed to stop Browserstack Local'));
-      }
-    });
-  }).catch(console.log);
-}
+const buildBrowserstack = () => {
+  return new browserstack.Local();
+};
 
-async function buildDriver(driver) {
-  return new Promise((resolve, reject) => {
-    new Builder().usingServer('https://hub-cloud.browserstack.com/wd/hub').withCapabilities(capabilities).build().then((d) => {
-      driver = d;
-      if (driver) {
-        resolve(driver);
-      } else {
-        reject(new Error('Failed to build webdriver!'));
-      }
-    });
-  }).catch(console.log);
-}
+const buildDriver = () => {
+  return new Builder().usingServer('https://hub-cloud.browserstack.com/wd/hub').withCapabilities(capabilities).build();
+};
 
-let bsLocal;
-let driver;
+const bsLocal = buildBrowserstack();
+const driver = buildDriver();
 
 before(async () => {
   try {
-    await startBrowserstackLocal(bsLocal);
-    await buildDriver(driver);
-    console.log('Setup done!');
-    console.log('Using Browserstack: ' + bsLocal.isRunning());
-    const session = await driver.getSession();
-    console.log('Driver session: ' + session);
+    bsLocal.start(startConfig, () => console.log('Starting Browserstack Local ...'));
   } catch (e) {
-    console.log('Failed to setup Browserstack connection and configure driver. ' + e );
-    await stopBrowserstackLocal(bsLocal);
+    console.log('Failed to setup Browserstack connection and configure driver. ' + e);
+    bsLocal.stop();
+    stopBrowserstackLocal(bsLocal);
     process.exit();
   }
 });
 
 after(async () => {
   if (bsLocal) {
-    await stopBrowserstackLocal(bsLocal);
+    bsLocal.stop();
   }
   if (driver) {
     return driver.quit();
