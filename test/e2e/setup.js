@@ -19,7 +19,7 @@ const capabilities = {
 };
 
 async function startBrowserstackLocal(bsLocal) {
-  return new Promise((resolve,reject) => {
+  return new Promise((resolve, reject) => {
     bsLocal = new browserstack.Local();
     bsLocal.start({'key': 'd9sxo4YepidkqDZHzStQ', 'verbose': true, 'force': true, 'force-local': true, 'only-automate': true, 'proxyHost': 'forwardproxy-pr-build.lb.cumuli.be', 'proxyPort': 3128}, () => {
       console.log('Starting Browserstack Local ...');
@@ -33,7 +33,7 @@ async function startBrowserstackLocal(bsLocal) {
 }
 
 async function stopBrowserstackLocal(bsLocal) {
-  return new Promise((resolve,reject) => {
+  return new Promise((resolve, reject) => {
     bsLocal.stop(() => {
       console.log('Stopping Browserstack Local ...');
       if (bsLocal && !bsLocal.isRunning()) {
@@ -82,4 +82,4 @@ after(async () => {
   }
 });
 
-module.exports = { assert, driver, By, Key };
+module.exports = {assert, driver, By, Key};
