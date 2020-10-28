@@ -16,6 +16,7 @@ const capabilities = {
   'build': 'Milieuinfo',
   'browserstack.user': 'philippecambien2',
   'browserstack.key': 'd9sxo4YepidkqDZHzStQ',
+  'browserstack.local': true,
 };
 
 const startConfig = {
