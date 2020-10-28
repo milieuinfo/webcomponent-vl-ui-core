@@ -31,6 +31,7 @@ const startConfig = {
   'proxyPort': 3128,
   'daemon': true,
   'enable-utc-logging': true,
+  'local-identifier': `${config.browserName}-browserstack-identifier`,
 };
 
 const buildBrowserstack = () => {
@@ -41,12 +42,11 @@ const buildDriver = () => {
   return new Builder().usingServer('https://hub-cloud.browserstack.com/wd/hub').withCapabilities(capabilities).build();
 };
 
-let bsLocal;
+const bsLocal = buildBrowserstack();
 const driver = buildDriver();
 
 before((done) => {
   try {
-    bsLocal = buildBrowserstack();
     bsLocal.start(startConfig, () => {
       console.log('Starting Browserstack Local ...');
       done();
@@ -61,7 +61,16 @@ before((done) => {
 
 after((done) => {
   if (driver) {
-    driver.quit().then(() => done());
+    driver.quit().then(() => {
+      if (bsLocal) {
+        bsLocal.stop(() => {
+          console.log('Stopping Browserstack Local ...');
+          done();
+        });
+      } else {
+        done();
+      }
+    });
   } else {
     done();
   }
