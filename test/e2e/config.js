@@ -1,6 +1,6 @@
 const yargs = require('yargs').argv;
 
-function browserName() {
+const browserName = () => {
   if (process.argv || yargs) {
     if (process.argv.includes('chrome') || yargs.chrome) {
       return 'chrome';
@@ -15,11 +15,9 @@ function browserName() {
       return 'chrome';
     }
   }
-}
+};
 
-function gridEnabled() {
-  return process.argv.includes('grid') || yargs.grid;
-}
+const gridEnabled = () => process.argv.includes('grid') || yargs.grid;
 
 module.exports = {
   browserName: browserName(),

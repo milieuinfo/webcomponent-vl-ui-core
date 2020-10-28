@@ -1,5 +1,6 @@
 const {By, Key, Builder} = require('selenium-webdriver');
 const browserstack = require('browserstack-local');
+const config = require('./config');
 
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
@@ -9,7 +10,7 @@ const assert = chai.assert;
 const capabilities = {
   'os_version': '10',
   'resolution': '1920x1080',
-  'browserName': 'Chrome',
+  'browserName': config.browserName,
   'browser_version': 'latest',
   'os': 'Windows',
   'name': 'Webcomponenten',
@@ -22,12 +23,14 @@ const capabilities = {
 
 const startConfig = {
   'key': 'd9sxo4YepidkqDZHzStQ',
-  'verbose': true,
+  'verbose': '3',
   'force': true,
-  'force-local': true,
-  'only-automate': true,
+  'forcelocal': true,
+  'onlyAutomate': true,
   'proxyHost': 'forwardproxy-pr-build.lb.cumuli.be',
   'proxyPort': 3128,
+  'daemon': true,
+  'enable-utc-logging': true,
 };
 
 const buildBrowserstack = () => {
@@ -38,27 +41,29 @@ const buildDriver = () => {
   return new Builder().usingServer('https://hub-cloud.browserstack.com/wd/hub').withCapabilities(capabilities).build();
 };
 
-const bsLocal = buildBrowserstack();
+let bsLocal;
 const driver = buildDriver();
 
-before(async () => {
+before((done) => {
   try {
-    bsLocal.start(startConfig, () => console.log('Starting Browserstack Local ...'));
-    const session = await driver.getSession();
-    console.log('Driver session: ' + session);
+    bsLocal = buildBrowserstack();
+    bsLocal.start(startConfig, () => {
+      console.log('Starting Browserstack Local ...');
+      done();
+    });
   } catch (e) {
     console.log('Failed to setup Browserstack connection and configure driver. ' + e);
     bsLocal.stop(() => console.log('Stopping Browserstack Local ...'));
+    done();
     process.exit();
   }
 });
 
-after(async () => {
-  if (bsLocal) {
-    bsLocal.stop(() => console.log('Stopping Browserstack Local ...'));
-  }
+after((done) => {
   if (driver) {
-    return driver.quit();
+    driver.quit().then(() => done());
+  } else {
+    done();
   }
 });
 
