@@ -17,6 +17,7 @@ const capabilities = {
   'browserstack.user': 'philippecambien2',
   'browserstack.key': 'd9sxo4YepidkqDZHzStQ',
   'browserstack.local': true,
+  'browserstack.networkLogs': true,
 };
 
 const startConfig = {
@@ -43,10 +44,11 @@ const driver = buildDriver();
 before(async () => {
   try {
     bsLocal.start(startConfig, () => console.log('Starting Browserstack Local ...'));
+    const session = await driver.getSession();
+    console.log('Driver session: ' + session);
   } catch (e) {
     console.log('Failed to setup Browserstack connection and configure driver. ' + e);
-    bsLocal.stop();
-    stopBrowserstackLocal(bsLocal);
+    bsLocal.stop(() => console.log('Stopping Browserstack Local ...'));
     process.exit();
   }
 });
