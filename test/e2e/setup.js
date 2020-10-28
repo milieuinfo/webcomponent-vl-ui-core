@@ -69,6 +69,7 @@ before(async () => {
     console.log('Driver session: ' + session);
   } catch (e) {
     console.log('Failed to setup Browserstack connection and configure driver. ' + e );
+    await stopBrowserstackLocal(bsLocal);
     process.exit();
   }
 });
