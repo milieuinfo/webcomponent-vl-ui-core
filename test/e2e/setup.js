@@ -47,12 +47,14 @@ async function stopBrowserstackLocal(bsLocal) {
 
 async function buildDriver(driver) {
   return new Promise((resolve, reject) => {
-    driver = new Builder().usingServer('https://hub-cloud.browserstack.com/wd/hub').withCapabilities(capabilities).build();
-    if (driver) {
-      resolve(driver);
-    } else {
-      reject(new Error('Failed to build webdriver!'));
-    }
+    new Builder().usingServer('https://hub-cloud.browserstack.com/wd/hub').withCapabilities(capabilities).build().then((d) => {
+      driver = d;
+      if (driver) {
+        resolve(driver);
+      } else {
+        reject(new Error('Failed to build webdriver!'));
+      }
+    });
   }).catch(console.log);
 }
 
