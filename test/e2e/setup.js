@@ -16,6 +16,7 @@ const capabilities = {
   'build': 'Milieuinfo',
   'browserstack.user': 'philippecambien2',
   'browserstack.key': 'd9sxo4YepidkqDZHzStQ',
+  'browserstack.local': true,
 };
 
 const startConfig = {
@@ -52,7 +53,7 @@ before(async () => {
 
 after(async () => {
   if (bsLocal) {
-    bsLocal.stop();
+    bsLocal.stop(() => console.log('Stopping Browserstack Local ...'));
   }
   if (driver) {
     return driver.quit();
