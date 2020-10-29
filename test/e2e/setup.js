@@ -8,11 +8,11 @@ chai.use(chaiAsPromised);
 const assert = chai.assert;
 
 const capabilities = {
-  'os_version': '10',
   'resolution': '1920x1080',
+  'os': config.osName,
+  'os_version': config.osVersion,
   'browserName': config.browserName,
   'browser_version': 'latest',
-  'os': 'Windows',
   'name': 'Webcomponenten',
   'build': 'Milieuinfo',
   'browserstack.user': 'philippecambien2',
