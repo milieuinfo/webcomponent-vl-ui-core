@@ -10,6 +10,8 @@ const browserName = () => {
       return 'opera';
     } else if (process.argv.includes('safari') || yargs.safari) {
       return 'safari';
+    } else if (process.argv.includes('edge') || yargs.edge) {
+      return 'edge';
     } else {
       console.warn('Geen geldige browser gevonden, default Chrome browser!');
       return 'chrome';
