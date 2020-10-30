@@ -49,13 +49,11 @@ const osVersion = () => {
   }
 };
 
-const gridEnabled = () => process.argv.includes('grid') || yargs.grid;
-
 module.exports = {
   browserName: browserName(),
   osName: osName(),
   osVersion: osVersion(),
   gridEnabled: gridEnabled(),
   gridUrl: 'http://selenium-hub:4444/wd/hub',
-  baseUrl: gridEnabled() ? 'http://tests:8080' : 'http://localhost:8080',
+  baseUrl: 'http://localhost:8080',
 };
