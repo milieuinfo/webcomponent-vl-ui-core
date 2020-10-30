@@ -39,7 +39,11 @@ const buildBrowserstack = () => {
 };
 
 const buildDriver = () => {
-  return new Builder().usingServer('https://hub-cloud.browserstack.com/wd/hub').withCapabilities(capabilities).build();
+  return new Builder()
+      .usingServer('https://hub-cloud.browserstack.com/wd/hub')
+      .withCapabilities(capabilities)
+      // .usingWebDriverProxy('http://forwardproxy-pr-build.lb.cumuli.be:3128') // proxy should be used but DIDM proxy has no support for websocket connections
+      .build();
 };
 
 const bsLocal = buildBrowserstack();
