@@ -53,7 +53,6 @@ module.exports = {
   browserName: browserName(),
   osName: osName(),
   osVersion: osVersion(),
-  gridEnabled: gridEnabled(),
   gridUrl: 'http://selenium-hub:4444/wd/hub',
   baseUrl: 'http://localhost:8080',
 };
