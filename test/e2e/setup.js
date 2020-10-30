@@ -19,6 +19,7 @@ const capabilities = {
   'browserstack.key': 'd9sxo4YepidkqDZHzStQ',
   'browserstack.local': true,
   'browserstack.networkLogs': true,
+  'browserstack.idleTimeout': 300
 };
 
 const startConfig = {
