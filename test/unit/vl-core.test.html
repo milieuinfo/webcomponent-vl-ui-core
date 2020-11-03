@@ -37,6 +37,14 @@
     </template>
   </test-fixture>
 
+  <test-fixture id="vl-element-form-fixture">
+    <template>
+      <form>
+        <vl-element></vl-element>
+      </form>
+    </template>
+  </test-fixture>
+
   <script>
     const sandbox = sinon.createSandbox();
 
@@ -142,6 +150,32 @@
 
       test('wanneer het spacer-none attribuut aanwezig is zal de correcte class toegevoegd worden', () => {
         assertSpacerClass(fixture('vl-element-fixture'));
+      });
+
+      test('de internationalisatie teksten kunnen aangepast worden', () => {
+        const element = fixture('vl-element-fixture');
+        assert.equal(element.getTranslation('select.search_placeholder_value'), 'Zoek item');
+        const text = 'Zoek items';
+        element._changeTranslation('select.search_placeholder_value', text);
+        assert.equal(element.getTranslation('select.search_placeholder_value'), text);
+      });
+
+      test('kan het element name attribuut van het onderliggend input element bepalen en opvragen', () => {
+        const element = fixture('vl-element-fixture');
+        assert.isNull(element.name);
+        let name = 'name 1';
+        element.setAttribute('data-vl-name', name);
+        assert.equal(element.name, name);
+        name = 'name 2';
+        element.name = name;
+        assert.equal(element.name, name);
+        assert.equal(element.getAttribute('data-vl-name'), name);
+      });
+
+      test('kan het formulier element opvragen', () => {
+        const form = fixture('vl-element-form-fixture');
+        const element = form.querySelector('vl-element');
+        assert.equal(element.form, form);
       });
     });
   </script>

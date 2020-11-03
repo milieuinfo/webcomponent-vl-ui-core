@@ -1,4 +1,6 @@
-import '/node_modules/document-register-element/build/document-register-element.js';
+import '/node_modules/@ungap/custom-elements/min.js';
+import '/node_modules/@govflanders/vl-ui-util/dist/js/util.js';
+import '/node_modules/@govflanders/vl-ui-core/dist/js/core.js';
 
 export const vlElement = (SuperClass) => {
   /**
@@ -118,6 +120,33 @@ export const vlElement = (SuperClass) => {
     }
 
     /**
+     * Geeft de waarde van het naam attribuut terug.
+     *
+     * @return {string}
+     */
+    get name() {
+      return this.getAttribute('name');
+    }
+
+    /**
+     * Bepaal het name attribuut van het element en achterliggend input element.
+     *
+     * @param {string} value
+     */
+    set name(value) {
+      this.setAttribute(`${VlElement.attributePrefix}name`, value);
+    }
+
+    /**
+     * Geeft het form element terug.
+     *
+     * @return {HTMLFormElement}
+     */
+    get form() {
+      return this.closest('form');
+    }
+
+    /**
      * De class prefix bepaalt de prefix van het class attribuut dat automatisch toegevoegd wordt op basis van attributen.
      *
      * @protected
@@ -156,6 +185,16 @@ export const vlElement = (SuperClass) => {
     }
 
     /**
+     * Geeft de internationalisatie vertaling terug.
+     *
+     * @param {String} key
+     * @return {String}
+     */
+    getTranslation(key) {
+      return vl.i18n.i18n[key];
+    }
+
+    /**
      * Geeft terug of het attribuut bestaat rekening houdende met het feit dat de attribuut prefix {@link #attributePrefix} gebruikt wordt.
      *
      * @param {String} attribute
@@ -163,6 +202,18 @@ export const vlElement = (SuperClass) => {
      */
     hasAttribute(attribute) {
       return this.getAttribute(attribute) != undefined;
+    }
+
+    /**
+     * Definieer shadow DOM.
+     *
+     * @protected
+     * @param {Literal} html - HTML literal
+     * @return {void}
+     */
+    shadow(html) {
+      this._shadow = this.attachShadow({mode: 'open'});
+      this._shadow.innerHTML = html;
     }
 
     /**
@@ -220,15 +271,13 @@ export const vlElement = (SuperClass) => {
     }
 
     /**
-     * Definieer shadow DOM.
+     * Wijzig de (standaard) tekst van een vertaling.
      *
-     * @protected
-     * @param {Literal} html - HTML literal
-     * @return {void}
+     * @param {String} key
+     * @param {String} value
      */
-    shadow(html) {
-      this._shadow = this.attachShadow({mode: 'open'});
-      this._shadow.innerHTML = html;
+    _changeTranslation(key, value) {
+      vl.i18n.i18n[key] = value;
     }
 
     __changeAttribute(element, oldValue, newValue, attribute, classPrefix) {

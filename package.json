@@ -1,6 +1,6 @@
 {
   "name": "vl-ui-core",
-  "version": "6.0.1",
+  "version": "6.1.0",
   "description": "De core is noodzakelijk om gebruik te maken van de webcomponenten.",
   "author": "DIDM",
   "license": "MIT",
@@ -24,7 +24,7 @@
   },
   "scripts": {
     "prepare": "npm update --dev vl-ui-util && npm run prepare:util",
-    "prepare:util": "npm run prepare:util:sass && npm run prepare:util:css:minify && npm run prepare:util:fonts && npm run prepare:util:bamboo && npm run prepare:util:copy && npm run prepare:util:update:readme",
+    "prepare:util": "npm explore vl-ui-util -- npm run util",
     "prepare:util:sass": "npm explore vl-ui-util -- npm run install:sass",
     "prepare:util:css:minify": "npm explore vl-ui-util -- npm run install:css:minify",
     "prepare:util:fonts": "npm explore vl-ui-util -- npm run install:fonts",
@@ -47,10 +47,12 @@
   },
   "dependencies": {
     "browserstack-local": "^1.4.8",
-    "document-register-element": "^1.14.5"
+    "@ungap/custom-elements": "^0.1.6",
+    "@govflanders/vl-ui-core": "^4.0.5",
+    "@govflanders/vl-ui-util": "^3.11.5"
   },
   "devDependencies": {
     "@govflanders/vl-ui-core": "^4.0.5",
-    "vl-ui-util": "^5.2.13"
+    "vl-ui-util": "^5.2.17"
   }
 }
