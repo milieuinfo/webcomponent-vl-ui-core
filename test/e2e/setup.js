@@ -1,4 +1,4 @@
-const { By, Key, Builder } = require('selenium-webdriver');
+const {By, Key, Builder} = require('selenium-webdriver');
 const browserstack = require('browserstack-local');
 const config = require('./config');
 
@@ -40,16 +40,19 @@ const buildBrowserstack = () => {
 };
 
 const buildDriver = () => {
-  return new Builder()
-    .usingServer('https://hub-cloud.browserstack.com/wd/hub')
-    .withCapabilities(capabilities)
-    // .usingWebDriverProxy('http://forwardproxy-pr-build.lb.cumuli.be:3128') // proxy should be used but DIDM proxy has no support for websocket connections
-    .build();
+  if (config.browserstack) {
+    return new Builder()
+        .usingServer('https://hub-cloud.browserstack.com/wd/hub')
+        .withCapabilities(capabilities)
+        // .usingWebDriverProxy('http://forwardproxy-pr-build.lb.cumuli.be:3128') // proxy should be used but DIDM proxy has no support for websocket connections
+        .build();
+  } else {
+    return new Builder().forBrowser(config.browserName).build();
+  }
 };
 
 const bsLocal = buildBrowserstack();
 const driver = buildDriver();
-let driver;
 
 before((done) => {
   if (config.browserstack) {
@@ -64,9 +67,8 @@ before((done) => {
       done();
       process.exit();
     }
-  } else {
-    driver = new Builder().forBrowser(config.browserName).build();
   }
+  done();
 });
 
 after((done) => {
@@ -86,4 +88,4 @@ after((done) => {
   }
 });
 
-module.exports = { assert, driver, By, Key };
+module.exports = {assert, driver, By, Key};
