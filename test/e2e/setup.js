@@ -1,4 +1,4 @@
-const {By, Key, Builder} = require('selenium-webdriver');
+const { By, Key, Builder } = require('selenium-webdriver');
 const browserstack = require('browserstack-local');
 const config = require('./config');
 
@@ -41,33 +41,38 @@ const buildBrowserstack = () => {
 
 const buildDriver = () => {
   return new Builder()
-      .usingServer('https://hub-cloud.browserstack.com/wd/hub')
-      .withCapabilities(capabilities)
-      // .usingWebDriverProxy('http://forwardproxy-pr-build.lb.cumuli.be:3128') // proxy should be used but DIDM proxy has no support for websocket connections
-      .build();
+    .usingServer('https://hub-cloud.browserstack.com/wd/hub')
+    .withCapabilities(capabilities)
+    // .usingWebDriverProxy('http://forwardproxy-pr-build.lb.cumuli.be:3128') // proxy should be used but DIDM proxy has no support for websocket connections
+    .build();
 };
 
 const bsLocal = buildBrowserstack();
 const driver = buildDriver();
+let driver;
 
 before((done) => {
-  try {
-    bsLocal.start(startConfig, () => {
-      console.log('Starting Browserstack Local ...');
+  if (config.browserstack) {
+    try {
+      bsLocal.start(startConfig, () => {
+        console.log('Starting Browserstack Local ...');
+        done();
+      });
+    } catch (e) {
+      console.log('Failed to setup Browserstack connection and configure driver. ' + e);
+      bsLocal.stop(() => console.log('Stopping Browserstack Local ...'));
       done();
-    });
-  } catch (e) {
-    console.log('Failed to setup Browserstack connection and configure driver. ' + e);
-    bsLocal.stop(() => console.log('Stopping Browserstack Local ...'));
-    done();
-    process.exit();
+      process.exit();
+    }
+  } else {
+    driver = new Builder().forBrowser(config.browserName).build();
   }
 });
 
 after((done) => {
   if (driver) {
     driver.quit().then(() => {
-      if (bsLocal) {
+      if (config.browserstack && bsLocal) {
         bsLocal.stop(() => {
           console.log('Stopping Browserstack Local ...');
           done();
@@ -81,4 +86,4 @@ after((done) => {
   }
 });
 
-module.exports = {assert, driver, By, Key};
+module.exports = { assert, driver, By, Key };
