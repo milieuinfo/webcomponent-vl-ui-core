@@ -63,19 +63,14 @@ before((done) => {
 });
 
 after((done) => {
-  if (driver) {
-    driver.quit().then(() => {
-      if (bsLocal) {
-        bsLocal.stop(() => {
-          console.log('stopping Browserstack Local ...');
-          done();
-        });
-      } else {
-        done();
+  if (bsLocal) {
+    bsLocal.stop(() => {
+      if (driver) {
+        driver.quit().then(() => done());
       }
     });
   } else {
-    done();
+    driver.quit().then(() => done());
   }
 });
 
