@@ -62,15 +62,13 @@ before((done) => {
   }
 });
 
-after((done) => {
+after(() => {
+  if (driver) {
+    driver.quit();
+  }
+
   if (bsLocal) {
-    bsLocal.stop(() => {
-      if (driver) {
-        driver.quit().then(() => done());
-      }
-    });
-  } else {
-    driver.quit().then(() => done());
+    bsLocal.stop();
   }
 });
 
