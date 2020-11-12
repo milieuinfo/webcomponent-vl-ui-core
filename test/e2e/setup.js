@@ -20,63 +20,54 @@ const capabilities = {
   'browserstack.local': true,
   'browserstack.networkLogs': true,
   'browserstack.idleTimeout': 300,
+  'browserstack.localIdentifier': `${config.browserName}-browserstack-identifier`,
 };
 
 const startConfig = {
   'key': 'd9sxo4YepidkqDZHzStQ',
-  'verbose': '3',
   'force': true,
-  'forcelocal': true,
-  'onlyAutomate': true,
-  'proxyHost': 'forwardproxy-pr-build.lb.cumuli.be',
-  'proxyPort': 3128,
-  'daemon': true,
-  'enable-utc-logging': true,
-  'local-identifier': `${config.browserName}-browserstack-identifier`,
+  'deamon': true,
+  'disableProxyDiscovery': true,
+  'localIdentifier': `${config.browserName}-browserstack-identifier`,
 };
 
-const buildBrowserstack = () => {
-  return new browserstack.Local();
-};
+let bsLocal;
+let driver;
 
-const buildDriver = () => {
-  if (config.browserstack) {
-    return new Builder()
-        .usingServer('https://hub-cloud.browserstack.com/wd/hub')
-        .withCapabilities(capabilities)
-        // .usingWebDriverProxy('http://forwardproxy-pr-build.lb.cumuli.be:3128') // proxy should be used but DIDM proxy has no support for websocket connections
-        .build();
-  } else {
-    return new Builder().forBrowser(config.browserName).build();
-  }
+const getDriver = () => {
+  return driver;
 };
-
-const bsLocal = buildBrowserstack();
-const driver = buildDriver();
 
 before((done) => {
   if (config.browserstack) {
+    bsLocal = new browserstack.Local();
     try {
       bsLocal.start(startConfig, () => {
-        console.log('Starting Browserstack Local ...');
+        driver = new Builder()
+            .usingServer('https://hub-cloud.browserstack.com/wd/hub')
+            .withCapabilities(capabilities)
+            // .usingWebDriverProxy('http://forwardproxy-pr-build.lb.cumuli.be:3128') // proxy should be used but DIDM proxy has no support for websocket connections
+            .build();
         done();
       });
     } catch (e) {
-      console.log('Failed to setup Browserstack connection and configure driver. ' + e);
-      bsLocal.stop(() => console.log('Stopping Browserstack Local ...'));
-      done();
-      process.exit();
+      bsLocal.stop(() => {
+        done();
+        process.exit();
+      });
     }
+  } else {
+    driver = new Builder().forBrowser(config.browserName).build();
+    done();
   }
-  done();
 });
 
 after((done) => {
   if (driver) {
     driver.quit().then(() => {
-      if (config.browserstack && bsLocal) {
+      if (bsLocal) {
         bsLocal.stop(() => {
-          console.log('Stopping Browserstack Local ...');
+          console.log('stopping Browserstack Local ...');
           done();
         });
       } else {
@@ -88,4 +79,4 @@ after((done) => {
   }
 });
 
-module.exports = {assert, driver, By, Key};
+module.exports = {assert, getDriver, By, Key};
