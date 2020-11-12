@@ -68,7 +68,7 @@ after(() => {
   }
 
   if (bsLocal) {
-    bsLocal.stop();
+    bsLocal.stop(() => { });
   }
 });
 
