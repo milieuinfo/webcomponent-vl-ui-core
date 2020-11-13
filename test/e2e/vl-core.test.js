@@ -5,7 +5,7 @@ describe('vl-core', async () => {
   let driver;
   let vlCorePage;
 
-  before(() => {
+  before(async () => {
     driver = getDriver();
     vlCorePage = new VlCorePage(driver);
     return vlCorePage.load();
