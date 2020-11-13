@@ -38,6 +38,19 @@ const getDriver = () => {
   return driver;
 };
 
+const stopBrowserstackLocal = () => {
+  return new Promise((resolve, reject) => {
+    bsLocal.stop(() => {
+      console.log('Stopping Browserstack Local ...');
+      if (bsLocal && !bsLocal.isRunning()) {
+        resolve();
+      } else {
+        reject(new Error('Failed to stop Browserstack Local'));
+      }
+    });
+  }).catch(console.log);
+};
+
 before((done) => {
   if (config.browserstack) {
     bsLocal = new browserstack.Local();
@@ -62,17 +75,12 @@ before((done) => {
   }
 });
 
-after((done) => {
+after(async () => {
+  if (bsLocal) {
+    await stopBrowserstackLocal(bsLocal);
+  }
   if (driver) {
-    driver.quit().then(() => {
-      if (bsLocal) {
-        bsLocal.stop(() => done());
-      } else {
-        done();
-      }
-    });
-  } else {
-    done();
+    return driver.quit();
   }
 });
 
