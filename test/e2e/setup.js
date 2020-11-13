@@ -12,7 +12,7 @@ const capabilities = {
   'os': config.osName,
   'os_version': config.osVersion,
   'browserName': config.browserName,
-  'browser_version': 'latest',
+  'browser_version': config.browserVersion,
   'name': 'Webcomponenten',
   'build': 'Milieuinfo',
   'browserstack.user': 'philippecambien2',
@@ -62,9 +62,19 @@ before((done) => {
   }
 });
 
-after(() => {
-  if (bsLocal) {
-    bsLocal.stop(() => { });
+after((done) => {
+  if (driver) {
+    driver.close.then(() => {
+      driver.quit().then(() => {
+        if (bsLocal) {
+          bsLocal.stop(() => done());
+        } else {
+          done();
+        }
+      });
+    });
+  } else {
+    done();
   }
 });
 

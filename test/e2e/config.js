@@ -12,6 +12,24 @@ const edge = 'edge';
 const safari = 'safari';
 const opera = 'opera';
 
+const osName = () => {
+  switch (browserName()) {
+    case safari:
+      return macOS;
+    default:
+      return windows;
+  }
+};
+
+const osVersion = () => {
+  switch (osName()) {
+    case macOS:
+      return macOsVersion;
+    default:
+      return windowsVersion;
+  }
+};
+
 const browserName = () => {
   if (process.argv || yargs) {
     if (process.argv.includes(chrome) || yargs.chrome) {
@@ -31,21 +49,11 @@ const browserName = () => {
   }
 };
 
-const osName = () => {
+const browserVersion = () => {
   switch (browserName()) {
-    case safari:
-      return macOS;
-    default:
-      return windows;
-  }
-};
-
-const osVersion = () => {
-  switch (osName()) {
-    case macOS:
-      return macOsVersion;
-    default:
-      return windowsVersion;
+    case chrome:
+      return '85';
+    default: 'latest';
   }
 };
 
@@ -57,9 +65,10 @@ const browserstack = () => {
 };
 
 module.exports = {
-  browserName: browserName(),
   osName: osName(),
   osVersion: osVersion(),
+  browserName: browserName(),
+  browserVersion: browserVersion(),
   browserstack: browserstack(),
   gridUrl: 'http://selenium-hub:4444/wd/hub',
   baseUrl: 'http://localhost:8080',
