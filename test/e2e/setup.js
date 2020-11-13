@@ -64,14 +64,12 @@ before((done) => {
 
 after((done) => {
   if (driver) {
-    driver.close.then(() => {
-      driver.quit().then(() => {
-        if (bsLocal) {
-          bsLocal.stop(() => done());
-        } else {
-          done();
-        }
-      });
+    driver.quit().then(() => {
+      if (bsLocal) {
+        bsLocal.stop(() => done());
+      } else {
+        done();
+      }
     });
   } else {
     done();
