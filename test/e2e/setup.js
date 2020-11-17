@@ -53,8 +53,7 @@ before((done) => {
       });
     } catch (e) {
       bsLocal.stop(() => {
-        done();
-        process.exit();
+        throw new Error('Test setup failed!');
       });
     }
   } else {
