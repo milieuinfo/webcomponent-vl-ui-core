@@ -54,7 +54,8 @@ before((done) => {
       });
     } catch (e) {
       bsLocal.stop(() => {
-        throw new Error('Test setup failed!');
+        assert.fail('Test setup failed!');
+        process.exit();
       });
     }
   } else {
