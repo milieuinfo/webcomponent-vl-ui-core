@@ -26,6 +26,7 @@ const capabilities = {
 const startConfig = {
   'key': 'd9sxo4YepidkqDZHzStQ',
   'force': true,
+  'forcelocal': true,
   'deamon': true,
   'proxyHost': 'forwardproxy-pr-build.lb.cumuli.be',
   'proxyPort': 3128,
