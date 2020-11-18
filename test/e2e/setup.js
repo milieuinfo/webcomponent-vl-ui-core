@@ -68,7 +68,7 @@ before((done) => {
 after((done) => {
   try {
     if (driver) {
-      driver.close.then(() => {
+      driver.close().then(() => {
         driver.quit().then(() => {
           if (bsLocal) {
             bsLocal.stop(() => done());
