@@ -81,6 +81,7 @@ after((done) => {
       done();
     }
   } catch (e) {
+    console.log(e);
     process.exit();
   }
 });
