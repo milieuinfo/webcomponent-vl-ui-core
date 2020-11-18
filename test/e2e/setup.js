@@ -26,8 +26,11 @@ const capabilities = {
 const startConfig = {
   'key': 'd9sxo4YepidkqDZHzStQ',
   'force': true,
+  'forcelocal': true,
+  'proxyHost': 'forwardproxy-pr-build.lb.cumuli.be',
+  'proxyPort': 3128,
   'deamon': true,
-  'disableProxyDiscovery': true,
+  // 'disableProxyDiscovery': true,
   'localIdentifier': `${config.browserName}-browserstack-identifier`,
 };
 
@@ -46,7 +49,7 @@ before((done) => {
         driver = new Builder()
             .usingServer('https://hub-cloud.browserstack.com/wd/hub')
             .withCapabilities(capabilities)
-            // .usingWebDriverProxy('http://forwardproxy-pr-build.lb.cumuli.be:3128') // proxy should be used but DIDM proxy has no support for websocket connections
+            .usingWebDriverProxy('http://forwardproxy-pr-build.lb.cumuli.be:3128') // proxy should be used but DIDM proxy has no support for websocket connections
             .build();
         done();
       });
