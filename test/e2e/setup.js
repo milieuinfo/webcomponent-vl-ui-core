@@ -30,7 +30,7 @@ const startConfig = {
   'proxyHost': 'forwardproxy-pr-build.lb.cumuli.be',
   'proxyPort': 3128,
   'deamon': true,
-  // 'disableProxyDiscovery': true,
+  'disableProxyDiscovery': true,
   'localIdentifier': `${config.browserName}-browserstack-identifier`,
 };
 
