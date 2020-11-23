@@ -58,10 +58,7 @@ const browserVersion = () => {
 };
 
 const browserstack = () => {
-  if (process.argv.includes('browserstack') || yargs.browserstack) {
-    return true;
-  }
-  return false;
+  return process.argv.includes('browserstack') || yargs.browserstack;
 };
 
 module.exports = {
