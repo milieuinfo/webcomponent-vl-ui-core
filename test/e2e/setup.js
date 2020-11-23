@@ -46,7 +46,7 @@ before((done) => {
     try {
       bsLocal.start(startConfig, () => {
         driver = new Builder()
-            .usingServer('http://hub-cloud.browserstack.com/wd/hub')
+            .usingServer('https://hub-cloud.browserstack.com/wd/hub')
             .withCapabilities(capabilities)
             // .usingWebDriverProxy('http://forwardproxy-pr-build.lb.cumuli.be:3128')
             .build();
