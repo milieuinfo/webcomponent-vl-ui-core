@@ -26,11 +26,10 @@ const capabilities = {
 const startConfig = {
   'key': 'd9sxo4YepidkqDZHzStQ',
   'force': true,
-  // 'forcelocal': true,
-  // 'proxyHost': 'forwardproxy-pr-build.lb.cumuli.be',
-  // 'proxyPort': 3128,
+  'forcelocal': true,
+  'proxyHost': 'forwardproxy-pr-build.lb.cumuli.be',
+  'proxyPort': 3128,
   'deamon': true,
-  'disableProxyDiscovery': true,
   'localIdentifier': `${config.browserName}-browserstack-identifier`,
 };
 
@@ -47,17 +46,15 @@ before((done) => {
     try {
       bsLocal.start(startConfig, () => {
         driver = new Builder()
-            .usingServer('https://hub-cloud.browserstack.com/wd/hub')
+            .usingServer('http://hub-cloud.browserstack.com/wd/hub')
             .withCapabilities(capabilities)
-            // .usingWebDriverProxy('http://forwardproxy-pr-build.lb.cumuli.be:3128') // proxy should be used but DIDM proxy has no support for websocket connections
+            // .usingWebDriverProxy('http://forwardproxy-pr-build.lb.cumuli.be:3128')
             .build();
         done();
       });
     } catch (e) {
-      bsLocal.stop(() => {
-        done();
-        process.exit();
-      });
+      console.log(e);
+      process.exit();
     }
   } else {
     driver = new Builder().forBrowser(config.browserName).build();
