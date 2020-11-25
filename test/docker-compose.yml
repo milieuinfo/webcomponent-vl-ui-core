@@ -38,10 +38,10 @@ services:
     environment: 
       - http_proxy=${http_proxy}
       - https_proxy=${https_proxy}
-      - no_proxy=${no_proxy},selenium-hub,tests
+      - no_proxy=${no_proxy},selenium-hub,tests,hub-cloud.browserstack.com/wd/hub
       - HTTP_PROXY=${http_proxy}
       - HTTPS_PROXY=${https_proxy}
-      - NO_PROXY=${no_proxy},selenium-hub,tests
+      - NO_PROXY=${no_proxy},selenium-hub,tests,hub-cloud.browserstack.com/wd/hub
       - NOSELENIUM=1
       - SKIP_WCT_SAUCE_POSTINSTALL_DOWNLOAD=1
     extra_hosts:
