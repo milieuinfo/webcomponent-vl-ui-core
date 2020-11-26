@@ -7,10 +7,6 @@ const chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
 const assert = chai.assert;
 
-console.log(`${process.env}`);
-console.log(`${process.env.browserstack_username}`);
-console.log(`${process.env.browserstack_password}`);
-
 const capabilities = {
   'resolution': '1920x1080',
   'os': config.osName,
