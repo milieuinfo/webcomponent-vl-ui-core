@@ -129,7 +129,7 @@ export const vlElement = (SuperClass) => {
     }
 
     /**
-     * Bepaal het name attribuut van de checkbox en achterliggend input element.
+     * Bepaal het name attribuut van het element en achterliggend input element.
      *
      * @param {string} value
      */
