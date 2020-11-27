@@ -52,7 +52,11 @@ const browserName = () => {
 const browserVersion = () => {
   switch (browserName()) {
     case chrome:
-      return '85';
+      return '85.0';
+    case firefox:
+      return '83.0';
+    case edge:
+      return '87.0';
     default: 'latest';
   }
 };

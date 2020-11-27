@@ -18,8 +18,6 @@ const capabilities = {
   'browserstack.user': `${process.env.browserstack_username}`,
   'browserstack.key': `${process.env.browserstack_password}`,
   'browserstack.local': true,
-  'browserstack.networkLogs': true,
-  'browserstack.idleTimeout': 300,
   'browserstack.localIdentifier': `${config.browserName}-browserstack-identifier`,
 };
 
@@ -29,7 +27,6 @@ const startConfig = {
   'forcelocal': true,
   'proxyHost': 'forwardproxy-pr-build.lb.cumuli.be',
   'proxyPort': 3128,
-  'deamon': true,
   'localIdentifier': `${config.browserName}-browserstack-identifier`,
 };
 
