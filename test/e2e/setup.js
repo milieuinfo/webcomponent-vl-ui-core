@@ -1,12 +1,13 @@
 const {By, Key, Builder} = require('selenium-webdriver');
 const browserstack = require('browserstack-local');
 const config = require('./config');
+const packagejson = require('../../../../package.json');
 
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
 const assert = chai.assert;
-const identifier = `${process.env.npm_package_name}-${config.browserName}-browserstack-identifier`;
+const identifier = `${packagejson.name}-${config.browserName}-browserstack-identifier`;
 
 const capabilities = {
   'resolution': '1920x1080',
@@ -14,7 +15,7 @@ const capabilities = {
   'os_version': config.osVersion,
   'browserName': config.browserName,
   'browser_version': config.browserVersion,
-  'name': process.env.npm_package_name,
+  'name': packagejson.name,
   'build': 'Milieuinfo',
   'browserstack.user': process.env.browserstack_username,
   'browserstack.key': process.env.browserstack_password,
