@@ -56,7 +56,7 @@ const browserVersion = () => {
     case firefox:
       return '83.0';
     case edge:
-      return '87.0';
+      return '86.0';
     default: 'latest';
   }
 };
