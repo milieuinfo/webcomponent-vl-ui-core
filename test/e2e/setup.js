@@ -6,79 +6,79 @@ const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
 const assert = chai.assert;
+const identifier = `${process.env.npm_package_name}-${config.browserName}-browserstack-identifier`;
 
 const capabilities = {
   'resolution': '1920x1080',
   'os': config.osName,
   'os_version': config.osVersion,
   'browserName': config.browserName,
-  'browser_version': 'latest',
-  'name': 'Webcomponenten',
+  'browser_version': config.browserVersion,
+  'name': process.env.npm_package_name,
   'build': 'Milieuinfo',
-  'browserstack.user': 'philippecambien2',
-  'browserstack.key': 'd9sxo4YepidkqDZHzStQ',
+  'browserstack.user': process.env.browserstack_username,
+  'browserstack.key': process.env.browserstack_password,
   'browserstack.local': true,
-  'browserstack.networkLogs': true,
-  'browserstack.idleTimeout': 300,
+  'browserstack.localIdentifier': identifier,
 };
 
 const startConfig = {
   'key': 'd9sxo4YepidkqDZHzStQ',
-  'verbose': '3',
   'force': true,
   'forcelocal': true,
-  'onlyAutomate': true,
   'proxyHost': 'forwardproxy-pr-build.lb.cumuli.be',
   'proxyPort': 3128,
-  'daemon': true,
-  'enable-utc-logging': true,
-  'local-identifier': `${config.browserName}-browserstack-identifier`,
+  'localIdentifier': identifier,
 };
 
-const buildBrowserstack = () => {
-  return new browserstack.Local();
-};
+let bsLocal;
+let driver;
 
-const buildDriver = () => {
-  return new Builder()
-      .usingServer('https://hub-cloud.browserstack.com/wd/hub')
-      .withCapabilities(capabilities)
-      // .usingWebDriverProxy('http://forwardproxy-pr-build.lb.cumuli.be:3128') // proxy should be used but DIDM proxy has no support for websocket connections
-      .build();
+const getDriver = () => {
+  return driver;
 };
-
-const bsLocal = buildBrowserstack();
-const driver = buildDriver();
 
 before((done) => {
-  try {
-    bsLocal.start(startConfig, () => {
-      console.log('Starting Browserstack Local ...');
-      done();
-    });
-  } catch (e) {
-    console.log('Failed to setup Browserstack connection and configure driver. ' + e);
-    bsLocal.stop(() => console.log('Stopping Browserstack Local ...'));
+  if (config.browserstack) {
+    bsLocal = new browserstack.Local();
+    try {
+      bsLocal.start(startConfig, () => {
+        driver = new Builder()
+            .usingServer('https://hub-cloud.browserstack.com/wd/hub')
+            .withCapabilities(capabilities)
+            // .usingWebDriverProxy('http://forwardproxy-pr-build.lb.cumuli.be:3128')
+            .build();
+        done();
+      });
+    } catch (e) {
+      console.log(e);
+      process.exit();
+    }
+  } else {
+    driver = new Builder().forBrowser(config.browserName).build();
     done();
-    process.exit();
   }
 });
 
 after((done) => {
-  if (driver) {
-    driver.quit().then(() => {
-      if (bsLocal) {
-        bsLocal.stop(() => {
-          console.log('Stopping Browserstack Local ...');
-          done();
+  try {
+    if (driver) {
+      driver.close().then(() => {
+        driver.quit().then(() => {
+          if (bsLocal) {
+            bsLocal.stop(() => done());
+          } else {
+            done();
+          }
         });
-      } else {
-        done();
-      }
-    });
-  } else {
-    done();
+      });
+    } else {
+      done();
+    }
+  } catch (e) {
+    console.log(e);
+    process.exit();
   }
 });
 
-module.exports = {assert, driver, By, Key};
+module.exports = {assert, getDriver, By, Key};
