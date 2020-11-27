@@ -1,7 +1,6 @@
 const {By, Key, Builder} = require('selenium-webdriver');
 const browserstack = require('browserstack-local');
 const config = require('./config');
-const packagejson = require('./package.json');
 
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
@@ -14,10 +13,10 @@ const capabilities = {
   'os_version': config.osVersion,
   'browserName': config.browserName,
   'browser_version': config.browserVersion,
-  'name': packagejson.name,
+  'name': process.env.npm_package_version,
   'build': 'Milieuinfo',
-  'browserstack.user': `${process.env.browserstack_username}`,
-  'browserstack.key': `${process.env.browserstack_password}`,
+  'browserstack.user': process.env.browserstack_username,
+  'browserstack.key': process.env.browserstack_password,
   'browserstack.local': true,
   'browserstack.localIdentifier': `${config.browserName}-browserstack-identifier`,
 };
