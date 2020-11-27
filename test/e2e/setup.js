@@ -6,6 +6,7 @@ const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
 const assert = chai.assert;
+const identifier = `${ process.env.npm_package_name }-${ config.browserName } -browserstack - identifier`;
 
 const capabilities = {
   'resolution': '1920x1080',
@@ -13,12 +14,12 @@ const capabilities = {
   'os_version': config.osVersion,
   'browserName': config.browserName,
   'browser_version': config.browserVersion,
-  'name': process.env.npm_package_version,
+  'name': process.env.npm_package_name,
   'build': 'Milieuinfo',
   'browserstack.user': process.env.browserstack_username,
   'browserstack.key': process.env.browserstack_password,
   'browserstack.local': true,
-  'browserstack.localIdentifier': `${config.browserName}-browserstack-identifier`,
+  'browserstack.localIdentifier': identifier,
 };
 
 const startConfig = {
@@ -27,7 +28,7 @@ const startConfig = {
   'forcelocal': true,
   'proxyHost': 'forwardproxy-pr-build.lb.cumuli.be',
   'proxyPort': 3128,
-  'localIdentifier': `${config.browserName}-browserstack-identifier`,
+  'localIdentifier': identifier,
 };
 
 let bsLocal;
