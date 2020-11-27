@@ -1,4 +1,4 @@
-const {assert, getDriver} = require('./setup.js');
+const {assert, getDriver} = require('vl-ui-core').Test.Setup;
 const VlCorePage = require('./pages/vl-core.page');
 
 describe('vl-core', async () => {
