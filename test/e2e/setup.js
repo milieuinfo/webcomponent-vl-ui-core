@@ -1,7 +1,13 @@
 const {By, Key, Builder} = require('selenium-webdriver');
 const browserstack = require('browserstack-local');
 const config = require('./config');
-const packagejson = require('../../package.json');
+
+let packagejson;
+try {
+  packagejson = require('../../../../package.json');
+} catch (e) {
+  packagejson = require('../../package.json');
+}
 
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
