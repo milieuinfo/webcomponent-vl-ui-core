@@ -28,6 +28,7 @@ const capabilities = {
   'browserstack.local': true,
   'browserstack.localIdentifier': identifier,
   'browserstack.selenium_version': '4.0.0-alpha-6',
+  'browserstack.networkLogs': true,
 };
 
 const startConfig = {
