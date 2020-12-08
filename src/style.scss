@@ -7,3 +7,8 @@
 // Core
 // ==========================================================================
 @import "vl-ui-core/src/scss/core";
+
+.vl-text--visual-hidden {
+    height: 0px;
+    width: 0px;
+}
