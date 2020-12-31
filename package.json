@@ -1,6 +1,6 @@
 {
   "name": "vl-ui-core",
-  "version": "6.0.2",
+  "version": "7.0.2",
   "description": "De core is noodzakelijk om gebruik te maken van de webcomponenten.",
   "author": "DIDM",
   "license": "MIT",
@@ -24,34 +24,30 @@
   },
   "scripts": {
     "prepare": "npm update --dev vl-ui-util && npm run prepare:util",
-    "prepare:util": "npm run prepare:util:sass && npm run prepare:util:css:minify && npm run prepare:util:fonts && npm run prepare:util:bamboo && npm run prepare:util:copy && npm run prepare:util:update:readme",
-    "prepare:util:sass": "npm explore vl-ui-util -- npm run install:sass",
-    "prepare:util:css:minify": "npm explore vl-ui-util -- npm run install:css:minify",
-    "prepare:util:fonts": "npm explore vl-ui-util -- npm run install:fonts",
-    "prepare:util:bamboo": "npm explore vl-ui-util -- npm run install:bamboo",
-    "prepare:util:copy": "npm run prepare:util:copy:github && npm run prepare:util:copy:eslint",
-    "prepare:util:copy:github": "npm explore vl-ui-util -- npm run install:copy:github",
-    "prepare:util:copy:eslint": "npm explore vl-ui-util -- npm run install:copy:eslint",
-    "prepare:util:update:readme": "npm explore vl-ui-util -- npm run update:readme",
+    "prepare:util": "npm explore vl-ui-util -- npm run util",
     "pretest": "npm explore vl-ui-util -- npm run format",
     "test": "npm explore vl-ui-util -- npm run test:component",
     "test:grid": "npm explore vl-ui-util -- npm run test:component:grid",
     "test:unit": "npm explore vl-ui-util -- npm run test:component:unit",
     "test:unit:grid": "npm explore vl-ui-util -- npm run test:component:unit:grid",
     "test:e2e": "npm explore vl-ui-util -- npm run test:component:e2e",
-    "test:e2e:grid": "npm explore vl-ui-util -- npm run test:component:e2e:grid",
+    "test:e2e:grid": "npm explore vl-ui-util -- npm run test:component:e2e:browserstack",
     "release": "npm explore vl-ui-util -- npm run release",
     "release:prepare": "npm explore vl-ui-util -- npm run release-component:prepare $(pwd) core",
     "release:testless": "np --yolo",
     "demo": "http-server"
   },
   "dependencies": {
-    "@ungap/custom-elements": "^0.1.6",
-    "@govflanders/vl-ui-core": "^4.0.5",
-    "@govflanders/vl-ui-util": "^3.11.5"
+    "@govflanders/vl-ui-core": "^4.1.3",
+    "@govflanders/vl-ui-util": "^3.12.3",
+    "@ungap/custom-elements": "^0.1.10"
+  },
+  "peerDependencies": {
+    "@govflanders/vl-ui-core": "^4.1.3",
+    "@govflanders/vl-ui-util": "^3.12.3"
   },
   "devDependencies": {
-    "@govflanders/vl-ui-core": "^4.0.5",
-    "vl-ui-util": "^5.2.17"
+    "vl-ui-body": "^1.0.3",
+    "vl-ui-util": "^5.3.3"
   }
 }

@@ -1,24 +1,92 @@
-const {Builder, By, Key} = require('selenium-webdriver');
+const {By, Key, Builder} = require('selenium-webdriver');
+const browserstack = require('browserstack-local');
 const config = require('./config');
+
+let packagejson;
+try {
+  packagejson = require('../../../../package.json');
+} catch (e) {
+  packagejson = require('../../package.json');
+}
 
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
 const assert = chai.assert;
+const identifier = `${packagejson.name}-${config.browserName}-browserstack-identifier`;
 
-process.env['webdriver.gecko.driver'] = '../../node_modules/geckodriver/geckodriver';
-process.env['webdriver.chrome.driver'] = '../../node_modules/chromedriver/lib/chromedriver';
+const capabilities = {
+  'resolution': '1920x1080',
+  'os': config.osName,
+  'os_version': config.osVersion,
+  'browserName': config.browserName,
+  'browser_version': config.browserVersion,
+  'name': packagejson.name,
+  'build': 'Milieuinfo',
+  'browserstack.user': process.env.browserstack_username,
+  'browserstack.key': process.env.browserstack_password,
+  'browserstack.local': true,
+  'browserstack.localIdentifier': identifier,
+  'browserstack.selenium_version': '4.0.0-alpha-6',
+};
 
+const startConfig = {
+  'key': 'd9sxo4YepidkqDZHzStQ',
+  'force': true,
+  'forcelocal': true,
+  'proxyHost': 'forwardproxy-pr-build.lb.cumuli.be',
+  'proxyPort': 3128,
+  'localIdentifier': identifier,
+};
+
+let bsLocal;
 let driver;
 
-if (config.gridEnabled) {
-  driver = new Builder().usingServer(config.gridUrl).forBrowser(config.browserName).build();
-} else {
-  driver = new Builder().forBrowser(config.browserName).build();
-}
+const getDriver = () => {
+  return driver;
+};
 
-after(async () => {
-  return driver.quit();
+before((done) => {
+  if (config.browserstack) {
+    bsLocal = new browserstack.Local();
+    try {
+      bsLocal.start(startConfig, () => {
+        driver = new Builder()
+            .usingServer('https://hub-cloud.browserstack.com/wd/hub')
+            .withCapabilities(capabilities)
+            // .usingWebDriverProxy('http://forwardproxy-pr-build.lb.cumuli.be:3128')
+            .build();
+        done();
+      });
+    } catch (e) {
+      console.log(e);
+      process.exit();
+    }
+  } else {
+    driver = new Builder().forBrowser(config.browserName).build();
+    done();
+  }
 });
 
-module.exports = {assert, driver, By, Key};
+after((done) => {
+  try {
+    if (driver) {
+      driver.close().then(() => {
+        driver.quit().then(() => {
+          if (bsLocal) {
+            bsLocal.stop(() => done());
+          } else {
+            done();
+          }
+        });
+      });
+    } else {
+      done();
+    }
+  } catch (e) {
+    console.log(e);
+    process.exit();
+  }
+});
+
+module.exports = {assert, getDriver, By, Key};

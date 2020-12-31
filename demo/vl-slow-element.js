@@ -8,7 +8,5 @@ class VlSlowElement extends vlElement(HTMLElement) {
   }
 }
 
-setTimeout(() => {
-  define('vl-slow-element', VlSlowElement);
-}, 2000);
+setTimeout(() => define('vl-slow-element', VlSlowElement), 10000);
 
