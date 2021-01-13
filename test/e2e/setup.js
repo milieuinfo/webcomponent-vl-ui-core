@@ -47,23 +47,24 @@ const getDriver = () => {
   return driver;
 };
 
-before(async () => {
+before((done) => {
   if (config.browserstack) {
     bsLocal = new browserstack.Local();
     try {
-      bsLocal.start(startConfig, async () => {
-        driver = await new Builder()
+      bsLocal.start(startConfig, () => {
+        driver = new Builder()
             .usingServer('https://hub-cloud.browserstack.com/wd/hub')
             .withCapabilities(capabilities)
             // .usingWebDriverProxy('http://forwardproxy-pr-build.lb.cumuli.be:3128')
             .build();
+        driver.get(config.baseUrl).then(() => done());
       });
     } catch (e) {
       console.log(e);
       process.exit();
     }
   } else {
-    driver = await new Builder().forBrowser(config.browserName).build().then(() => done());
+    driver = new Builder().forBrowser(config.browserName).build().then(() => done());
   }
 });
 
