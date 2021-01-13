@@ -56,16 +56,14 @@ before((done) => {
             .usingServer('https://hub-cloud.browserstack.com/wd/hub')
             .withCapabilities(capabilities)
             // .usingWebDriverProxy('http://forwardproxy-pr-build.lb.cumuli.be:3128')
-            .build();
-        done();
+            .build().then(() => done());
       });
     } catch (e) {
       console.log(e);
       process.exit();
     }
   } else {
-    driver = new Builder().forBrowser(config.browserName).build();
-    done();
+    driver = new Builder().forBrowser(config.browserName).build().then(() => done());
   }
 });
 
