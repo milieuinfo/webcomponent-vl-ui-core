@@ -65,8 +65,8 @@ const browserstack = () => {
   return process.argv.includes('browserstack') || yargs.browserstack;
 };
 
-const identifier = () => {
-  return process.argv.includes('identifier') || yargs.identifier;
+const bom = () => {
+  return process.argv.includes('bom') || yargs.bom;
 };
 
 module.exports = {
@@ -75,7 +75,7 @@ module.exports = {
   browserName: browserName(),
   browserVersion: browserVersion(),
   browserstack: browserstack(),
-  identifier: identifier(),
+  bom: bom(),
   gridUrl: 'http://selenium-hub:4444/wd/hub',
   baseUrl: 'http://localhost:8080',
 };
