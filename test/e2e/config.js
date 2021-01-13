@@ -65,12 +65,17 @@ const browserstack = () => {
   return process.argv.includes('browserstack') || yargs.browserstack;
 };
 
+const identifier = () => {
+  return process.argv.includes('identifier') || yargs.identifier;
+};
+
 module.exports = {
   osName: osName(),
   osVersion: osVersion(),
   browserName: browserName(),
   browserVersion: browserVersion(),
   browserstack: browserstack(),
+  identifier: identifier(),
   gridUrl: 'http://selenium-hub:4444/wd/hub',
   baseUrl: 'http://localhost:8080',
 };

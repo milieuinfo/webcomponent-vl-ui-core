@@ -13,7 +13,7 @@ const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
 const assert = chai.assert;
-const identifier = `${packagejson.name}-${config.browserName}-browserstack-identifier`;
+const identifier = config.identifier || `${packagejson.name}-${config.browserName}-browserstack-identifier`;
 
 const capabilities = {
   'resolution': '1920x1080',
