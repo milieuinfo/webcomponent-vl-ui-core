@@ -47,7 +47,7 @@ const getDriver = () => {
   return driver;
 };
 
-before((done) => {
+before(() => {
   if (config.browserstack) {
     bsLocal = new browserstack.Local();
     try {
@@ -56,7 +56,8 @@ before((done) => {
             .usingServer('https://hub-cloud.browserstack.com/wd/hub')
             .withCapabilities(capabilities)
             // .usingWebDriverProxy('http://forwardproxy-pr-build.lb.cumuli.be:3128')
-            .build().then(() => done());
+            .build();
+        return driver;
       });
     } catch (e) {
       console.log(e);
@@ -64,6 +65,7 @@ before((done) => {
     }
   } else {
     driver = new Builder().forBrowser(config.browserName).build().then(() => done());
+    return driver;
   }
 });
 
