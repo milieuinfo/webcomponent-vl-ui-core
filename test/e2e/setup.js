@@ -57,14 +57,15 @@ before((done) => {
             .withCapabilities(capabilities)
             // .usingWebDriverProxy('http://forwardproxy-pr-build.lb.cumuli.be:3128')
             .build();
-        driver.get(config.baseUrl).then(() => done());
+        done();
       });
     } catch (e) {
       console.log(e);
       process.exit();
     }
   } else {
-    driver = new Builder().forBrowser(config.browserName).build().then(() => done());
+    driver = new Builder().forBrowser(config.browserName).build();
+    done();
   }
 });
 
