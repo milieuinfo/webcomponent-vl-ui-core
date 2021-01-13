@@ -47,7 +47,7 @@ const getDriver = () => {
 };
 
 before((done) => {
-  if (config.browserstack) {
+  if (!bsLocal && config.browserstack) {
     bsLocal = new browserstack.Local();
     try {
       bsLocal.start(startConfig, () => {
