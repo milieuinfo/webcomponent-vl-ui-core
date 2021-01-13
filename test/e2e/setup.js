@@ -13,7 +13,7 @@ const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
 const assert = chai.assert;
-const name = confif.bom ? 'webcomponenten-vl-ui-bom' : packagejson.name;
+const name = config.bom ? 'webcomponenten-vl-ui-bom' : packagejson.name;
 const identifier = config.bom ? 'webcomponenten-vl-ui-bom-browserstack-identifier' : `${packagejson.name}-${config.browserName}-browserstack-identifier`;
 
 const capabilities = {
