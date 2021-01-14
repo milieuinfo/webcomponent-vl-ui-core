@@ -13,8 +13,7 @@ const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
 const assert = chai.assert;
-const name = config.bom ? 'webcomponenten-vl-ui-bom' : packagejson.name;
-const identifier = config.bom ? 'webcomponenten-vl-ui-bom-browserstack-identifier' : `${packagejson.name}-${config.browserName}-browserstack-identifier`;
+const identifier = `${packagejson.name}-${config.browserName}-browserstack-identifier`;
 
 const capabilities = {
   'resolution': '1920x1080',
@@ -22,7 +21,7 @@ const capabilities = {
   'os_version': config.osVersion,
   'browserName': config.browserName,
   'browser_version': config.browserVersion,
-  'name': name,
+  'name': packagejson.name,
   'build': 'Webcomponenten',
   'browserstack.user': process.env.browserstack_username,
   'browserstack.key': process.env.browserstack_password,
