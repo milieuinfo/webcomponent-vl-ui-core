@@ -32,7 +32,7 @@ const capabilities = {
 };
 
 const startConfig = {
-  'key': 'd9sxo4YepidkqDZHzStQ',
+  'key': process.env.browserstack_password,
   'force': true,
   'forcelocal': true,
   'proxyHost': 'forwardproxy-pr-build.lb.cumuli.be',
