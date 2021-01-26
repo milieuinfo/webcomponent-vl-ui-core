@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <script src="../../../@webcomponents/webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../../web-component-tester/browser.js"></script>
+  <script src="/node_modules/sinon/pkg/sinon.js"></script>
+
+  <script type="module" src="../../src/vl-text.js"></script>
+</head>
+
+<body>
+  <test-fixture id="vl-text-fixture">
+    <template>
+      <span is="vl-text"></span>
+    </template>
+  </test-fixture>
+
+  <script>
+    suite('vl-text', () => {
+      test('wanneer het visual-hidden attribuut aanwezig is, zal de hidden class toegevoegd worden', () => {
+        const element = fixture('vl-text-fixture');
+        assert.isFalse(element.classList.contains('vl-u-visually-hidden'));
+        element.setAttribute('data-vl-visually-hidden', '');
+        assert.isTrue(element.classList.contains('vl-u-visually-hidden'));
+        element.removeAttribute('data-vl-visually-hidden');
+        assert.isFalse(element.classList.contains('vl-u-visually-hidden'));
+      });
+    });
+  </script>
+</body>
+
+</html>
