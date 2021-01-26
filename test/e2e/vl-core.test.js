@@ -13,7 +13,7 @@ describe('vl-core', async () => {
 
   it('een element wordt pas visible als het defined wordt', async () => {
     let slowElement = await vlCorePage.getSlowElement();
-    await driver.wait(async () => await slowElement.isDisplayed(), 3000);
+    await driver.wait(async () => await slowElement.isDisplayed(), 15000);
     await vlCorePage.load();
     slowElement = await vlCorePage.getSlowElement();
     await assert.eventually.isFalse(slowElement.isDisplayed());

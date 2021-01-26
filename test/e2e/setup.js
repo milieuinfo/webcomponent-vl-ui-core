@@ -22,16 +22,17 @@ const capabilities = {
   'browserName': config.browserName,
   'browser_version': config.browserVersion,
   'name': packagejson.name,
-  'build': 'Milieuinfo',
+  'build': 'Webcomponenten',
   'browserstack.user': process.env.browserstack_username,
   'browserstack.key': process.env.browserstack_password,
   'browserstack.local': true,
   'browserstack.localIdentifier': identifier,
   'browserstack.selenium_version': '4.0.0-alpha-6',
+  'browserstack.idleTimeout': 300,
 };
 
 const startConfig = {
-  'key': 'd9sxo4YepidkqDZHzStQ',
+  'key': process.env.browserstack_password,
   'force': true,
   'forcelocal': true,
   'proxyHost': 'forwardproxy-pr-build.lb.cumuli.be',
