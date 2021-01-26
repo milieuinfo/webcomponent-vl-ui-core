@@ -22,11 +22,11 @@
       test('wanneer het visual-hidden attribuut aanwezig is, zal de hidden class toegevoegd worden', () => {
         debugger;
         const element = fixture('vl-text-fixture');
-        assert.isFalse(element.classList.contains('vl-text--visual-hidden'));
-        element.setAttribute('data-vl-visual-hidden', '');
-        assert.isTrue(element.classList.contains('vl-text--visual-hidden'));
-        element.removeAttribute('data-vl-visual-hidden');
-        assert.isFalse(element.classList.contains('vl-text--visual-hidden'));
+        assert.isFalse(element.classList.contains('vl-u-visually-hidden'));
+        element.setAttribute('data-vl-visually-hidden', '');
+        assert.isTrue(element.classList.contains('vl-u-visually-hidden'));
+        element.removeAttribute('data-vl-visually-hidden');
+        assert.isFalse(element.classList.contains('vl-u-visually-hidden'));
       });
     });
   </script>
