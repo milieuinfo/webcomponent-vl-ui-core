@@ -2,11 +2,11 @@ import {nativeVlElement, define} from 'vl-ui-core/dist/vl-core.src.js';
 
 export class VlText extends nativeVlElement(HTMLSpanElement) {
   static get _observedClassAttributes() {
-    return ['visual-hidden'];
+    return ['visually-hidden'];
   }
 
   get _classPrefix() {
-    return 'vl-text--';
+    return 'vl-u-';
   }
 }
 
