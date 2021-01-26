@@ -20,7 +20,6 @@
   <script>
     suite('vl-text', () => {
       test('wanneer het visual-hidden attribuut aanwezig is, zal de hidden class toegevoegd worden', () => {
-        debugger;
         const element = fixture('vl-text-fixture');
         assert.isFalse(element.classList.contains('vl-u-visually-hidden'));
         element.setAttribute('data-vl-visually-hidden', '');
