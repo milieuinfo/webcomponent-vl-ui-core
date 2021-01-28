@@ -1,8 +1,7 @@
-const {vlElement, nativeVlElement, define, awaitScript, awaitUntil} = require('../dist/vl-core.src.js');
-const VlText = require('../dist/vl-text.src.js');
+import {vlElement, nativeVlElement, define, awaitScript, awaitUntil} from '../dist/vl-core.src.js';
+import VlText from '../dist/vl-core.src.js';
+
 const VlElement = vlElement;
 const NativeVlElement = nativeVlElement;
 
-module.exports = {
-  vlElement, VlElement, nativeVlElement, NativeVlElement, define, awaitScript, awaitUntil, VlText,
-};
+export {vlElement, VlElement, nativeVlElement, NativeVlElement, define, awaitScript, awaitUntil, VlText};
