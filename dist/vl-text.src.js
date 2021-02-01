@@ -1,4 +1,4 @@
-import {nativeVlElement, define} from 'vl-ui-core/dist/vl-core.src.js';
+import {nativeVlElement, define} from '../dist/vl-core.src.js';
 
 export class VlText extends nativeVlElement(HTMLSpanElement) {
   static get _observedClassAttributes() {
