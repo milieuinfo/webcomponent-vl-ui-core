@@ -48,6 +48,6 @@
   },
   "devDependencies": {
     "vl-ui-body": "^1.0.7",
-    "vl-ui-util": "github:milieuinfo/webcomponent-vl-ui-util#axe"
+    "vl-ui-util": "^5.3.9"
   }
 }
