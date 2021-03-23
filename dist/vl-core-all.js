@@ -1,5 +1,5 @@
-import {vlElement, nativeVlElement, define, awaitScript, awaitUntil} from '../dist/vl-core.src.js';
-import {VlText} from '../dist/vl-text.src.js';
+import {vlElement, nativeVlElement, define, awaitScript, awaitUntil} from '/node_modules/vl-ui-core/dist/vl-core.js';
+import {VlText} from '/node_modules/vl-ui-core/dist/vl-text.js';
 
 const VlElement = vlElement;
 const NativeVlElement = nativeVlElement;
