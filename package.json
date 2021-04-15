@@ -38,16 +38,17 @@
     "demo": "http-server"
   },
   "dependencies": {
-    "@govflanders/vl-ui-core": "^4.1.3",
-    "@govflanders/vl-ui-util": "^3.12.3",
+    "@govflanders/vl-ui-core": "^4.1.17",
+    "@govflanders/vl-ui-util": "^3.12.17",
     "@ungap/custom-elements": "^0.1.15"
   },
   "peerDependencies": {
-    "@govflanders/vl-ui-core": "^4.1.3",
-    "@govflanders/vl-ui-util": "^3.12.3"
+    "@govflanders/vl-ui-core": "^4.1.17",
+    "@govflanders/vl-ui-util": "^3.12.3",
+    "@ungap/custom-elements": "^0.1.15"
   },
   "devDependencies": {
-    "vl-ui-body": "^1.0.7",
-    "vl-ui-util": "^5.3.9"
+    "vl-ui-body": "^1.0.8",
+    "vl-ui-util": "^5.3.11"
   }
 }
