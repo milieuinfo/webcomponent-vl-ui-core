@@ -38,8 +38,8 @@
     "demo": "http-server"
   },
   "dependencies": {
-    "@govflanders/vl-ui-core": "^4.1.23",
-    "@govflanders/vl-ui-util": "^3.12.23",
+    "@govflanders/vl-ui-core": "^4.1.24",
+    "@govflanders/vl-ui-util": "^3.12.24",
     "@ungap/custom-elements": "^0.1.15"
   },
   "peerDependencies": {
