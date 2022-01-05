@@ -39,12 +39,12 @@
   },
   "dependencies": {
     "@govflanders/vl-ui-core": "^4.1.24",
-    "@govflanders/vl-ui-util": "^3.12.24",
+    "@govflanders/vl-ui-util": "^10.0.0",
     "@ungap/custom-elements": "^0.1.15"
   },
   "peerDependencies": {
     "@govflanders/vl-ui-core": "^4.1.23",
-    "@govflanders/vl-ui-util": "^3.12.23",
+    "@govflanders/vl-ui-util": "^10.0.0",
     "@ungap/custom-elements": "^0.1.15"
   },
   "devDependencies": {
